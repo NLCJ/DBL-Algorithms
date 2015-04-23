@@ -9,5 +9,5 @@
  * @author Ivan Kozlov
  */
 public class Method4Pos {
-    //hi
+    
 }
