@@ -11,5 +11,5 @@ package dbl_algorithms;
  * @author Ivan Kozlov
  */
 public class Method4Pos {
-    //hi
+    
 }
