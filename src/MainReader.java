@@ -34,17 +34,17 @@ public class MainReader {
                 points[i][1] = sc.nextInt();
             }
             
-            
-            
-            System.out.println("placement model: "+ placement_model);
-            System.out.println("width: "+width);
-            System.out.println("height: "+height);
-            System.out.println("number of points: "+number_points);
-            System.out.println("nubmers of labels: "+number_points);
-            for(int i=0;i<number_points;i++){
-                System.out.println(points[i][0]+" "+points[i][1]+" NE");
+            if(placement_model.equals("2pos")){
+                pos_2.Output2Pos(placement_model, width, height, number_points, points);
+            }
+            if(placement_model.equals("4pos")){
+                pos_4.Output4Pos(placement_model, width, height, number_points, points);
+            }
+            if(placement_model.equals("1slider")){
+                slider.OutputSlider(placement_model, width, height, number_points, points);
             }
             
+                    
         //} catch (FileNotFoundException ex) {
           //  Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
         //}

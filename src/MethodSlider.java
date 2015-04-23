@@ -11,7 +11,7 @@
  * @author Ivan Kozlov
  */
 public class MethodSlider {
-    public void OutputSLider(String s, int w, int h, int n_p, int[][] p){
+    public void OutputSlider(String s, int w, int h, int n_p, int[][] p){
         System.out.println("placement model: "+ s);
             System.out.println("width: "+w);
             System.out.println("height: "+h);
