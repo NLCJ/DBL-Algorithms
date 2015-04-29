@@ -11,6 +11,7 @@ public class MainReader {
     Method4Pos pos_4 = new Method4Pos();
     Method2Pos pos_2 = new Method2Pos();
     MethodSlider slider = new MethodSlider();
+    MergeSort mergesort = new MergeSort();
     
     void Reader() {
        // try {
