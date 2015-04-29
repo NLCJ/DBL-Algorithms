@@ -1,11 +1,4 @@
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -21,35 +14,16 @@ public class MergeSort {
     private int[][] helper;
 
     private int number;
-    
-    private int aantal = 10000;
-    int[][] points = new int[aantal][2];
 
-    public void begin() {
-        try {
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\src\\input.txt");
-            Scanner sc = new Scanner(file);
-            System.out.println("running");
-            for (int i = 0; i < aantal; i ++) {
-                points[i][0] = sc.nextInt();
-                points[i][1] = sc.nextInt();
-            }
-            System.out.println(points[1][0]);
-            sort(points);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+ 
 
     public void sort(int[][] values) {
-        System.out.println("sort");
+
         this.numbers = values;
         number = values.length;
         this.helper = new int[number][2];
         mergesort(0, number - 1);
-        for(int i=0;i<aantal;i++){
-                System.out.println(points[i][0]+" "+points[i][1]);
-            }
+
     }
 
     private void mergesort(int low, int high) {
@@ -63,7 +37,7 @@ public class MergeSort {
             mergesort(middle + 1, high);
             // Combine them both
             merge(low, middle, high);
-            
+
         }
     }
 
@@ -96,9 +70,5 @@ public class MergeSort {
             i ++;
         }
 
-    }
-
-    public static void main(String[] args) {
-        new MergeSort().begin();
     }
 }
