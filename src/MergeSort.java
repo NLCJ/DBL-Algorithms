@@ -53,11 +53,13 @@ public class MergeSort {
         // Copy the smallest values from either the left or the right side back
         // to the original array
         while (i <= middle && j <= high) {
-            if (helper[i].getX() <= helper[j].getX()) {
+            if (helper[i].getY() <= helper[j].getY()) {
                 numbers[k].setX( helper[i].getX() );
+                numbers[k].setY( helper[i].getY() );
                 i ++;
             } else {
                 numbers[k].setX( helper[j].getX() );
+                numbers[k].setY( helper[i].getY() );
                 j ++;
             }
             k ++;
@@ -65,6 +67,7 @@ public class MergeSort {
         // Copy the rest of the left side of the array into the target array
         while (i <= middle) {
             numbers[k].setX( helper[i].getX() );
+            numbers[k].setY( helper[i].getY() );
             k ++;
             i ++;
         }
@@ -101,9 +104,11 @@ public class MergeSort {
         while (i <= middle && j <= high) {
             if (helper[i].getX() <= helper[j].getX()) {
                 numbers[k].setX( helper[i].getX() );
+                numbers[k].setY( helper[i].getY() );
                 i ++;
             } else {
                 numbers[k].setX( helper[j].getX() );
+                numbers[k].setY( helper[i].getY() );
                 j ++;
             }
             k ++;
@@ -111,6 +116,7 @@ public class MergeSort {
         // Copy the rest of the left side of the array into the target array
         while (i <= middle) {
             numbers[k].setX( helper[i].getX() );
+            numbers[k].setY( helper[i].getY() );
             k ++;
             i ++;
         }

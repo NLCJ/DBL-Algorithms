@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.logging.*;
 
 /**
  *
@@ -13,14 +14,14 @@ public class MainReader {
     MergeSort mergesort = new MergeSort();
     
     void Reader() {
-       // try {
+        try {
            
             
-            //File file = new File("C:\\Users\\Ivan Kozlov\\Documents\\NetBeansProjects\\DBL_Algorithms\\src\\dbl_algorithms\\input.txt");
+            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\src\\input.txt");
           
             
             
-            Scanner sc = new Scanner(System.in);
+            Scanner sc = new Scanner(file);
             
             // Get the model data
             String placement_model = sc.nextLine().substring(17);
@@ -39,6 +40,10 @@ public class MainReader {
                 points[ i ] = new Point( x, y, i );
             }
             
+            mergesort.sort(points);
+            for (Point point : points) {
+            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
+        }
             // Determine what placement model is called for
             if(placement_model.equals("2pos")){
                 pos_2.Output2Position(placement_model, width, height, number_points, points);
@@ -51,9 +56,9 @@ public class MainReader {
             }
             
                     
-        //} catch (FileNotFoundException ex) {
-          //  Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
-        //}
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
