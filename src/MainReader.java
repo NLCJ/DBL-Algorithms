@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-
 /**
  *
  * @author Ivan Kozlov
@@ -23,17 +22,24 @@ public class MainReader {
             
             Scanner sc = new Scanner(System.in);
             
+            // Get the model data
             String placement_model = sc.nextLine().substring(17);
             int width =  Integer.parseInt(sc.nextLine().substring(7));
             int height =  Integer.parseInt(sc.nextLine().substring(8));
             int number_points = Integer.parseInt(sc.nextLine().substring(18));
-            int[][] points = new int[number_points][2];
             
+            // Create array for points
+            Point[] points = new Point[ number_points ];
+            
+            // Place each point in the array
             for (int i = 0; i < number_points; i ++) {
-                points[i][0] = sc.nextInt();
-                points[i][1] = sc.nextInt();
+                int x = sc.nextInt();
+                int y = sc.nextInt();
+                
+                points[ i ] = new Point( x, y, i );
             }
             
+            // Determine what placement model is called for
             if(placement_model.equals("2pos")){
                 pos_2.Output2Pos(placement_model, width, height, number_points, points);
             }
