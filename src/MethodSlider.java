@@ -3,6 +3,7 @@
  * @author Ivan Kozlov
  */
 public class MethodSlider {
+    MergeSort mergesort = new MergeSort();
     
     public double[][] ShiftCalculator(int w, int h, int[][] p){
             double[][] pas = new double[p.length][3];

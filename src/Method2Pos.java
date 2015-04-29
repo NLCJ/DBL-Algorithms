@@ -3,6 +3,7 @@
  * @author Ivan Kozlov
  */
 public class Method2Pos {
+    MergeSort mergesort = new MergeSort();
     
     public void Output2Pos(String s, int w, int h, int n_p, int[][] p){
         System.out.println("placement model: "+ s);
