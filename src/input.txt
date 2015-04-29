@@ -1,3 +1,7 @@
+placement model: 1slider
+width: 3
+height: 2
+number of points: 10000
 7966 7955
 5853 875
 1010 8581
