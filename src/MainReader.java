@@ -44,7 +44,7 @@ public class MainReader {
                 pos_2.Output2Pos(placement_model, width, height, number_points, points);
             }
             if(placement_model.equals("4pos")){
-                pos_4.Output4Pos(placement_model, width, height, number_points, points);
+                pos_4.Output4Position(placement_model, width, height, number_points, points);
             }
             if(placement_model.equals("1slider")){
                 slider.OutputSlider(placement_model, width, height, number_points, points);
