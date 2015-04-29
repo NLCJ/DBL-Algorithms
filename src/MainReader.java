@@ -41,7 +41,7 @@ public class MainReader {
             
             // Determine what placement model is called for
             if(placement_model.equals("2pos")){
-                pos_2.Output2Pos(placement_model, width, height, number_points, points);
+                pos_2.Output2Position(placement_model, width, height, number_points, points);
             }
             if(placement_model.equals("4pos")){
                 pos_4.Output4Position(placement_model, width, height, number_points, points);
