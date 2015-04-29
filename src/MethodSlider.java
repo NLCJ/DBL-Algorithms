@@ -4,8 +4,8 @@
  */
 public class MethodSlider {
     
-    public int[][] ShiftCalculator(int w, int h, int[][] p){
-            int[][] pas = new int[p.length][3];
+    public double[][] ShiftCalculator(int w, int h, int[][] p){
+            double[][] pas = new double[p.length][3];
             for(int i=0;i<p.length;i++){
                 pas[i][0]=p[i][0];
                 pas[i][1]=p[i][1];
@@ -18,7 +18,7 @@ public class MethodSlider {
     
     
     public void OutputSlider(String s, int w, int h, int n_p, int[][] p){
-            int [][] output = ShiftCalculator(w,h,p);
+            double [][] output = ShiftCalculator(w,h,p);
             System.out.println("placement model: "+ s);
             System.out.println("width: "+w);
             System.out.println("height: "+h);
