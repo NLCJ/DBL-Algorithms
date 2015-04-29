@@ -10,18 +10,18 @@
  */
 public class MergeSort {
 
-    private int[][] numbers;
-    private int[][] helper;
+    private Point[] numbers;
+    private Point[] helper;
 
-    private int number;
+    private int amount_of_points;
 
-    public void sort(int[][] values) {
+    public void sort(Point[] values) {
 
         this.numbers = values;
-        number = values.length;
-        this.helper = new int[number][2];
-        mergesortY(0, number - 1);
-        mergesortX(0, number - 1);
+        amount_of_points = values.length;
+        this.helper = new Point[ amount_of_points ];
+        mergesortY(0, amount_of_points - 1);
+        mergesortX(0, amount_of_points - 1);
 
     }
     
@@ -44,7 +44,7 @@ public class MergeSort {
 
         // Copy both parts into the helper array
         for (int i = low; i <= high; i ++) {
-            helper[i][0] = numbers[i][0];
+            helper[i] = new Point( numbers[i].getX(), numbers[i].getY(), i );
         }
 
         int i = low;
@@ -53,18 +53,18 @@ public class MergeSort {
         // Copy the smallest values from either the left or the right side back
         // to the original array
         while (i <= middle && j <= high) {
-            if (helper[i][0] <= helper[j][0]) {
-                numbers[k][0] = helper[i][0];
+            if (helper[i].getX() <= helper[j].getX()) {
+                numbers[k].setX( helper[i].getX() );
                 i ++;
             } else {
-                numbers[k][0] = helper[j][0];
+                numbers[k].setX( helper[j].getX() );
                 j ++;
             }
             k ++;
         }
         // Copy the rest of the left side of the array into the target array
         while (i <= middle) {
-            numbers[k][0] = helper[i][0];
+            numbers[k].setX( helper[i].getX() );
             k ++;
             i ++;
         }
@@ -90,7 +90,7 @@ public class MergeSort {
 
         // Copy both parts into the helper array
         for (int i = low; i <= high; i ++) {
-            helper[i][0] = numbers[i][0];
+            helper[i].setX( numbers[i].getX() );
         }
 
         int i = low;
@@ -99,18 +99,18 @@ public class MergeSort {
         // Copy the smallest values from either the left or the right side back
         // to the original array
         while (i <= middle && j <= high) {
-            if (helper[i][0] <= helper[j][0]) {
-                numbers[k][0] = helper[i][0];
+            if (helper[i].getX() <= helper[j].getX()) {
+                numbers[k].setX( helper[i].getX() );
                 i ++;
             } else {
-                numbers[k][0] = helper[j][0];
+                numbers[k].setX( helper[j].getX() );
                 j ++;
             }
             k ++;
         }
         // Copy the rest of the left side of the array into the target array
         while (i <= middle) {
-            numbers[k][0] = helper[i][0];
+            numbers[k].setX( helper[i].getX() );
             k ++;
             i ++;
         }
