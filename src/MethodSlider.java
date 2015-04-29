@@ -28,17 +28,20 @@ public class MethodSlider {
     }
     
     public void OutputSlider(String s, int w, int h, int n_p, Point[] p){
-            Point[] output = ShiftCalculator(w,h,p);
-            System.out.println("placement model: "+ s);
-            System.out.println("width: "+w);
-            System.out.println("height: "+h);
-            System.out.println("number of points: "+n_p);
-            System.out.println("nubmers of labels: "+n_p);
-            
-            
-            // Output each of the points
-            for ( Point point : p ) {
-                System.out.println( point.getX() + " " + point.getY() + " " + point.getSlider() );
-            }
+        // Reorder the points to the original order
+        Point[] output = ShiftCalculator(w,h,p);
+        
+        // Required static output
+        System.out.println("placement model: " + s );
+        System.out.println("width: " + w );
+        System.out.println("height: " + h );
+        System.out.println("number of points: " + n_p );
+        System.out.println("nubmers of labels: " + n_p );
+
+
+        // Output each of the points
+        for ( Point point : output ) {
+            System.out.println( point.getX() + " " + point.getY() + " " + point.getSlider() );
+        }
     }
 }

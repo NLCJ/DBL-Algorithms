@@ -7,6 +7,7 @@ public class Point {
     private final int y;
     private final int origin;
     private double slider;
+    private String position;
     
     public Point(int x, int y, int origin){
         this.x = x;
@@ -24,6 +25,14 @@ public class Point {
     
     public int getOrigin() {
         return origin;
+    }
+    
+    public void setPosition( String position ) {
+        this.position = position;
+    }
+    
+    public String getPosition() {
+        return this.position;
     }
     
     public void setSlider( double slider ) {
