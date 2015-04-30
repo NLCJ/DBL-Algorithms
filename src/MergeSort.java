@@ -59,7 +59,7 @@ public class MergeSort {
                 i ++;
             } else {
                 numbers[k].setX( helper[j].getX() );
-                numbers[k].setY( helper[i].getY() );
+                numbers[k].setY( helper[j].getY() );
                 j ++;
             }
             k ++;
@@ -102,13 +102,24 @@ public class MergeSort {
         // Copy the smallest values from either the left or the right side back
         // to the original array
         while (i <= middle && j <= high) {
+            // Set the variables to switch 
+            int numbersX = numbers[k].getX();
+            int numbersY = numbers[k].getY();
+            int helperiX = helper[i].getX();
+            int helperiY = helper[i].getY();
+            int helperjX = helper[j].getX();
+            int helperjY = helper[j].getY();
+                
             if (helper[i].getX() <= helper[j].getX()) {
-                numbers[k].setX( helper[i].getX() );
-                numbers[k].setY( helper[i].getY() );
+                numbers[k].setX( helperiX );
+                numbers[k].setY( helperiY );
+                
+                helper[i].setX( numbersX );
+                helper[i].setY( numbersY );
                 i ++;
             } else {
-                numbers[k].setX( helper[j].getX() );
-                numbers[k].setY( helper[i].getY() );
+                numbers[k].setX( helperjX );
+                numbers[k].setY( helperjY );
                 j ++;
             }
             k ++;
