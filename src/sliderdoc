@@ -1,0 +1,14 @@
+/*SLIDER DOC*/BEGIN/
+ NB   |Need sorted input (reversed)
+ 
+ ALG    |Work out points from max-x and max-y. IF no collision detected set the 
+        |default position 0 and draw the label. ELSE  
+        |increase the slider position (till no collision is recorded). IF 
+        |collision is unavoidable, don't draw the label AND don't draw the point
+        |IF label has been drawn -> number_of_labels++
+
+TODO |Receive correct sorting (reverse).                           [ ] 
+     |Assign labels (general for group) for points.                [ ]
+     |Write an labels drawing/exclusion check/loop.                [ ]
+     |Return list of points with slider position in original order.[ ]
+/*SLIDER DOC*/END/
