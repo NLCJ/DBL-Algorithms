@@ -1,7 +1,9 @@
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.logging.*;
+import javax.swing.*;
 
 /**
  *
@@ -12,12 +14,26 @@ public class MainReader {
     Method2Pos pos_2 = new Method2Pos();
     MethodSlider slider = new MethodSlider();
     MergeSort mergesort = new MergeSort();
+    private JFrame f;
+    private JPanel p;
+    private JLabel l;
+    
+    public void Gui(){
+        f = new JFrame("Label point plot");
+        f.setVisible(true);
+        f.setSize(800,600);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        p = new JPanel();
+        p.setBackground(Color.WHITE);
+    }
+    
+    
     
     void Reader() {
         try {
            
             
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\src\\input.txt");
+            File file = new File("C:\\Users\\Ivan Kozlov\\Documents\\GitHub\\Peach-is-sooo-sorry\\src\\input.txt");
           
             
             
@@ -31,7 +47,7 @@ public class MainReader {
             
             // Create array for points
             Point[] points = new Point[ number_points ];
-            
+            Gui();
             // Place each point in the array
             for (int i = 0; i < number_points; i ++) {
                 int x = sc.nextInt();
