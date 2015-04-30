@@ -61,7 +61,7 @@ public class DataGenerator {
             this.minY = input.nextInt();
             System.out.print("Enter the maximum integer on the y-axis: ");
             this.maxY = input.nextInt();
-            System.out.print("Enter the accuracy (0 to 1), 1 is 100% accurate: ");
+            System.out.print("Enter the accuracy (0 to 100)%: ");
             this.accuracy = input.nextDouble();
             
             // Initialize the file
@@ -84,22 +84,19 @@ public class DataGenerator {
     private void output() {
         // For each point
         for( int i = 0; i < amountOfPoints; i++ ) {
-            // Create x and y limits with accuracy
-            int accurateMinX = (int) Math.round( this.minX * accuracy );
-            int accurateMaxX = (int) Math.round( this.maxX / accuracy );
-            int accurateMinY = (int) Math.round( this.minY * accuracy );
-            int accurateMaxY = (int) Math.round( this.maxY / accuracy );
-            
-            // Check if the Y is outside of the screen
-            if( accurateMaxY > this.maxAxisY ) {
-                // Set to max Y
-                accurateMaxY = this.maxAxisY;
-            }
-            
-            // Check if the Y is outside of the screen
-            if( accurateMaxX > this.maxAxisX ) {
-                // Set to max Y
+            // Generate within limits given
+            int accurateMinX = this.minX;
+            int accurateMinY = this.minY;
+            int accurateMaxX = this.maxX;
+            int accurateMaxY = this.maxY;
+                
+            // Create random to test against accuracy
+            if( randInt( 0, 100 ) > accuracy ) {
+                // Random over whole field
+                accurateMinX = 0;
+                accurateMinY = 0;
                 accurateMaxX = this.maxAxisX;
+                accurateMaxY = this.maxAxisY;
             }
             
             // Get the x and y value
