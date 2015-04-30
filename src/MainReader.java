@@ -37,7 +37,7 @@ public class MainReader {
                 int x = sc.nextInt();
                 int y = sc.nextInt();
                 
-                points[ i ] = new Point( x, y, i );
+                points[ i ] = new Point( x, y, height, width, i );
             }
             
             mergesort.sort(points);
