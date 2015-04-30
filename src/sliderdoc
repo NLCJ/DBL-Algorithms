@@ -10,5 +10,5 @@
 TODO |Receive correct sorting (reverse).                           [ ] 
      |Assign labels (general for group) for points.                [ ]
      |Write an labels drawing/exclusion check/loop.                [ ]
-     |Return list of points with slider position in original order.[ ]
+     |Return list of points with slider position in original order.[*]
 /*SLIDER DOC*/END/
