@@ -1,17 +1,17 @@
-/**
- *
- * @author Melroy and Chris
- */
 public class Point {
     private int x;
     private int y;
+    private int height;
+    private int width;
     private final int origin;
     private double slider;
     private String position;
     
-    public Point(int x, int y, int origin){
+    public Point(int x, int y, int height, int width, int origin){
         this.x = x;
         this.y = y;
+        this.height = height;
+        this.width = width;
         this.origin = origin;
     }
     
@@ -49,5 +49,21 @@ public class Point {
     
     public double getSlider() {
         return this.slider;
+    }
+    
+    public int getWidth(){
+        return this.width;
+    }
+    
+    public void setWidth(int width){
+        this.width = width;
+    }
+    
+    public int getHeight(){
+        return this.height;
+    }
+    
+    public void setHeight(int height){
+        this.height = height;
     }
 }

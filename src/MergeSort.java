@@ -44,7 +44,7 @@ public class MergeSort {
 
         // Copy both parts into the helper array
         for (int i = low; i <= high; i ++) {
-            helper[i] = new Point( numbers[i].getX(), numbers[i].getY(), i );
+            helper[i] = new Point( numbers[i].getX(), numbers[i].getY(), numbers[i].getHeight(), numbers[i].getWidth(), i );
         }
 
         int i = low;
