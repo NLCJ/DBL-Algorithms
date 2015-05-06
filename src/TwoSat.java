@@ -35,7 +35,7 @@
  * Tarjan's or Kosaraju's algorithm, and confirming that each node is in its
  * own SCC takes O(n) for a total runtime of O(n).
  *
- * This implementation relies on the existence of a Kosaraju class, also from
+ * This implementation relies on the existence of an SCC class, also from
  * the Archive of Interesting Code.  You can find it online at
  *
  *         http://keithschwarz.com/interesting/code/?dir=kosaraju

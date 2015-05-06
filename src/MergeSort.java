@@ -1,3 +1,4 @@
+
 /**
  *
  * @author s130973
@@ -13,12 +14,12 @@ public class MergeSort {
 
         this.numbers = values;
         amount_of_points = values.length;
-        this.helper = new Point[ amount_of_points ];
+        this.helper = new Point[amount_of_points];
         mergesortY(0, amount_of_points - 1);
         mergesortX(0, amount_of_points - 1);
 
     }
-    
+
     private void mergesortY(int low, int high) {
         // check if low is smaller then high, if not then the array is sorted
         if (low < high) {
@@ -38,7 +39,7 @@ public class MergeSort {
 
         // Copy both parts into the helper array
         for (int i = low; i <= high; i ++) {
-            helper[i] = new Point( numbers[i].getX(), numbers[i].getY(), numbers[i].getHeight(), numbers[i].getWidth(), i );
+            helper[i] = new Point(numbers[i].getX(), numbers[i].getY(), numbers[i].getHeight(), numbers[i].getWidth(), i);
         }
 
         int i = low;
@@ -48,20 +49,20 @@ public class MergeSort {
         // to the original array
         while (i <= middle && j <= high) {
             if (helper[i].getY() <= helper[j].getY()) {
-                numbers[k].setX( helper[i].getX() );
-                numbers[k].setY( helper[i].getY() );
+                numbers[k].setX(helper[i].getX());
+                numbers[k].setY(helper[i].getY());
                 i ++;
             } else {
-                numbers[k].setX( helper[j].getX() );
-                numbers[k].setY( helper[j].getY() );
+                numbers[k].setX(helper[j].getX());
+                numbers[k].setY(helper[j].getY());
                 j ++;
             }
             k ++;
         }
         // Copy the rest of the left side of the array into the target array
         while (i <= middle) {
-            numbers[k].setX( helper[i].getX() );
-            numbers[k].setY( helper[i].getY() );
+            numbers[k].setX(helper[i].getX());
+            numbers[k].setY(helper[i].getY());
             k ++;
             i ++;
         }
@@ -87,7 +88,8 @@ public class MergeSort {
 
         // Copy both parts into the helper array
         for (int i = low; i <= high; i ++) {
-            helper[i].setX( numbers[i].getX() );
+            helper[i].setX(numbers[i].getX());
+            helper[i].setY(numbers[i].getY());
         }
 
         int i = low;
@@ -97,31 +99,25 @@ public class MergeSort {
         // to the original array
         while (i <= middle && j <= high) {
             // Set the variables to switch 
-            int numbersX = numbers[k].getX();
-            int numbersY = numbers[k].getY();
-            int helperiX = helper[i].getX();
-            int helperiY = helper[i].getY();
-            int helperjX = helper[j].getX();
-            int helperjY = helper[j].getY();
-                
+
             if (helper[i].getX() <= helper[j].getX()) {
-                numbers[k].setX( helperiX );
-                numbers[k].setY( helperiY );
-                
-                helper[i].setX( numbersX );
-                helper[i].setY( numbersY );
+                numbers[k].setX(helper[i].getX());
+                numbers[k].setY(helper[i].getY());
+
+                helper[i].setX(numbers[k].getX());
+                helper[i].setY(numbers[k].getY());
                 i ++;
             } else {
-                numbers[k].setX( helperjX );
-                numbers[k].setY( helperjY );
+                numbers[k].setX(helper[j].getX());
+                numbers[k].setY(helper[j].getY());
                 j ++;
             }
             k ++;
         }
         // Copy the rest of the left side of the array into the target array
         while (i <= middle) {
-            numbers[k].setX( helper[i].getX() );
-            numbers[k].setY( helper[i].getY() );
+            numbers[k].setX(helper[i].getX());
+            numbers[k].setY(helper[i].getY());
             k ++;
             i ++;
         }

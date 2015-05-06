@@ -16,6 +16,13 @@ public class Method2Pos {
         return originalOrder(p);
     }
 
+    public void makeLiterals(int n) {
+    for (int i = 0; i < n; i++ ) { 
+        new Literal(i, true);
+        new Literal(i, false);
+    }
+}    
+       
     //Puts the points back into their original order as it was documented.
     public Point[] originalOrder(Point[] p) {
         //Original order output

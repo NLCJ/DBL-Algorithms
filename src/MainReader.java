@@ -69,7 +69,7 @@ public class MainReader {
         try {
            
             
-            File file = new File("C:\\Users\\Ivan Kozlov\\Documents\\GitHub\\Peach-is-sooo-sorry\\src\\input.txt");
+            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\data-of-awesomeness.txt");
           
             
             
@@ -91,10 +91,7 @@ public class MainReader {
                 points[ i ] = new Point( x, y, height, width, i );
             }
             
-            mergesort.sort(points);
-            for (Point point : points) {
-            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
-        }
+            mergesort.sort(points);   
             // Determine what placement model is called for
             if(placement_model.equals("2pos")){
                 Point[] points_2pos = pos_2.PositionCalculator(width, height, points); 
@@ -118,7 +115,7 @@ public class MainReader {
         }
 
     }
-
+    
     public static void main(String[] args) {
         new MainReader().Reader();
     }
