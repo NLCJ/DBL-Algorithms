@@ -16,9 +16,8 @@ public class MainReader {
     MergeSort mergesort = new MergeSort();
     private JFrame f;
     private JPanel p;
-    private JLabel l;
     
-    public void Gui(){
+    public void Gui(String s, int h, int w, int n, Point[] pnt){
         f = new JFrame("Label point plot");
         f.setVisible(true);
         f.setSize(800,600);
@@ -26,8 +25,6 @@ public class MainReader {
         p = new JPanel();
         p.setBackground(Color.WHITE);
     }
-    
-    
     
     void Reader() {
         try {
@@ -47,7 +44,6 @@ public class MainReader {
             
             // Create array for points
             Point[] points = new Point[ number_points ];
-            Gui();
             // Place each point in the array
             for (int i = 0; i < number_points; i ++) {
                 int x = sc.nextInt();
@@ -62,13 +58,19 @@ public class MainReader {
         }
             // Determine what placement model is called for
             if(placement_model.equals("2pos")){
+                Point[] points_2pos = pos_2.PositionCalculator(width, height, points); 
                 pos_2.Output2Position(placement_model, width, height, number_points, points);
+                Gui(placement_model, width, height, number_points, points_2pos);
             }
             if(placement_model.equals("4pos")){
+                Point[] points_4pos = pos_4.PositionCalculator(width, height, points); 
                 pos_4.Output4Position(placement_model, width, height, number_points, points);
+                Gui(placement_model, width, height, number_points, points_4pos);
             }
             if(placement_model.equals("1slider")){
+                Point[] points_slider = slider.ShiftCalculator(width, height, points); 
                 slider.OutputSlider(placement_model, width, height, number_points, points);
+                Gui(placement_model, width, height,  number_points,  points_slider);
             }
             
                     
