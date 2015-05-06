@@ -18,28 +18,50 @@ public class MainReader {
     private JFrame f;
     private JPanel p;
     private JLabel l;
+    private JPanel plot;
+    int x_p = 0;
+    int y_p = 0;
+    String pos = null; 
+    double shift = 0;
     
     public void Gui(String s, int h, int w, int n, Point[] pnt){
         f = new JFrame("Label point plot: "+s+" model");
         f.setVisible(true);
-        f.setSize(800,600);
+        f.setSize(1600, 900);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         p = new JPanel();
+        plot = new JPanel();
         p.setLayout(new BorderLayout());
-        p.setBackground(Color.WHITE);
+        p.setBackground(Color.YELLOW);
         l = new JLabel(s);
         p.add(l, BorderLayout.NORTH);
-        f.add(p);
+        f.add(p, BorderLayout.NORTH);
+        f.add(plot, BorderLayout.SOUTH);
         if(s.equals("2pos")){
-            
+            for(int i=0; i<pnt.length; i++){
+                x_p = pnt[i].getX();
+                y_p = pnt[i].getY();
+                pos = pnt[i].getPosition();
+                
+            }
         }
         
         if(s.equals("4pos")){
-            
+            for(int i=0; i<pnt.length; i++){
+                x_p = pnt[i].getX();
+                y_p = pnt[i].getY();
+                pos = pnt[i].getPosition();
+                
+            }
         }
         
         if(s.equals("1slider")){
-            
+            for(int i=0; i<pnt.length; i++){
+                x_p = pnt[i].getX();
+                y_p = pnt[i].getY();
+                shift = pnt[i].getSlider();
+                
+            }
         }
     }
     
