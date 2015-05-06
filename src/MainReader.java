@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,14 +17,30 @@ public class MainReader {
     MergeSort mergesort = new MergeSort();
     private JFrame f;
     private JPanel p;
+    private JLabel l;
     
     public void Gui(String s, int h, int w, int n, Point[] pnt){
-        f = new JFrame("Label point plot");
+        f = new JFrame("Label point plot: "+s+" model");
         f.setVisible(true);
         f.setSize(800,600);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         p = new JPanel();
+        p.setLayout(new BorderLayout());
         p.setBackground(Color.WHITE);
+        l = new JLabel(s);
+        p.add(l, BorderLayout.NORTH);
+        f.add(p);
+        if(s.equals("2pos")){
+            
+        }
+        
+        if(s.equals("4pos")){
+            
+        }
+        
+        if(s.equals("1slider")){
+            
+        }
     }
     
     void Reader() {
