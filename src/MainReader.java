@@ -36,7 +36,7 @@ public class MainReader {
         l = new JLabel(s);
         p.add(l, BorderLayout.NORTH);
         f.add(p, BorderLayout.NORTH);
-        f.add(plot, BorderLayout.SOUTH);
+        f.add(plot, BorderLayout.CENTER);
         if(s.equals("2pos")){
             for(int i=0; i<pnt.length; i++){
                 x_p[i][0] = pnt[i].getX();
@@ -63,6 +63,7 @@ public class MainReader {
                 
             }
         }
+        
     }
     
   
