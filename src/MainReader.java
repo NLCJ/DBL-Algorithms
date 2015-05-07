@@ -30,7 +30,7 @@ public class MainReader {
         f.setSize(1600, 900);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         p = new JPanel();
-        plot = new PlotPanel();
+        plot = new PlotPanel(x_p, shift, pos);
         p.setLayout(new BorderLayout());
         p.setBackground(Color.YELLOW);
         l = new JLabel(s);
