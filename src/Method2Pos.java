@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -24,6 +25,34 @@ public class Method2Pos {
             new Literal(i, true);
             new Literal(i, false);
         }
+        Literal li = new Literal(1, true);
+        Literal lit = new Literal(2, false);
+        makeClauses(li, lit);
+        Literal lite = new Literal(1, true);
+        Literal liter = new Literal(2, true);
+        makeClauses(lite, liter);
+        Literal litera = new Literal(1, false);
+        Literal literal = new Literal(2, false);
+        makeClauses(litera, literal);
+        Literal lita = new Literal(1, false);
+        Literal litar = new Literal(2, true);
+        makeClauses(lita, litar);
+        testClauses(clauses);
+    }
+    ArrayList clauses = new ArrayList();
+
+    public void makeClauses(Literal one, Literal two) {
+        Clause test = new Clause(one, two);
+        clauses.add(test);
+    }
+
+    public void testClauses(List<Clause<Literal>> clauses) {
+        if (TwoSat.isSatisfiable(clauses)) {
+            System.out.println("true");
+
+        } else {
+            System.out.println("false");
+        }
     }
 
     public void Quadtreee(Point[] p) {
@@ -45,7 +74,6 @@ public class Method2Pos {
             }
         }
     }
-
 //Puts the points back into their original order as it was documented.
     public Point[] originalOrder(Point[] p) {
         //Original order output
@@ -62,7 +90,7 @@ public class Method2Pos {
     public void Output2Position(String s, int w, int h, int n_p, Point[] p) {
         //Reorder the points to the original order
         Point[] output = PositionCalculator(w, h, p);
-        //Required static outpu
+        //Required static output
         System.out.println("placement model: " + s);
         System.out.println("width: " + w);
         System.out.println("height: " + h);
@@ -70,8 +98,8 @@ public class Method2Pos {
         System.out.println("nubmers of labels: " + n_p);
 
         //Output each of the points
-//        for (Point point : output) {
-//            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
-//        }
+        for (Point point : output) {
+            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
+        }
     }
 }

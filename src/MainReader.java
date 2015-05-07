@@ -102,6 +102,7 @@ public class MainReader {
                 pos_2.Output2Position(placement_model, width, height, number_points, points);
                 Gui(placement_model, width, height, number_points, points_2pos);
                 pos_2.Quadtreee(points);
+                pos_2.makeLiterals(number_points);
             }
             if(placement_model.equals("4pos")){
                 Point[] points_4pos = pos_4.PositionCalculator(width, height, points); 
