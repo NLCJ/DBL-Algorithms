@@ -26,8 +26,8 @@ public class PlotPanel extends JPanel {
            
           g2d.setColor(Color.BLACK);
           for(int i = 0; i<x_p.length;i++){
-              int x = x_p[i][0]/11 ;
-              int y = x_p[i][1]/11;
+              int x = x_p[i][0]/5;
+              int y = x_p[i][1]/5;
               g2d.fillOval(x,y,3,3);
           }
          
