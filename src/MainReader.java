@@ -93,12 +93,14 @@ public class MainReader {
                 points[ i ] = new Point( x, y, height, width, i );
             }
             
-            mergesort.sort(points);   
+            mergesort.sort(points); 
+            
             // Determine what placement model is called for
             if(placement_model.equals("2pos")){
                 Point[] points_2pos = pos_2.PositionCalculator(width, height, points); 
                 pos_2.Output2Position(placement_model, width, height, number_points, points);
                 Gui(placement_model, width, height, number_points, points_2pos);
+                pos_2.Quadtreee(points);
             }
             if(placement_model.equals("4pos")){
                 Point[] points_4pos = pos_4.PositionCalculator(width, height, points); 

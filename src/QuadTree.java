@@ -213,12 +213,16 @@ public class QuadTree {
         int index = getIndex(p);
         //if index is not -1 and there exists a child node
         //then get the list of potential collisions from the child node with the corresponding index
-        if(index != 1 && node[0] != null){
+        if(index != -1 && node[0] != null){
             node[index].retrieve(potentialCollisionPoints,p);
         }
         //add all the points in the list of points to the potential collisions list and return the list
         //(in this specific node all the points can potentially collide with Point p)
         potentialCollisionPoints.addAll(points);
+        for (int i = 0; i < potentialCollisionPoints.size(); i++) {
+            Point j = (Point)potentialCollisionPoints.get(i);
+            System.out.println(j.getX());
+        }
         return potentialCollisionPoints;
     }
 }

@@ -1,0 +1,14 @@
+placement model: 2pos
+width: 5
+height: 5
+number of points: 10
+10 9
+4 12
+18 17
+8 12
+10 2
+4 4
+12 15
+12 11
+0 6
+19 14

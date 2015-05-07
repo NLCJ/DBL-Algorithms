@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /**
  *
  * @author Ivan Kozlov
@@ -21,7 +24,18 @@ public class Method2Pos {
         new Literal(i, true);
         new Literal(i, false);
     }
-}    
+}
+    
+    public void Quadtreee(Point[] p) {
+        QuadTree qua = new QuadTree(1, 0, 20, 0 , 20);
+       ArrayList lijst = new ArrayList();
+       for (Point points : p) {
+        qua.retrieve(lijst, points);
+        for(int i = 0; i < lijst.size(); i++) {
+        System.out.println(lijst.get(i));
+        }
+       }
+    }
        
     //Puts the points back into their original order as it was documented.
     public Point[] originalOrder(Point[] p) {
@@ -47,8 +61,8 @@ public class Method2Pos {
         System.out.println("nubmers of labels: " + n_p);
 
         //Output each of the points
-        for (Point point : output) {
-            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
-        }
+//        for (Point point : output) {
+//            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
+//        }
     }
 }
