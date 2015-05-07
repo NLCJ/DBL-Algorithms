@@ -3,7 +3,7 @@ public class Point {
     private int y;
     private int height;
     private int width;
-    private final int origin;
+    private int origin;
     private double slider;
     private String position;
     
@@ -33,6 +33,10 @@ public class Point {
     
     public int getOrigin() {
         return origin;
+    }
+    
+    public void setOrigin( int origin ) {
+        this.origin = origin;
     }
     
     public void setPosition( String position ) {
