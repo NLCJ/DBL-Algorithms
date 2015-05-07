@@ -19,25 +19,25 @@ public class MainReader {
     private JPanel p;
     private JLabel l;
     private JPanel plot;
-    int [][] x_p;
+    
     
     String pos = null; 
     double shift = 0;
     
     public void Gui(String s, int h, int w, int n, Point[] pnt){
-        x_p = new int[pnt.length][2];
+        int[][] x_p = new int[pnt.length][2];
         f = new JFrame("Label point plot: "+s+" model");
         f.setVisible(true);
-        f.setSize(1600, 900);
+        f.setSize(930, 970);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         p = new JPanel();
-        plot = new PlotPanel();
+        plot = new PlotPanel(x_p, shift, pos);
         p.setLayout(new BorderLayout());
         p.setBackground(Color.YELLOW);
         l = new JLabel(s);
         p.add(l, BorderLayout.NORTH);
         f.add(p, BorderLayout.NORTH);
-        f.add(plot, BorderLayout.SOUTH);
+        f.add(plot, BorderLayout.CENTER);
         if(s.equals("2pos")){
             for(int i=0; i<pnt.length; i++){
                 x_p[i][0] = pnt[i].getX();
@@ -64,6 +64,7 @@ public class MainReader {
                 
             }
         }
+        
     }
     
   
@@ -72,8 +73,9 @@ public class MainReader {
         try {
            
             
-            File file = new File("input.txt");
-          
+
+            File file = new File("data-of-awesomeness.txt");
+
             
             
             Scanner sc = new Scanner(file);
@@ -94,7 +96,7 @@ public class MainReader {
                 points[ i ] = new Point( x, y, height, width, i );
             }
             
-            mergesort.sort(points); 
+            mergesort.sort(points);   
             
             // Determine what placement model is called for
             if(placement_model.equals("2pos")){
@@ -103,6 +105,7 @@ public class MainReader {
                 Gui(placement_model, width, height, number_points, points_2pos);
                 pos_2.Quadtreee(points);
                 pos_2.makeLiterals(number_points);
+
             }
             if(placement_model.equals("4pos")){
                 Point[] points_4pos = pos_4.PositionCalculator(width, height, points); 

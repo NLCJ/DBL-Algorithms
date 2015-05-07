@@ -39,7 +39,7 @@ public class MergeSort {
 
         // Copy both parts into the helper array
         for (int i = low; i <= high; i ++) {
-            helper[i] = new Point(numbers[i].getX(), numbers[i].getY(), numbers[i].getHeight(), numbers[i].getWidth(), i);
+            helper[i] = new Point(numbers[i].getX(), numbers[i].getY(), numbers[i].getHeight(), numbers[i].getWidth(), numbers[i].getOrigin());
         }
 
         int i = low;
@@ -51,10 +51,12 @@ public class MergeSort {
             if (helper[i].getY() <= helper[j].getY()) {
                 numbers[k].setX(helper[i].getX());
                 numbers[k].setY(helper[i].getY());
+                numbers[k].setOrigin(helper[i].getOrigin());
                 i ++;
             } else {
                 numbers[k].setX(helper[j].getX());
                 numbers[k].setY(helper[j].getY());
+                numbers[k].setOrigin(helper[j].getOrigin());
                 j ++;
             }
             k ++;
@@ -63,6 +65,7 @@ public class MergeSort {
         while (i <= middle) {
             numbers[k].setX(helper[i].getX());
             numbers[k].setY(helper[i].getY());
+            numbers[k].setOrigin(helper[i].getOrigin());
             k ++;
             i ++;
         }
@@ -90,6 +93,7 @@ public class MergeSort {
         for (int i = low; i <= high; i ++) {
             helper[i].setX(numbers[i].getX());
             helper[i].setY(numbers[i].getY());
+            helper[i].setOrigin(numbers[i].getOrigin());
         }
 
         int i = low;
@@ -103,13 +107,16 @@ public class MergeSort {
             if (helper[i].getX() <= helper[j].getX()) {
                 numbers[k].setX(helper[i].getX());
                 numbers[k].setY(helper[i].getY());
+                numbers[k].setOrigin(helper[i].getOrigin());
 
                 helper[i].setX(numbers[k].getX());
                 helper[i].setY(numbers[k].getY());
+                helper[i].setOrigin(numbers[k].getOrigin());
                 i ++;
             } else {
                 numbers[k].setX(helper[j].getX());
                 numbers[k].setY(helper[j].getY());
+                numbers[k].setOrigin(helper[j].getOrigin());
                 j ++;
             }
             k ++;
@@ -118,6 +125,7 @@ public class MergeSort {
         while (i <= middle) {
             numbers[k].setX(helper[i].getX());
             numbers[k].setY(helper[i].getY());
+            numbers[k].setOrigin(helper[i].getOrigin());
             k ++;
             i ++;
         }
