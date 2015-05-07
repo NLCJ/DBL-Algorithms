@@ -1,4 +1,5 @@
 import java.awt.*;
+import static javax.management.Query.div;
 import javax.swing.*;
 /**
  *
@@ -25,7 +26,9 @@ public class PlotPanel extends JPanel {
            
           g2d.setColor(Color.BLACK);
           for(int i = 0; i<x_p.length;i++){
-              g2d.drawString("KURWA",x_p[i][0], x_p[i][1]);
+              int x = x_p[i][0]/11 ;
+              int y = x_p[i][1]/11;
+              g2d.fillOval(x,y,3,3);
           }
          
     }

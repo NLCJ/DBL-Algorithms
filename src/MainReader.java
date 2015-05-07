@@ -28,7 +28,7 @@ public class MainReader {
         int[][] x_p = new int[pnt.length][2];
         f = new JFrame("Label point plot: "+s+" model");
         f.setVisible(true);
-        f.setSize(1600, 900);
+        f.setSize(930, 970);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         p = new JPanel();
         plot = new PlotPanel(x_p, shift, pos);
