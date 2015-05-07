@@ -72,7 +72,7 @@ public class MainReader {
         try {
            
             
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\input.txt");
+            File file = new File("input.txt");
           
             
             
