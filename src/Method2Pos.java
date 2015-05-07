@@ -20,24 +20,33 @@ public class Method2Pos {
     }
 
     public void makeLiterals(int n) {
-    for (int i = 0; i < n; i++ ) { 
-        new Literal(i, true);
-        new Literal(i, false);
-    }
-}
-    
-    public void Quadtreee(Point[] p) {
-        QuadTree qua = new QuadTree(1, 0, 20, 0 , 20);
-       ArrayList lijst = new ArrayList();
-       for (Point points : p) {
-        qua.retrieve(lijst, points);
-        for(int i = 0; i < lijst.size(); i++) {
-        System.out.println(lijst.get(i));
+        for (int i = 0; i < n; i ++) {
+            new Literal(i, true);
+            new Literal(i, false);
         }
-       }
     }
-       
-    //Puts the points back into their original order as it was documented.
+
+    public void Quadtreee(Point[] p) {
+        QuadTree qua = new QuadTree(1, 0, 20, 0, 20);
+        ArrayList lijst = new ArrayList();
+        for (Point points : p) {
+            qua.insert(points);
+
+        }
+        for (Point pointss : p) {
+            lijst.clear();
+            qua.retrieve(lijst, pointss);
+
+            System.out.println("nieuwe " + pointss.getX() + " " + pointss.getY());
+            for (int j = 0; j < lijst.size(); j ++) {
+                Point point = (Point) lijst.get(j);
+                System.out.println(point.getX() + " " + point.getY());
+
+            }
+        }
+    }
+
+//Puts the points back into their original order as it was documented.
     public Point[] originalOrder(Point[] p) {
         //Original order output
         Point[] originalOrder = new Point[p.length];
@@ -49,7 +58,7 @@ public class Method2Pos {
 
         return originalOrder;
     }
-    
+
     public void Output2Position(String s, int w, int h, int n_p, Point[] p) {
         //Reorder the points to the original order
         Point[] output = PositionCalculator(w, h, p);

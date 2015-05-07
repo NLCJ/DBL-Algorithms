@@ -78,7 +78,7 @@ public final class TwoSat {
 
         /* Compute the SCCs of this graph using Kosaraju's algorithm. */
         Map<Literal<T>, Integer> scc = SCC.stronglyConnectedComponents(implications);
-
+       
         /* Finally, check whether any literal and its negation are in the same
          * strongly connected component.
          */

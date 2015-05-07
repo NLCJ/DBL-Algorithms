@@ -131,19 +131,19 @@ public class QuadTree {
             if(p.getX() < width && p.getX()+p.getWidth() < width){
                 //if top is true then the label is in the top left child node and thus has index 1
                 if(top)
-                    return 1;
+                    return 0;
                 //if bot is true then the label is in the bottom left child node and thus has index 3
                 if(bot)
-                    return 3;
+                    return 2;
             }
             //check if X is bigger than node width and X+width is bigger than node width 
             if(p.getX() > width && p.getX()+p.getWidth() > width){
                 //if top is true then the label is in the top right child node and thus has index 2
                 if(top)
-                    return 2;
+                    return 1;
                 //if bot is true then the label is in the top right child node and thus has index 4
                 if(bot)
-                    return 4;
+                    return 3;
             }
         }
         
@@ -152,19 +152,19 @@ public class QuadTree {
             if(p.getX() < width && p.getX()+p.getSlider() < width){
                 //if top is true then the label is in the top left child node and thus has index 1
                 if(top)
-                    return 1;
+                    return 0;
                 //if bot is true then the label is in the bottom left child node and thus has index 3
                 if(bot)
-                    return 3;
+                    return 2;
             }
             //check if X is bigger than node width and X+slider is bigger than node width 
             if(p.getX() > width && p.getX()+p.getSlider() > width){
                 //if top is true then the label is in the top right child node and thus has index 2
                 if(top)
-                    return 2;
+                    return 1;
                 //if bot is true then the label is in the top right child node and thus has index 4
                 if(bot)
-                    return 4;
+                    return 3;
             }
         }
         //if label doesn't fit in any child node, return -1
@@ -219,10 +219,6 @@ public class QuadTree {
         //add all the points in the list of points to the potential collisions list and return the list
         //(in this specific node all the points can potentially collide with Point p)
         potentialCollisionPoints.addAll(points);
-        for (int i = 0; i < potentialCollisionPoints.size(); i++) {
-            Point j = (Point)potentialCollisionPoints.get(i);
-            System.out.println(j.getX());
-        }
         return potentialCollisionPoints;
     }
 }
