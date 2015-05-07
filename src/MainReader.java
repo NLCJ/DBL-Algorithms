@@ -96,9 +96,6 @@ public class MainReader {
             
             mergesort.sort(points);   
             
-            for ( Point point : points ) {
-                System.out.println( "Original position: " + point.getOrigin() );
-            }
             // Determine what placement model is called for
             if(placement_model.equals("2pos")){
                 Point[] points_2pos = pos_2.PositionCalculator(width, height, points); 
