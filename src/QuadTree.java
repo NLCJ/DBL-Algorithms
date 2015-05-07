@@ -78,12 +78,12 @@ public class QuadTree {
         if(pos.equals("NW") || pos.equals("NE") || pos.equals("slider")){
             //check if the Y is bigger than the node height and the Y+height is bigger than the node height
             //if so then it is within the top part of the child nodes
-            if(p.getY() > height && p.getY()+p.getHeight() > height){
+            if((p.getY() > height) && (p.getY()+p.getHeight() > height)){
                 top = true;
             }
             //else check if the Y is less than the node height and Y+height is less than the node height
             //if so then it is within the bottom part of the child nodes
-            else if(p.getY() < height && p.getY()+p.getHeight() < height){
+            else if((p.getY() < height) && (p.getY()+p.getHeight() < height)){
                 bot = true;
             }
         }
@@ -107,28 +107,28 @@ public class QuadTree {
         //if the position is NW or SW
         if(pos.equals("NW") || pos.equals("SW")){
             //check if X is less than the node width and X-width is less than the node width
-            if(p.getX() < width && p.getX()-p.getWidth() < width){
+            if((p.getX() < width) && (p.getX()-p.getWidth() < width)){
                 //if top is true then the label is in the top left child node and thus has index 1
                 if(top)
-                    return 1;
+                    return 0;
                 //if bot is true then the label is in the bottom left child node and thus has index 3
                 if(bot)
-                    return 3;
+                    return 2;
             }
             //check if X is bigger than the node width and X-width is bigger than the node width
-            if(p.getX() > width && p.getX()-p.getWidth() > width){
+            if((p.getX() > width) && (p.getX()-p.getWidth() > width)){
                 //if top is true then the label is in the top right child node and thus has index 2
                 if(top)
-                    return 2;
+                    return 1;
                 //if bot is true then the label is in the bottom right child node and thus has index 4
                 if(bot)
-                    return 4;
+                    return 3;
             }
         }
         //if the position is NE or SE
         if(pos.equals("NE") || pos.equals("SE")){
             //check id X is less than node width and X+width is less than the node width
-            if(p.getX() < width && p.getX()+p.getWidth() < width){
+            if((p.getX() < width) && (p.getX()+p.getWidth() < width)){
                 //if top is true then the label is in the top left child node and thus has index 1
                 if(top)
                     return 0;
@@ -137,7 +137,7 @@ public class QuadTree {
                     return 2;
             }
             //check if X is bigger than node width and X+width is bigger than node width 
-            if(p.getX() > width && p.getX()+p.getWidth() > width){
+            if((p.getX() > width) && (p.getX()+p.getWidth() > width)){
                 //if top is true then the label is in the top right child node and thus has index 2
                 if(top)
                     return 1;
