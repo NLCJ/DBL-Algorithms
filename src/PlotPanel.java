@@ -21,10 +21,12 @@ public class PlotPanel extends JPanel {
     public void paint (Graphics g){
         Graphics2D g2d = (Graphics2D) g;
            super.paint(g2d);
-           this.setBackground(Color.red);
+           this.setBackground(Color.white);
            
-          g2d.setColor(Color.WHITE);
-          
+          g2d.setColor(Color.BLACK);
+          for(int i = 0; i<x_p.length;i++){
+              g2d.drawString("KURWA",x_p[i][0], x_p[i][1]);
+          }
          
     }
     

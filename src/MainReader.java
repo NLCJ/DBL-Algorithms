@@ -19,12 +19,13 @@ public class MainReader {
     private JPanel p;
     private JLabel l;
     private JPanel plot;
-    int[][] x_p = new int[69][69];
+    
     
     String pos = null; 
     double shift = 0;
     
     public void Gui(String s, int h, int w, int n, Point[] pnt){
+        int[][] x_p = new int[pnt.length][2];
         f = new JFrame("Label point plot: "+s+" model");
         f.setVisible(true);
         f.setSize(1600, 900);
@@ -72,7 +73,7 @@ public class MainReader {
         try {
            
             
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\input.txt");
+            File file = new File("data-of-awesomeness.txt");
           
             
             
