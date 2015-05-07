@@ -19,8 +19,8 @@ public class MainReader {
     private JPanel p;
     private JLabel l;
     private JPanel plot;
-    int x_p = 0;
-    int y_p = 0;
+    int[][] x_p = new int[69][69];
+    
     String pos = null; 
     double shift = 0;
     
@@ -30,7 +30,7 @@ public class MainReader {
         f.setSize(1600, 900);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         p = new JPanel();
-        plot = new JPanel();
+        plot = new PlotPanel();
         p.setLayout(new BorderLayout());
         p.setBackground(Color.YELLOW);
         l = new JLabel(s);
@@ -39,8 +39,8 @@ public class MainReader {
         f.add(plot, BorderLayout.SOUTH);
         if(s.equals("2pos")){
             for(int i=0; i<pnt.length; i++){
-                x_p = pnt[i].getX();
-                y_p = pnt[i].getY();
+                x_p[i][0] = pnt[i].getX();
+                x_p[i][1] = pnt[i].getY();
                 pos = pnt[i].getPosition();
                 
             }
@@ -48,8 +48,8 @@ public class MainReader {
         
         if(s.equals("4pos")){
             for(int i=0; i<pnt.length; i++){
-                x_p = pnt[i].getX();
-                y_p = pnt[i].getY();
+                x_p[i][0] = pnt[i].getX();
+                x_p[i][1] = pnt[i].getY();
                 pos = pnt[i].getPosition();
                 
             }
@@ -57,19 +57,21 @@ public class MainReader {
         
         if(s.equals("1slider")){
             for(int i=0; i<pnt.length; i++){
-                x_p = pnt[i].getX();
-                y_p = pnt[i].getY();
+                x_p[i][0] = pnt[i].getX();
+                x_p[i][1] = pnt[i].getY();
                 shift = pnt[i].getSlider();
                 
             }
         }
     }
     
+  
+    
     void Reader() {
         try {
            
             
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\data-of-awesomeness.txt");
+            File file = new File("C:\\Users\\ivank_000\\Documents\\GitHub\\Peach-is-sooo-sorry\\input.txt");
           
             
             
