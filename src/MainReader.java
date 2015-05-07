@@ -19,12 +19,13 @@ public class MainReader {
     private JPanel p;
     private JLabel l;
     private JPanel plot;
-    int[][] x_p = new int[69][69];
+    int [][] x_p;
     
     String pos = null; 
     double shift = 0;
     
     public void Gui(String s, int h, int w, int n, Point[] pnt){
+        x_p = new int[pnt.length][2];
         f = new JFrame("Label point plot: "+s+" model");
         f.setVisible(true);
         f.setSize(1600, 900);
