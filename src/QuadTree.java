@@ -19,6 +19,8 @@ public class QuadTree {
     public int MAXPOINTS = 5;
     //where the current level is stored
     public int level;
+    //check the max level of splitting achieved
+    public int curmaxlvl;
     //list of points
     public List points;
     //nodes of the QuadTree
@@ -28,6 +30,7 @@ public class QuadTree {
     
     public QuadTree(int lvl, int minx, int maxx, int miny, int maxy){
         level = lvl; //the level of the node
+        curmaxlvl = lvl;
         points = new ArrayList(); //new list for points on this node
         node = new QuadTree[4]; //the 4 children NW NE SW SE
         xmin = minx;
@@ -54,7 +57,7 @@ public class QuadTree {
         //calculate the width and height of the child nodes
         int width = (xmax - xmin)/2;
         int height = (ymax - ymin)/2;
-        
+        System.out.println("split width: " + width);
         //create a new QuadTree object for each child 
         node[0] = new QuadTree(level + 1, xmin, xmin + width, ymin + height, ymax); //the NW child
         node[1] = new QuadTree(level + 1, xmin + width, xmax, ymin + height, ymax); //the NE child
@@ -66,6 +69,8 @@ public class QuadTree {
         //calculate the width and height of the child nodes
         int width = (xmax - xmin)/2;
         int height = (ymax - ymin)/2;
+        System.out.println("width: " + width + " height: " + height);
+        
         //top and bot boolean to see if a label is in the top or bottom child nodes
         boolean top = false;
         boolean bot = false;
@@ -80,6 +85,7 @@ public class QuadTree {
             //if so then it is within the top part of the child nodes
             if((p.getY() > height) && (p.getY()+p.getHeight() > height)){
                 top = true;
+                
             }
             //else check if the Y is less than the node height and Y+height is less than the node height
             //if so then it is within the bottom part of the child nodes
@@ -176,6 +182,7 @@ public class QuadTree {
         //if so get the index of Point p
         if(node[0] != null){
             int index = getIndex(p);
+            System.out.println("ind: " + index);
             //if index of Point p is not -1 
             //then insert Point p in the child with the corresponding index and return
             if(index != -1){
@@ -185,11 +192,16 @@ public class QuadTree {
         }
         //add Point p to the list of points
         points.add(p);
+        for(int i = 0; i < points.size(); i++){
+            Point ps = (Point)points.get(i);
+            System.out.println("points p in insert: " + ps.getX() + " " + ps.getY());
+        }
         
         //if the points size is bigger than the maximum allowed points and less than the max allowed levels
         if(points.size() > MAXPOINTS && level < MAXLEVEL){
             //if there are no child nodes, create them by calling the split method
             if(node[0] == null){
+                System.out.println("split call in insert + lvl: " + points.size());
                 split();
             }
             //for each point in the points list
@@ -197,11 +209,14 @@ public class QuadTree {
                 //get the point from the list and get the index of that point
                 Point pp = (Point)points.get(i);
                 int index = getIndex(pp);
+                
                 //if the index of Point pp is not -1
                 if(index != -1){
                     //remove the Point pp from the points list 
                     //and insert it in the child node with the corresponding index
-                    pp = (Point)points.remove(i);
+                    //pp = (Point)points.remove(i);
+                    pp = (Point)points.get(i);
+                    points.set(i, null);
                     node[index].insert(pp);
                 }
             }
@@ -211,6 +226,11 @@ public class QuadTree {
     public List retrieve(List potentialCollisionPoints, Point p){
         //get the index of Point p
         int index = getIndex(p);
+        System.out.println("point: " + p.getX() + " " + p.getY() + " index of point: " + index);
+        for(int i = 0; i < points.size(); i++){
+            Point ps = (Point)points.get(i);
+            System.out.println("points p: " + ps.getX() + " " + ps.getY());
+        }
         //if index is not -1 and there exists a child node
         //then get the list of potential collisions from the child node with the corresponding index
         if(index != -1 && node[0] != null){
