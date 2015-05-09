@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -26,19 +27,29 @@ public class MainReader {
     
     public void Gui(String s, int h, int w, int n, Point[] pnt){
         int[][] x_p = new int[pnt.length][2];
+        int width_ = w;
+        int height_ = h;
+        String pos_ = s;
         f = new JFrame("Label point plot: "+s+" model");
         f.setVisible(true);
-        f.setSize(930, 970);
+        f.setSize(500, 60);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         p = new JPanel();
-        plot = new PlotPanel(x_p, shift, pos);
+        plot = new PlotPanel(x_p, shift, pos, width_, height_, pos_);
         plot.setSize(10000, 10000);
         p.setLayout(new BorderLayout());
         p.setBackground(Color.YELLOW);
-        l = new JLabel(s);
+        l = new JLabel(s+" go fullscreen");
         p.add(l, BorderLayout.NORTH);
         f.add(p, BorderLayout.NORTH);
         f.add(plot, BorderLayout.CENTER);
+        JPanel test = new JPanel();
+        plot.setPreferredSize(new Dimension( 10000,10000));
+        JScrollPane scrollFrame = new JScrollPane(plot);
+        plot.setAutoscrolls(true);
+        scrollFrame.setPreferredSize(new Dimension( 930,970));
+        f.add(scrollFrame);
+               
        
         if(s.equals("2pos")){
             for(int i=0; i<pnt.length; i++){
@@ -124,6 +135,7 @@ public class MainReader {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
 
     }
     
