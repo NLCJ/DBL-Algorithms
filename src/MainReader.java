@@ -22,20 +22,29 @@ public class MainReader {
     private JPanel plot;
     
     
-    String pos = null; 
-    double shift = 0;
     
+    
+    
+    /*
+    In order to view the panel correcly
+    switch to full screen mode. 
+    By default you will see small window
+    which tells you what positioning model is used
+    and message about going fullscreen 
+    */
     public void Gui(String s, int h, int w, int n, Point[] pnt){
+        double[] shift = new double[pnt.length];
         int[][] x_p = new int[pnt.length][2];
         int width_ = w;
         int height_ = h;
+        String[] pos_s = new String[pnt.length];
         String pos_ = s;
         f = new JFrame("Label point plot: "+s+" model");
         f.setVisible(true);
-        f.setSize(500, 60);
+        f.setSize(500, 55);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         p = new JPanel();
-        plot = new PlotPanel(x_p, shift, pos, width_, height_, pos_);
+        plot = new PlotPanel(x_p, shift, pos_s, width_, height_, pos_, pnt);
         plot.setSize(10000, 10000);
         p.setLayout(new BorderLayout());
         p.setBackground(Color.YELLOW);
@@ -55,7 +64,7 @@ public class MainReader {
             for(int i=0; i<pnt.length; i++){
                 x_p[i][0] = pnt[i].getX();
                 x_p[i][1] = pnt[i].getY();
-                pos = pnt[i].getPosition();
+                pos_s[i] = pnt[i].getPosition();
                 
             }
         }
@@ -64,7 +73,7 @@ public class MainReader {
             for(int i=0; i<pnt.length; i++){
                 x_p[i][0] = pnt[i].getX();
                 x_p[i][1] = pnt[i].getY();
-                pos = pnt[i].getPosition();
+                pos_s[i] = pnt[i].getPosition();
                 
             }
         }
@@ -73,7 +82,7 @@ public class MainReader {
             for(int i=0; i<pnt.length; i++){
                 x_p[i][0] = pnt[i].getX();
                 x_p[i][1] = pnt[i].getY();
-                shift = pnt[i].getSlider();
+                shift[i] = pnt[i].getSlider();
                 
             }
         }

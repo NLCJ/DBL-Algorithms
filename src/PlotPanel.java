@@ -9,14 +9,16 @@ import javax.swing.*;
 public class PlotPanel extends JPanel {
     
     int[][] x_p ;
-    double shift;
-    String position;
+    double[] shift;
+    String[] position;
     int width;
     int height;
     String s;
+    Point[] pnt;
     
-     PlotPanel(int[][] x_p, double shift, String position, int width, int height, String s){
+     PlotPanel(int[][] x_p, double[] shift, String[] position, int width, int height, String s, Point[] pnt){
         this.x_p = x_p;
+        this.pnt = pnt;
         this.shift = shift;
         this.position = position;
         this.width = width;
@@ -33,13 +35,21 @@ public class PlotPanel extends JPanel {
            
           g2d.setColor(Color.BLACK);
           for(int i = 0; i<x_p.length;i++){
-              int x = x_p[i][0]/5;
-              int y = x_p[i][1]/5;
-              g2d.fillOval(x,y,3,3);
-              
+              int x = x_p[i][0];
+              int y = x_p[i][1];
+              g2d.fillOval(x-2,y-2,4,4);
+           System.out.println(pnt[i].getPosition());
+             if(s.equals("2pos")){
+                 if(pnt[i].getPosition().equals("NE")){
+                    g2d.drawRect(x, y-height, width,  height);
+                 }else{
+                     if(pnt[i].getPosition().equals("NW")){
+                       g2d.drawRect(x-width, y-height, width,  height);  
+                     }
+                 }
           }
          
     }
     
     
-}
+}}
