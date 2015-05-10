@@ -63,7 +63,9 @@ public class PlotPanel extends JPanel {
                    }
             }
                  
-         
+          if(s.equals("1slider")){
+                    g2d.drawRect((int) (x-pnt[i].getSlider()), y-height, width,  height);
+                 }
     }
     
     
