@@ -1,5 +1,4 @@
 import java.awt.*;
-import static javax.management.Query.div;
 import javax.swing.*;
 /**
  *
@@ -38,7 +37,7 @@ public class PlotPanel extends JPanel {
               int x = x_p[i][0];
               int y = x_p[i][1];
               g2d.fillOval(x-2,y-2,4,4);
-           System.out.println(pnt[i].getPosition());
+           
              if(s.equals("2pos")){
                  if(pnt[i].getPosition().equals("NE")){
                     g2d.drawRect(x, y-height, width,  height);
