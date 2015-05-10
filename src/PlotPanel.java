@@ -45,9 +45,24 @@ public class PlotPanel extends JPanel {
                  }else{
                      if(pnt[i].getPosition().equals("NW")){
                        g2d.drawRect(x-width, y-height, width,  height);  
+                        }
                      }
                  }
-          }
+             if(s.equals("4pos")){
+                 if(pnt[i].getPosition().equals("NE")){
+                    g2d.drawRect(x, y-height, width,  height);
+                 }
+                  if(pnt[i].getPosition().equals("NW")){
+                    g2d.drawRect(x-width, y-height, width,  height);  
+                   }
+                  if(pnt[i].getPosition().equals("SE")){
+                    g2d.drawRect(x, y, width,  height);  
+                   }
+                  if(pnt[i].getPosition().equals("SW")){
+                    g2d.drawRect(x-width, y, width,  height);  
+                   }
+            }
+                 
          
     }
     
