@@ -66,12 +66,12 @@ public class Method2Pos {
             lijst.clear();
             qua.retrieve(lijst, pointss);
 
-            System.out.println("nieuwe " + pointss.getX() + " " + pointss.getY());
-            for (int j = 0; j < lijst.size(); j ++) {
-                Point point = (Point) lijst.get(j);
-                System.out.println(point.getX() + " " + point.getY());
+            //System.out.println("nieuwe " + pointss.getX() + " " + pointss.getY());
+            //for (int j = 0; j < lijst.size(); j ++) {
+                //Point point = (Point) lijst.get(j);
+                //System.out.println(point.getX() + " " + point.getY());
 
-            }
+            //}
         }
     }
 //Puts the points back into their original order as it was documented.
