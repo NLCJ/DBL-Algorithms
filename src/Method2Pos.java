@@ -51,51 +51,55 @@ public class Method2Pos {
     public void makeClauses(Literal one, Literal two) {
         Clause clause = new Clause(one, two);
         clauses.add(clause);
+        System.out.println(clause);
     }
 
-    public void searchClauses(Point p) {
+    public void searchClauses(Point[] points) {
         List<Point> collisions = new ArrayList();
-        collisions = realCollisions(posCollisions(p),p);
+        for (Point p : points) {
+            collisions = realCollisions(posCollisions(p), p);
 //        for (int j = 0; j < collisions.size(); j ++) {
 //            Point point = (Point) collisions.get(j);
 //            System.out.println(point.getX() + " aa " + point.getY());
 //       }
-        //System.out.println(collisions.get(0));
-        if (p.getPosition().equals("NE")) {
-            Literal falseP = new Literal(p.getOrigin(), false);
-            for (int i = 0; i < collisions.size(); i++) {
-                int value = collisions.get(i).getOrigin();
-                if (collisions.get(i).getPosition().equals("NE")) {
-                    Literal falseCollision = new Literal(value, false);
-                    makeClauses(falseP, falseCollision);
+            //System.out.println(collisions.get(0));
+            if (p.getPosition().equals("NE")) {
+                Literal falseP = new Literal(p.getOrigin(), false);
+                for (int i = 0; i < collisions.size(); i ++) {
+                    int value = collisions.get(i).getOrigin();
+                    if (collisions.get(i).getPosition().equals("NE")) {
+                        Literal falseCollision = new Literal(value, false);
+                        makeClauses(falseP, falseCollision);
+                    }
+                    if (collisions.get(i).getPosition().equals("NW")) {
+                        Literal trueCollision = new Literal(value, true);
+                        makeClauses(falseP, trueCollision);
+                    }
                 }
-                if (collisions.get(i).getPosition().equals("NW")) {
-                    Literal trueCollision = new Literal(value, true);
-                    makeClauses(falseP, trueCollision);
+            }
+            if (p.getPosition().equals("NW")) {
+                Literal trueP = new Literal(p.getOrigin(), true);
+                for (Point collision : collisions) {
+                    int value = collision.getOrigin();
+                    if (collision.getPosition().equals("NE")) {
+                        Literal falseCollision = new Literal(value, false);
+                        makeClauses(trueP, falseCollision);
+                    }
+                    if (collision.getPosition().equals("NW")) {
+                        Literal trueCollision = new Literal(value, true);
+                        makeClauses(trueP, trueCollision);
+                    }
                 }
             }
         }
-        if (p.getPosition().equals("NW")) {
-            Literal trueP = new Literal(p.getOrigin(), true);
-            for (Point collision : collisions) {
-                int value = collision.getOrigin();
-                if (collision.getPosition().equals("NE")) {
-                    Literal falseCollision = new Literal(value, false);
-                    makeClauses(trueP, falseCollision);
-                }
-                if (collision.getPosition().equals("NW")) {
-                    Literal trueCollision = new Literal(value, true);
-                    makeClauses(trueP, trueCollision);
-                }
-            }
-        }
+        removeClauses(clauses);
     }
 
     public void removeClauses(List<Clause<Literal>> clauses) {
         Literal badPoint = TwoSat.isSatisfiable(clauses);
 
         if (badPoint == null) {
-            System.out.println("null");
+            System.out.println("nullo");
         } else {
             for (int j = 0; j < clauses.size(); j ++) {
                 if (clauses.get(j).first().value() == badPoint.value() || clauses.get(j).second().value() == badPoint.value()) {
@@ -103,9 +107,9 @@ public class Method2Pos {
                     j --;
                 }
             }
-//            for (int i = 0; i < clauses.size(); i ++) {
-//                System.out.println(clauses.get(i));
-//            }
+            for (int i = 0; i < clauses.size(); i ++) {
+                System.out.println(clauses.get(i));
+            }
         }
     }
 
@@ -115,7 +119,6 @@ public class Method2Pos {
         }
     }
 
-    
     public ArrayList posCollisions(Point p) {
 
         possibleCollisions.clear();
@@ -127,7 +130,7 @@ public class Method2Pos {
 //        }
         return possibleCollisions;
     }
-    
+
     public List realCollisions(ArrayList possiCollisions, Point p) {
         List<Point> col = new ArrayList();
         col = c.allCollisions(possiCollisions, p);
@@ -136,7 +139,7 @@ public class Method2Pos {
 //        }
         return col;
     }
-    
+
 //Puts the points back into their original order as it was documented.
     public Point[] originalOrder(Point[] p) {
         //Original order output
@@ -161,7 +164,7 @@ public class Method2Pos {
         System.out.println("width: " + w);
         System.out.println("height: " + h);
         System.out.println("number of points: " + n_p);
-        System.out.println("nubmers of labels: " + n_p);
+        System.out.println("numbers of labels: " + n_p);
 
         //Output each of the points
 //        for (Point point : output) {

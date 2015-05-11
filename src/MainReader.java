@@ -124,10 +124,9 @@ public class MainReader {
             if(placement_model.equals("2pos")){
                 Point[] points_2pos = pos_2.PositionCalculator(width, height, points); 
                 pos_2.quadtreee(points);
-                pos_2.searchClauses(points[0]);
+                pos_2.searchClauses(points);
                 pos_2.Output2Position(placement_model, width, height, number_points, points);
                 Gui(placement_model, width, height, number_points, points_2pos);
-                pos_2.makeLiterals(number_points);
 
             }
             if(placement_model.equals("4pos")){

@@ -82,10 +82,11 @@ public final class TwoSat {
         /* Finally, check whether any literal and its negation are in the same
          * strongly connected component.
          */
-        for (T variable: variables)
-            if (scc.get(new Literal<T>(variable, true)).equals(scc.get(new Literal<T>(variable, false))))
+        for (T variable: variables) {
+            if (scc.get(new Literal<T>(variable, true)).equals(scc.get(new Literal<T>(variable, false)))) {
                 return new Literal(variable, true);
-
+            }
+        }
         /* If not, the formula must be satisfiable. */
         return null;
     }
