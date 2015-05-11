@@ -40,30 +40,30 @@ public class PlotPanel extends JPanel {
            
              if(s.equals("2pos")){
                  if(pnt[i].getPosition().equals("NE")){
-                    g2d.drawRect(x, y-height, width,  height);
+                    g2d.drawRect(x, y-width, height,  width);
                  }else{
                      if(pnt[i].getPosition().equals("NW")){
-                       g2d.drawRect(x-width, y-height, width,  height);  
+                       g2d.drawRect(x-height, y-width, height,  width);  
                         }
                      }
                  }
              if(s.equals("4pos")){
                  if(pnt[i].getPosition().equals("NE")){
-                    g2d.drawRect(x, y-height, width,  height);
+                    g2d.drawRect(x, y-width, height,  width);
                  }
                   if(pnt[i].getPosition().equals("NW")){
-                    g2d.drawRect(x-width, y-height, width,  height);  
+                    g2d.drawRect(x-height, y-width, height,  width);  
                    }
                   if(pnt[i].getPosition().equals("SE")){
-                    g2d.drawRect(x, y, width,  height);  
+                    g2d.drawRect(x, y, height,  width);  
                    }
                   if(pnt[i].getPosition().equals("SW")){
-                    g2d.drawRect(x-width, y, width,  height);  
+                    g2d.drawRect(x-height, y, height,  width);  
                    }
             }
                  
           if(s.equals("1slider")){
-                    g2d.drawRect((int) (x-pnt[i].getSlider()), y-height, width,  height);
+                    g2d.drawRect((int) (x-pnt[i].getSlider()), y-width, height,  width);
                  }
     }
     
