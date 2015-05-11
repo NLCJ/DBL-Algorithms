@@ -142,16 +142,18 @@ public class Collision {
             if(pospp.equals("SE")){
                 if(xp > xpp){
                     int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
-                    if(yp > ypp){
+                    if(gap < 0){
+                        if(yp > ypp){
                             int ygap = yp- ypp;
                             if(ygap < 0){
                                 return true;
                             }
                         }
-                    if(yp < ypp){
-                        int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
-                        if(ygap < 0){
-                            return true;
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
                         }
                     }
                 }
@@ -218,16 +220,18 @@ public class Collision {
             if(pospp.equals("NE")){
                 if(xp > xpp){
                     int gap = xp - (xpp + pp.getWidth());
-                    if(yp > ypp){
+                    if(gap < 0){
+                        if(yp > ypp){
                             int ygap = yp - (ypp + pp.getHeight());
                             if(ygap < 0){
                                 return true;
                             }
-                    }
-                    if(yp < ypp){
-                        int ygap = ypp - (yp + p.getHeight());
-                        if(ygap < 0){
-                            return true;
+                        }
+                        if(yp < ypp){
+                            int ygap = ypp - (yp + p.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
                         }
                     }
                 }
@@ -250,8 +254,382 @@ public class Collision {
                     }
                 }
             }
+            if(pospp.equals("SW")){
+                if(xp > xpp){
+                    int gap = xp - xpp;
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = yp- ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+                if(xp < xpp){
+                    int gap = (xpp - pp.getWidth()) - (xp + p.getWidth());
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = yp- ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            if(pospp.equals("SE")){
+                if(xp > xpp){
+                    int gap = xp - (xpp + pp.getWidth());
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = yp- ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+                
+                if(xp < xpp){
+                    int gap = xpp - (xp + p.getWidth());
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = yp - ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp > ypp){
+                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
         }
         
+        //------ p pos = SW
+        
+        if(posp.equals("SW")){
+            if(pospp.equals("NW")){
+                if(xp > xpp){
+                    int gap = (xp - p.getWidth()) - xpp;
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = ypp - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+                if(xp < xpp){
+                    int gap = (xpp - pp.getWidth()) - xp;
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = ypp - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            if(pospp.equals("NE")){
+                if(xp > xpp){
+                    int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = ypp - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+                
+                if(xp < xpp){
+                    int gap = xpp - xp;
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = ypp - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            if(pospp.equals("SW")){
+                if(xp > xpp){
+                    int gap = (xp - p.getWidth()) - xpp;
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight())- ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+                if(xp < xpp){
+                    int gap = (xpp - pp.getWidth()) - xp;
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight())- ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            if(pospp.equals("SE")){
+                if(xp > xpp){
+                    int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight())- ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+                
+                if(xp < xpp){
+                    int gap = xpp - xp;
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight())- ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        //------ p pos = SE
+        
+        if(posp.equals("SE")){
+            if(pospp.equals("NW")){
+                if(xp > xpp){
+                    int gap = xp - xpp;
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = ypp - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+                if(xp < xpp){
+                    int gap = (xpp - pp.getWidth()) - (xp + p.getWidth());
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = ypp - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            if(pospp.equals("NE")){
+                if(xp > xpp){
+                    int gap = xp - (xpp + pp.getWidth());
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = ypp - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+                
+                if(xp < xpp){
+                    int gap = xpp - (xp + p.getWidth());
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp > ypp){
+                            int ygap = ypp - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            if(pospp.equals("SW")){
+                if(xp > xpp){
+                    int gap = xp - xpp;
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight())- ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+                if(xp < xpp){
+                    int gap = (xpp - pp.getWidth()) - (xp + p.getWidth());
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight())- ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            if(pospp.equals("SE")){
+                if(xp > xpp){
+                    int gap = xp - (xpp + pp.getWidth());
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight())- ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+                
+                if(xp < xpp){
+                    int gap = xpp - (xp + p.getWidth());
+                    if(gap < 0){
+                        if(yp > ypp){
+                            int ygap = (yp - p.getHeight())- ypp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                        if(yp < ypp){
+                            int ygap = (ypp - pp.getHeight()) - yp;
+                            if(ygap < 0){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         
         
         return false;
