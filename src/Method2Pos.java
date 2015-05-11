@@ -9,7 +9,7 @@ import java.util.List;
 public class Method2Pos {
 
     private Point[] result;
-    MergeSort mergesort = new MergeSort();
+    ArrayList clauses = new ArrayList();
 
     //The method which "calculates" the position of the labels
     public Point[] PositionCalculator(int w, int h, Point[] p) {
@@ -20,40 +20,72 @@ public class Method2Pos {
         //Return the point in the original order
         return originalOrder(p);
     }
-    
+
     public void makeLiterals(int value) {
-        for (int i = 0; i < value; i ++) {
-            new Literal(i, true);
-            new Literal(i, false);
-        }
-        
-        Literal go = new Literal(10, true);
-        Literal good = new Literal(11, false);
-        makeClauses(go, good);
-        Literal li = new Literal(100, true);
-        Literal lit = new Literal(2, false);
-        makeClauses(li, lit);
-        Literal lite = new Literal(100, true);
-        Literal liter = new Literal(2, true);
-        makeClauses(lite, liter);
-        Literal litera = new Literal(100, false);
-        Literal literal = new Literal(2, false);
-        makeClauses(litera, literal);
-        Literal lita = new Literal(100, false);
-        Literal litar = new Literal(2, true);
-        makeClauses(lita, litar);
-        testClauses(clauses);
+//        for (int i = 0; i < value; i ++) {
+//            new Literal(i, true);
+//            new Literal(i, false);
+//        }
+
+//        Literal go = new Literal(10, true);
+//        Literal good = new Literal(11, false);
+//        makeClauses(go, good);
+//        Literal li = new Literal(100, true);
+//        Literal lit = new Literal(2, false);
+//        makeClauses(li, lit);
+//        Literal lite = new Literal(100, true);
+//        Literal liter = new Literal(2, true);
+//        makeClauses(lite, liter);
+//        Literal litera = new Literal(100, false);
+//        Literal literal = new Literal(2, false);
+//        makeClauses(litera, literal);
+//        Literal lita = new Literal(100, false);
+//        Literal litar = new Literal(2, true);
+//        makeClauses(lita, litar);
+        removeClauses(clauses);
     }
-    ArrayList clauses = new ArrayList();
-    
+
     public void makeClauses(Literal one, Literal two) {
-        Clause test = new Clause(one, two);
-        clauses.add(test);
+        Clause clause = new Clause(one, two);
+        clauses.add(clause);
     }
-    
-    public void testClauses(List<Clause<Literal>> clauses) {
+
+    public void searchClauses(Point p) {
+        ArrayList collisions = new ArrayList();
+        //collision(collisions);
+        if (p.getPosition().equals("NE")) {
+            Literal falseP = new Literal(p.getOrigin(), false);
+            for (Object collision : collisions) {
+                int value = collision.getOrigin();
+                if (collision.getPosition().equals("NE")) {
+                    Literal falseCollision = new Literal(value, false);
+                    makeClauses(falseP, falseCollision);
+                }
+                if (collision.getPosition().equals("NW")) {
+                    Literal trueCollision = new Literal(value, true);
+                    makeClauses(falseP, trueCollision);
+                }
+            }
+        }
+        if (p.getPosition().equals("NW")) {
+            Literal trueP = new Literal(p.getOrigin(), true);
+            for (Object collision : collisions) {
+                int value = collision.getOrigin();
+                if (collision.getPosition().equals("NE")) {
+                    Literal falseCollision = new Literal(value, false);
+                    makeClauses(trueP, falseCollision);
+                }
+                if (collision.getPosition().equals("NW")) {
+                    Literal trueCollision = new Literal(value, true);
+                    makeClauses(trueP, trueCollision);
+                }
+            }
+        }
+    }
+
+    public void removeClauses(List<Clause<Literal>> clauses) {
         Literal badPoint = TwoSat.isSatisfiable(clauses);
-        
+
         if (badPoint == null) {
             System.out.println("null");
         } else {
@@ -68,13 +100,13 @@ public class Method2Pos {
 //            }
         }
     }
-    
+
     public void Quadtreee(Point[] p) {
         QuadTree qua = new QuadTree(1, 0, 20, 0, 20);
         ArrayList lijst = new ArrayList();
         for (Point points : p) {
             qua.insert(points);
-            
+
         }
         for (Point pointss : p) {
             lijst.clear();
@@ -97,14 +129,13 @@ public class Method2Pos {
         for (Point point : p) {
             originalOrder[point.getOrigin()] = point;
         }
-        
 
         // Store the result
         this.result = originalOrder;
 
         return originalOrder;
     }
-    
+
     public void Output2Position(String s, int w, int h, int n_p, Point[] p) {
         //Reorder the points to the original order
         Point[] output = PositionCalculator(w, h, p);
@@ -120,9 +151,10 @@ public class Method2Pos {
 //            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
 //        }
     }
-    
+
     /**
      * Return the result
+     *
      * @return
      */
     public Point[] getResult() {
