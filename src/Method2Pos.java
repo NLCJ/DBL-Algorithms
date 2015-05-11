@@ -10,7 +10,7 @@ public class Method2Pos {
 
     private Point[] result;
     ArrayList clauses = new ArrayList();
-    ArrayList possibleCollisions = new ArrayList();
+    ArrayList<Point> possibleCollisions = new ArrayList();
     Collision c = new Collision();
     QuadTree quad = new QuadTree(1, 0, 20, 0, 20);
 
@@ -54,9 +54,14 @@ public class Method2Pos {
     }
 
     public void searchClauses(Point p) {
-        List collisions = new ArrayList();
+        List<Point> collisions = new ArrayList();
+//        collisions = realCollisions(posCollisions(p),p);
+//        for (int j = 0; j < collisions.size(); j ++) {
+//            Point point = (Point) collisions.get(j);
+//            System.out.println(point.getX() + " " + point.getY());
+//        }
         collisions = realCollisions(posCollisions(p),p);
-        System.out.println(collisions.get(0));
+        //System.out.println(collisions.get(0));
         if (p.getPosition().equals("NE")) {
             Literal falseP = new Literal(p.getOrigin(), false);
             for (int i = 0; i < collisions.size(); i++) {
@@ -73,7 +78,7 @@ public class Method2Pos {
         }
         if (p.getPosition().equals("NW")) {
             Literal trueP = new Literal(p.getOrigin(), true);
-            for (Object collision : collisions) {
+            for (Point collision : collisions) {
                 int value = collision.getOrigin();
                 if (collision.getPosition().equals("NE")) {
                     Literal falseCollision = new Literal(value, false);
@@ -124,8 +129,8 @@ public class Method2Pos {
         return possibleCollisions;
     }
     
-    public List realCollisions(ArrayList possibleCollisions, Point p) {
-        return c.allCollisions(possibleCollisions, p);
+    public List realCollisions(ArrayList possiCollisions, Point p) {
+        return c.allCollisions(possiCollisions, p);
     }
     
 //Puts the points back into their original order as it was documented.
