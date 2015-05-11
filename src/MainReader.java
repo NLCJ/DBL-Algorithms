@@ -130,13 +130,13 @@ public class MainReader {
 
             }
             if(placement_model.equals("4pos")){
-                Point[] points_4pos = pos_4.PositionCalculator(width, height, points); 
                 pos_4.Output4Position(placement_model, width, height, number_points, points);
+                Point[] points_4pos = pos_4.getResult();
                 Gui(placement_model, width, height, number_points, points_4pos);
             }
             if(placement_model.equals("1slider")){
-                Point[] points_slider = slider.ShiftCalculator(width, height, points); 
                 slider.OutputSlider(placement_model, width, height, number_points, points);
+                Point[] points_slider = slider.getResult();
                 Gui(placement_model, width, height,  number_points,  points_slider);
             }
             

@@ -6,7 +6,7 @@ import java.util.List;
  * @author Ivan Kozlov
  */
 public class Method2Pos {
-
+    private Point[] result;
     MergeSort mergesort = new MergeSort();
 
     //The method which "calculates" the position of the labels
@@ -88,6 +88,9 @@ public class Method2Pos {
         for (Point point : p) {
             originalOrder[point.getOrigin()] = point;
         }
+        
+        // Store the result
+        this.result = originalOrder;
 
         return originalOrder;
     }
@@ -106,5 +109,14 @@ public class Method2Pos {
 //        for (Point point : output) {
 //            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
 //        }
+    }
+    
+    /**
+     * Return the result
+     * @return
+     */
+    public Point[] getResult() {
+        // Return the resutls
+        return this.result;
     }
 }
