@@ -96,7 +96,7 @@ public class MainReader {
            
             
 
-            File file = new File("input.txt");
+            File file = new File("data-of-awesomeness.txt");
 
             
             
