@@ -23,11 +23,11 @@ public class MethodSlider {
         
         // Start at the right bottom with placeing labels - thus inverting the sorted array
         for ( Point point : p ) {
-            System.out.println( "Normal: " + point.getX() + " " + point.getY() );
+            System.out.println(point.getX() + " " + point.getY() );
         }
         Collections.reverse( Arrays.asList(p) );
         for ( Point point : p ) {
-            System.out.println( "Invert: " + point.getX() + " " + point.getY() );
+           // System.out.println( "Invert: " + point.getX() + " " + point.getY() );
         }
             
         // Set the default slider position to 0
