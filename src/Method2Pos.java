@@ -55,12 +55,11 @@ public class Method2Pos {
 
     public void searchClauses(Point p) {
         List<Point> collisions = new ArrayList();
-//        collisions = realCollisions(posCollisions(p),p);
+        collisions = realCollisions(posCollisions(p),p);
 //        for (int j = 0; j < collisions.size(); j ++) {
 //            Point point = (Point) collisions.get(j);
-//            System.out.println(point.getX() + " " + point.getY());
-//        }
-        collisions = realCollisions(posCollisions(p),p);
+//            System.out.println(point.getX() + " aa " + point.getY());
+//       }
         //System.out.println(collisions.get(0));
         if (p.getPosition().equals("NE")) {
             Literal falseP = new Literal(p.getOrigin(), false);
@@ -130,7 +129,12 @@ public class Method2Pos {
     }
     
     public List realCollisions(ArrayList possiCollisions, Point p) {
-        return c.allCollisions(possiCollisions, p);
+        List<Point> col = new ArrayList();
+        col = c.allCollisions(possiCollisions, p);
+//        for (int i = 0; i < testt.size(); i++) {
+//            System.out.println(testt.get(i).getX() + " uu " + testt.get(i).getY());
+//        }
+        return col;
     }
     
 //Puts the points back into their original order as it was documented.
