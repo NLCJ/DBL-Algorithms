@@ -218,10 +218,10 @@ public class Collision {
                 }
             }
             if(pospp.equals("NE")){
-                if(xp > xpp){
+                if(xp >= xpp){
                     int gap = xp - (xpp + pp.getWidth());
                     if(gap < 0){
-                        if(yp > ypp){
+                        if(yp >= ypp){
                             int ygap = yp - (ypp + pp.getHeight());
                             if(ygap < 0){
                                 return true;
@@ -239,7 +239,7 @@ public class Collision {
                 if(xp < xpp){
                     int gap = xpp - (xp + p.getWidth());
                     if(gap < 0){
-                        if(yp > ypp){
+                        if(yp >= ypp){
                             int ygap = yp - (ypp + pp.getHeight());
                             if(ygap < 0){
                                 return true;
@@ -642,6 +642,8 @@ public class Collision {
             if(collide(p, pp)){
                 collisions.add(pp);
             }
+            System.out.println("boo col " + pp.getX() +  ' ' + pp.getY());
+            
         }
         return collisions;
     }
