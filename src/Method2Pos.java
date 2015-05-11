@@ -19,21 +19,26 @@ public class Method2Pos {
         return originalOrder(p);
     }
 
-    public void makeLiterals(int n) {
-        for (int i = 0; i < n; i ++) {
+    public void makeLiterals(int value) {
+        for (int i = 0; i < value; i ++) {
             new Literal(i, true);
             new Literal(i, false);
         }
-        Literal li = new Literal(1, true);
+        
+        
+        Literal go = new Literal(10, true);
+        Literal good = new Literal(11, false);
+        makeClauses(go, good);
+        Literal li = new Literal(100, true);
         Literal lit = new Literal(2, false);
         makeClauses(li, lit);
-        Literal lite = new Literal(1, true);
+        Literal lite = new Literal(100, true);
         Literal liter = new Literal(2, true);
         makeClauses(lite, liter);
-        Literal litera = new Literal(1, false);
+        Literal litera = new Literal(100, false);
         Literal literal = new Literal(2, false);
         makeClauses(litera, literal);
-        Literal lita = new Literal(1, false);
+        Literal lita = new Literal(100, false);
         Literal litar = new Literal(2, true);
         makeClauses(lita, litar);
         testClauses(clauses);
@@ -46,11 +51,12 @@ public class Method2Pos {
     }
 
     public void testClauses(List<Clause<Literal>> clauses) {
-        if (TwoSat.isSatisfiable(clauses)) {
-            System.out.println("true");
+        if (TwoSat.isSatisfiable(clauses) == null ) {
+       //     System.out.println("null");
 
         } else {
-            System.out.println("false");
+            
+     //       System.out.println(TwoSat.isSatisfiable(clauses));
         }
     }
 
@@ -97,8 +103,8 @@ public class Method2Pos {
         System.out.println("nubmers of labels: " + n_p);
 
         //Output each of the points
-        for (Point point : output) {
-            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
-        }
+//        for (Point point : output) {
+//            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
+//        }
     }
 }
