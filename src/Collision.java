@@ -34,10 +34,10 @@ public class Collision {
         //------ p pos = NW
         if (posp.equals("NW")) {
             if (pospp.equals("NW")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = (xp - p.getWidth()) - xpp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -54,7 +54,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = (xpp - pp.getWidth()) - xp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -70,10 +70,10 @@ public class Collision {
                 }
             }
             if (pospp.equals("NE")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -107,10 +107,10 @@ public class Collision {
                 }
             }
             if (pospp.equals("SW")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = (xp - p.getWidth()) - xpp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -127,7 +127,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = (xpp - pp.getWidth()) - xp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -143,10 +143,10 @@ public class Collision {
                 }
             }
             if (pospp.equals("SE")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -164,7 +164,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = xpp - xp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -184,10 +184,10 @@ public class Collision {
         //------ p pos = NE
         if (posp.equals("NE")) {
             if (pospp.equals("NW")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = xp - xpp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -204,7 +204,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = (xpp - pp.getWidth()) - (xp + p.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -257,10 +257,10 @@ public class Collision {
                 }
             }
             if (pospp.equals("SW")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = xp - xpp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -277,7 +277,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = (xpp - pp.getWidth()) - (xp + p.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -293,10 +293,10 @@ public class Collision {
                 }
             }
             if (pospp.equals("SE")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = xp - (xpp + pp.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -314,7 +314,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = xpp - (xp + p.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = yp - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -334,10 +334,10 @@ public class Collision {
         //------ p pos = SW
         if (posp.equals("SW")) {
             if (pospp.equals("NW")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = (xp - p.getWidth()) - xpp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -354,7 +354,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = (xpp - pp.getWidth()) - xp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -370,10 +370,10 @@ public class Collision {
                 }
             }
             if (pospp.equals("NE")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -391,7 +391,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = xpp - xp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -407,10 +407,10 @@ public class Collision {
                 }
             }
             if (pospp.equals("SW")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = (xp - p.getWidth()) - xpp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -427,7 +427,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = (xpp - pp.getWidth()) - xp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -443,10 +443,10 @@ public class Collision {
                 }
             }
             if (pospp.equals("SE")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -464,7 +464,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = xpp - xp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -484,10 +484,10 @@ public class Collision {
         //------ p pos = SE
         if (posp.equals("SE")) {
             if (pospp.equals("NW")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = xp - xpp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -504,7 +504,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = (xpp - pp.getWidth()) - (xp + p.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -520,10 +520,10 @@ public class Collision {
                 }
             }
             if (pospp.equals("NE")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = xp - (xpp + pp.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -541,7 +541,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = xpp - (xp + p.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
                             if (ygap < 0) {
                                 return true;
@@ -557,10 +557,10 @@ public class Collision {
                 }
             }
             if (pospp.equals("SW")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = xp - xpp;
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -577,7 +577,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = (xpp - pp.getWidth()) - (xp + p.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -593,10 +593,10 @@ public class Collision {
                 }
             }
             if (pospp.equals("SE")) {
-                if (xp >= xpp) {
+                if (xp > xpp) {
                     int gap = xp - (xpp + pp.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -614,7 +614,7 @@ public class Collision {
                 if (xp < xpp) {
                     int gap = xpp - (xp + p.getWidth());
                     if (gap < 0) {
-                        if (yp >= ypp) {
+                        if (yp > ypp) {
                             int ygap = (yp - p.getHeight()) - ypp;
                             if (ygap < 0) {
                                 return true;
@@ -625,45 +625,6 @@ public class Collision {
                             if (ygap < 0) {
                                 return true;
                             }
-                        }
-                    }
-                }
-            }
-        }
-        
-        //-------p pos = slider 
-        
-        if(posp.equals("slider")){
-            if(xp >= xpp){
-                double gap = (xp - (p.getWidth()-p.getSlider())) - (xpp + pp.getSlider());
-                if (gap < 0){
-                    if(yp >= ypp){
-                        double ygap = yp - (ypp + pp.getHeight());
-                        if(ygap < 0){
-                            return true;
-                        }
-                    }
-                    if(yp < ypp){
-                        double ygap = ypp - (yp + p.getHeight());
-                        if(ygap < 0){
-                            return true;
-                        }
-                    }
-                }
-            }
-            if(xp < xpp){
-                double gap = (xpp - (pp.getWidth()-pp.getSlider())) - (xp + p.getSlider());
-                if (gap < 0){
-                    if(yp >= ypp){
-                        double ygap = yp - (ypp + pp.getHeight());
-                        if(ygap < 0){
-                            return true;
-                        }
-                    }
-                    if(yp < ypp){
-                        double ygap = ypp - (yp + p.getHeight());
-                        if(ygap < 0){
-                            return true;
                         }
                     }
                 }
@@ -681,9 +642,9 @@ public class Collision {
                 collisions.add(pp);
             }
         }
-        for (int i = 0; i < collisions.size(); i++) {
-            System.out.println(collisions.get(i).getX() + " x " + collisions.get(i).getY());
-        }
+//        for (int i = 0; i < collisions.size(); i++) {
+//            System.out.println(collisions.get(i).getX() + " x " + collisions.get(i).getY());
+//        }
         return collisions;
     }
 }
