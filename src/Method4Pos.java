@@ -4,7 +4,7 @@
  * @author Ivan Kozlov
  */
 public class Method4Pos {
-
+    private Point[] result;
     MergeSort mergesort = new MergeSort();
 
     //The method which "calculates" the position of the labels
@@ -33,6 +33,10 @@ public class Method4Pos {
     public void Output4Position(String s, int w, int h, int n_p, Point[] p) {
         //Reorder the points to the original order
         Point[] output = PositionCalculator(w, h, p);
+        
+        // Store the result
+        this.result = output;
+        
         //Required static outpu
         System.out.println("placement model: " + s);
         System.out.println("width: " + w);
@@ -44,5 +48,14 @@ public class Method4Pos {
         for (Point point : output) {
             System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
         }
+    }
+    
+    /**
+     * Return the result
+     * @return
+     */
+    public Point[] getResult() {
+        // Return the resutls
+        return this.result;
     }
 }
