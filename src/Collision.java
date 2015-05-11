@@ -259,13 +259,12 @@ public class Collision {
     
     public List allCollisions(List potential, Point p){
         
-        for(int i = 0; i < potential.size(); i++){
-            Point pp = (Point)potential.get(i);
-            
+        for (Object potential1 : potential) {
+            Point pp = (Point) potential1;
             if(collide(p, pp)){
                 collisions.add(pp);
             }
         }
-        return null;
+        return collisions;
     }
 }

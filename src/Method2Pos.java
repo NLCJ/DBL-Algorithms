@@ -10,6 +10,9 @@ public class Method2Pos {
 
     private Point[] result;
     ArrayList clauses = new ArrayList();
+    ArrayList possibleCollisions = new ArrayList();
+    Collision c = new Collision();
+    QuadTree quad = new QuadTree(1, 0, 20, 0, 20);
 
     //The method which "calculates" the position of the labels
     public Point[] PositionCalculator(int w, int h, Point[] p) {
@@ -51,17 +54,18 @@ public class Method2Pos {
     }
 
     public void searchClauses(Point p) {
-        ArrayList collisions = new ArrayList();
-        //collision(collisions);
+        List collisions = new ArrayList();
+        collisions = realCollisions(posCollisions(p),p);
+        System.out.println(collisions.get(0));
         if (p.getPosition().equals("NE")) {
             Literal falseP = new Literal(p.getOrigin(), false);
-            for (Object collision : collisions) {
-                int value = collision.getOrigin();
-                if (collision.getPosition().equals("NE")) {
+            for (int i = 0; i < collisions.size(); i++) {
+                int value = collisions.get(i).getOrigin();
+                if (collisions.get(i).getPosition().equals("NE")) {
                     Literal falseCollision = new Literal(value, false);
                     makeClauses(falseP, falseCollision);
                 }
-                if (collision.getPosition().equals("NW")) {
+                if (collisions.get(i).getPosition().equals("NW")) {
                     Literal trueCollision = new Literal(value, true);
                     makeClauses(falseP, trueCollision);
                 }
@@ -101,26 +105,30 @@ public class Method2Pos {
         }
     }
 
-    public void Quadtreee(Point[] p) {
-        QuadTree qua = new QuadTree(1, 0, 20, 0, 20);
-        ArrayList lijst = new ArrayList();
+    public void quadtreee(Point[] p) {
         for (Point points : p) {
-            qua.insert(points);
-
-        }
-        for (Point pointss : p) {
-            lijst.clear();
-            qua.retrieve(lijst, pointss);
-
-//            System.out.println("nieuwe " + pointss.getX() + " " + pointss.getY());
-//            for (int j = 0; j < lijst.size(); j ++) {
-//            Point point = (Point) lijst.get(j);
-//            System.out.println(point.getX() + " " + point.getY());
-//            }
+            quad.insert(points);
         }
     }
-//Puts the points back into their original order as it was documented.
 
+    
+    public ArrayList posCollisions(Point p) {
+
+        possibleCollisions.clear();
+        quad.retrieve(possibleCollisions, p);
+
+//        for (int j = 0; j < possibleCollisions.size(); j ++) {
+//            Point point = (Point) possibleCollisions.get(j);
+//            System.out.println(point.getX() + " " + point.getY());
+//        }
+        return possibleCollisions;
+    }
+    
+    public List realCollisions(ArrayList possibleCollisions, Point p) {
+        return c.allCollisions(possibleCollisions, p);
+    }
+    
+//Puts the points back into their original order as it was documented.
     public Point[] originalOrder(Point[] p) {
         //Original order output
         Point[] originalOrder = new Point[p.length];
