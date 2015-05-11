@@ -1,12 +1,13 @@
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author Ivan Kozlov
+ * @author Stefan Habets
  */
 public class Method2Pos {
-
+    
     MergeSort mergesort = new MergeSort();
 
     //The method which "calculates" the position of the labels
@@ -18,13 +19,12 @@ public class Method2Pos {
         //Return the point in the original order
         return originalOrder(p);
     }
-
+    
     public void makeLiterals(int value) {
         for (int i = 0; i < value; i ++) {
             new Literal(i, true);
             new Literal(i, false);
         }
-        
         
         Literal go = new Literal(10, true);
         Literal good = new Literal(11, false);
@@ -44,42 +44,50 @@ public class Method2Pos {
         testClauses(clauses);
     }
     ArrayList clauses = new ArrayList();
-
+    
     public void makeClauses(Literal one, Literal two) {
         Clause test = new Clause(one, two);
         clauses.add(test);
     }
-
+    
     public void testClauses(List<Clause<Literal>> clauses) {
-        if (TwoSat.isSatisfiable(clauses) == null ) {
-       //     System.out.println("null");
-
+        Literal badPoint = TwoSat.isSatisfiable(clauses);
+        
+        if (badPoint == null) {
+            System.out.println("null");
         } else {
-            
-     //       System.out.println(TwoSat.isSatisfiable(clauses));
+            for (int j = 0; j < clauses.size(); j ++) {
+                if (clauses.get(j).first().value() == badPoint.value() || clauses.get(j).second().value() == badPoint.value()) {
+                    clauses.remove(j);
+                    j --;
+                }
+            }
+//            for (int i = 0; i < clauses.size(); i ++) {
+//                System.out.println(clauses.get(i));
+//            }
         }
     }
-
+    
     public void Quadtreee(Point[] p) {
         QuadTree qua = new QuadTree(1, 0, 20, 0, 20);
         ArrayList lijst = new ArrayList();
         for (Point points : p) {
             qua.insert(points);
-
+            
         }
         for (Point pointss : p) {
             lijst.clear();
             qua.retrieve(lijst, pointss);
 
-            //System.out.println("nieuwe " + pointss.getX() + " " + pointss.getY());
-            //for (int j = 0; j < lijst.size(); j ++) {
-                //Point point = (Point) lijst.get(j);
-                //System.out.println(point.getX() + " " + point.getY());
-
-            //}
+//            System.out.println("nieuwe " + pointss.getX() + " " + pointss.getY());
+//            for (int j = 0; j < lijst.size(); j ++) {
+//            Point point = (Point) lijst.get(j);
+//            System.out.println(point.getX() + " " + point.getY());
+//            }
         }
     }
 //Puts the points back into their original order as it was documented.
+
     public Point[] originalOrder(Point[] p) {
         //Original order output
         Point[] originalOrder = new Point[p.length];
@@ -88,10 +96,10 @@ public class Method2Pos {
         for (Point point : p) {
             originalOrder[point.getOrigin()] = point;
         }
-
+        
         return originalOrder;
     }
-
+    
     public void Output2Position(String s, int w, int h, int n_p, Point[] p) {
         //Reorder the points to the original order
         Point[] output = PositionCalculator(w, h, p);

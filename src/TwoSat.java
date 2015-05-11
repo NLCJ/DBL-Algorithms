@@ -50,7 +50,7 @@ public final class TwoSat {
      * @param formula The input 2-CNF formula.
      * @return Whether the formula has a satisfying assignment.
      */
-    public static <T> T isSatisfiable(List<Clause<T>> formula) {
+    public static <T> Literal isSatisfiable(List<Clause<T>> formula) {
         /* Begin by populating a set of all the variables in this formula. */
         Set<T> variables = new HashSet<T>();
         for (Clause<T> clause: formula) {
@@ -84,7 +84,7 @@ public final class TwoSat {
          */
         for (T variable: variables)
             if (scc.get(new Literal<T>(variable, true)).equals(scc.get(new Literal<T>(variable, false))))
-                return variable;
+                return new Literal(variable, true);
 
         /* If not, the formula must be satisfiable. */
         return null;
