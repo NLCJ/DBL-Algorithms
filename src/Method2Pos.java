@@ -24,12 +24,11 @@ public class Method2Pos {
         return originalOrder(p);
     }
 
-    public void makeLiterals(int value) {
+   // public void makeLiterals(int value) {
 //        for (int i = 0; i < value; i ++) {
 //            new Literal(i, true);
 //            new Literal(i, false);
 //        }
-
 //        Literal go = new Literal(10, true);
 //        Literal good = new Literal(11, false);
 //        makeClauses(go, good);
@@ -45,9 +44,8 @@ public class Method2Pos {
 //        Literal lita = new Literal(100, false);
 //        Literal litar = new Literal(2, true);
 //        makeClauses(lita, litar);
-        removeClauses(clauses);
-    }
-
+    //       removeClauses(clauses);
+//    }
     public void makeClauses(Literal one, Literal two) {
         Clause clause = new Clause(one, two);
         clauses.add(clause);
@@ -66,6 +64,9 @@ public class Method2Pos {
             if (p.getPosition().equals("NE")) {
                 Literal falseP = new Literal(p.getOrigin(), false);
                 for (int i = 0; i < collisions.size(); i ++) {
+                    if (collisions.get(i).equals(p)) {
+                        break;
+                    }
                     int value = collisions.get(i).getOrigin();
                     if (collisions.get(i).getPosition().equals("NE")) {
                         Literal falseCollision = new Literal(value, false);
@@ -80,6 +81,9 @@ public class Method2Pos {
             if (p.getPosition().equals("NW")) {
                 Literal trueP = new Literal(p.getOrigin(), true);
                 for (Point collision : collisions) {
+                    if (collision.equals(p)) {
+                        break;
+                    }
                     int value = collision.getOrigin();
                     if (collision.getPosition().equals("NE")) {
                         Literal falseCollision = new Literal(value, false);

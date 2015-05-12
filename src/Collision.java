@@ -681,9 +681,9 @@ public class Collision {
                 collisions.add(pp);
             }
         }
-        for (int i = 0; i < collisions.size(); i++) {
-            System.out.println(collisions.get(i).getX() + " x " + collisions.get(i).getY());
-        }
+//        for (int i = 0; i < collisions.size(); i++) {
+//            System.out.println(collisions.get(i).getX() + " x " + collisions.get(i).getY());
+//        }
         return collisions;
     }
 }
