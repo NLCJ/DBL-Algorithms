@@ -22,18 +22,14 @@ public class MethodSlider {
     public Point[] ShiftCalculator(int w, int h, Point[] p){
         
         // Start at the right bottom with placeing labels - thus inverting the sorted array
-        for ( Point point : p ) {
-            System.out.println(point.getX() + " " + point.getY() );
-        }
         Collections.reverse( Arrays.asList(p) );
-        for ( Point point : p ) {
-           // System.out.println( "Invert: " + point.getX() + " " + point.getY() );
-        }
             
         // Set the default slider position to 0
         for ( Point point : p ) {
             point.setSlider( 0 );
         }
+        
+        
 
         return originalOrder( p );
     }

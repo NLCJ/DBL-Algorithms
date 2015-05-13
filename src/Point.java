@@ -1,3 +1,6 @@
+
+import java.lang.reflect.Array;
+
 public class Point {
     private int x;
     private int y;
@@ -6,10 +9,11 @@ public class Point {
     private int origin;
     private double slider;
     private String position;
+    private String[] twoPositionArray = { "NE", "NW" };
     
     public Point(int x, int y, int height, int width, int origin){
         this.x = x;
-        this.y = y;
+        this.y = y; 
         this.height = height;
         this.width = width;
         this.origin = origin;
@@ -45,6 +49,10 @@ public class Point {
     
     public String getPosition() {
         return this.position;
+    }
+    
+    public String[] getTwoPosition() {
+        return this.twoPositionArray;
     }
     
     public void setSlider( double slider ) {
