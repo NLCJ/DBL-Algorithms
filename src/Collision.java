@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -32,8 +33,8 @@ public class Collision {
         }
 
         //------ p pos = NW
-        if (posp.equals("NW")) {
-            if (pospp.equals("NW")) {
+        if (Arrays.asList(posp).contains("NW")) {
+            if (Arrays.asList(pospp).contains("NW")) {
                 if (xp >= xpp) {
                     int gap = (xp - p.getWidth()) - xpp;
                     if (gap < 0) {
@@ -69,7 +70,7 @@ public class Collision {
                     }
                 }
             }
-            if (pospp.equals("NE")) {
+            if (Arrays.asList(pospp).contains("NE")) {
                 if (xp >= xpp) {
                     int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
                     if (gap < 0) {
@@ -182,8 +183,8 @@ public class Collision {
         }
 
         //------ p pos = NE
-        if (posp.equals("NE")) {
-            if (pospp.equals("NW")) {
+        if (Arrays.asList(posp).contains("NE")) {
+            if (Arrays.asList(pospp).contains("NW")) {
                 if (xp >= xpp) {
                     int gap = xp - xpp;
                     if (gap < 0) {
@@ -219,7 +220,7 @@ public class Collision {
                     }
                 }
             }
-            if (pospp.equals("NE")) {
+            if (Arrays.asList(pospp).contains("NE")) {
                 if (xp >= xpp) {
                     int gap = xp - (xpp + pp.getWidth());
                     if (gap < 0) {
@@ -630,39 +631,38 @@ public class Collision {
                 }
             }
         }
-        
+
         //-------p pos = slider 
-        
-        if(posp.equals("slider")){
-            if(xp >= xpp){
-                double gap = (xp - (p.getWidth()-p.getSlider())) - (xpp + pp.getSlider());
-                if (gap < 0){
-                    if(yp >= ypp){
+        if (posp.equals("slider")) {
+            if (xp >= xpp) {
+                double gap = (xp - (p.getWidth() - p.getSlider())) - (xpp + pp.getSlider());
+                if (gap < 0) {
+                    if (yp >= ypp) {
                         double ygap = yp - (ypp + pp.getHeight());
-                        if(ygap < 0){
+                        if (ygap < 0) {
                             return true;
                         }
                     }
-                    if(yp < ypp){
+                    if (yp < ypp) {
                         double ygap = ypp - (yp + p.getHeight());
-                        if(ygap < 0){
+                        if (ygap < 0) {
                             return true;
                         }
                     }
                 }
             }
-            if(xp < xpp){
-                double gap = (xpp - (pp.getWidth()-pp.getSlider())) - (xp + p.getSlider());
-                if (gap < 0){
-                    if(yp >= ypp){
+            if (xp < xpp) {
+                double gap = (xpp - (pp.getWidth() - pp.getSlider())) - (xp + p.getSlider());
+                if (gap < 0) {
+                    if (yp >= ypp) {
                         double ygap = yp - (ypp + pp.getHeight());
-                        if(ygap < 0){
+                        if (ygap < 0) {
                             return true;
                         }
                     }
-                    if(yp < ypp){
+                    if (yp < ypp) {
                         double ygap = ypp - (yp + p.getHeight());
-                        if(ygap < 0){
+                        if (ygap < 0) {
                             return true;
                         }
                     }
