@@ -8,6 +8,7 @@ public class Point {
     private int width;
     private int origin;
     private double slider;
+    private boolean sliderPossible = true;
     private String position;
     private String[] twoPositionArray = { "NE", "NW" };
     

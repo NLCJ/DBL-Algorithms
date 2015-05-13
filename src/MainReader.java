@@ -107,6 +107,12 @@ public class MainReader {
                 int y = sc.nextInt();
 
                 points[i] = new Point(x, y, height, width, i);
+                
+                // If slider - set the slider default to 1 and position to slider
+                if( placement_model.equals( "1slider" ) ) {
+                    points[i].setPosition( "slider" );
+                    points[i].setSlider( 1 );
+                }
             }
 
             mergesort.sort(points);

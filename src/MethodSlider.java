@@ -8,6 +8,7 @@ import java.util.Collections;
 public class MethodSlider {
     MergeSort mergesort = new MergeSort();
     private Point[] result;
+    private Collision collision = new Collision();
     
     /**
      * Return the result
@@ -28,9 +29,57 @@ public class MethodSlider {
             point.setSlider( 0 );
         }
         
-        
+        // Start placing the points
+        placePoints( p );
 
         return originalOrder( p );
+    }
+    
+    public void placePoints( Point[] points ) {
+        // For each point
+        for( int i = 1; i < points.length; i++ ) {
+            // Fix the collision - if any
+            fixCollision( points[ i ], points[ i - 1 ], 0.50, false );
+        }
+    }
+    
+    public void fixCollision( Point newPoint, Point oldPoint, double step, boolean die ) {
+        // Check if collision
+        if( this.collision.collide( newPoint, oldPoint ) ) {
+            newPoint.setSlider( newPoint.getSlider() - step );
+            
+            if( die ) {
+                return;
+            }
+            
+            // Check if step reached maximum
+            if( Double.compare( step, 0.0078125 ) == 0 ) {
+                // Check if the slider is at the mostleft
+                if( newPoint.getSlider() == 0 ) {
+                    // Remove the slider position
+                    newPoint.setSlider( -1 );      
+                } else {
+                    fixCollision( newPoint, oldPoint, 0.0078125, true );
+                }
+                return;
+            } else {
+                // Move slider again
+                fixCollision( newPoint, oldPoint, step / 2, false );
+            }
+        } else {
+            newPoint.setSlider( newPoint.getSlider() + step );
+            
+            // Check if step reached maximum
+            if( Double.compare( step, 0.0078125 ) == 0 ) {
+                // Check if I die
+                if( !die ) {
+                    fixCollision( newPoint, oldPoint, 0.0078125, true );
+                }
+            } else {
+                // Move slider again
+                fixCollision( newPoint, oldPoint, step / 2, false );
+            }
+        }
     }
     
     public Point[] originalOrder( Point[] p ) {
