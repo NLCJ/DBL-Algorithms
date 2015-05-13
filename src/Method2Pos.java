@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class Method2Pos {
         return originalOrder(p);
     }
 
-    public void makeLiterals() {
+//    public void makeLiterals() {
 //        for (int i = 0; i < value; i ++) {
 //            new Literal(i, true);
 //            new Literal(i, false);
@@ -42,7 +43,7 @@ public class Method2Pos {
 ////        Literal litar = new Literal(2, true);
 ////        makeClauses(lita, litar);
 //        removeClauses(clauses);
-    }
+//    }
 
     public void makeClauses(Literal one, Literal two) {
         Clause clause = new Clause(one, two);
@@ -58,35 +59,35 @@ public class Method2Pos {
 //            Point point = (Point) collisions.get(j);
 //            System.out.println(point.getX() + " aa " + point.getY());
 //       }
-            if (p.getPosition().equals("NE")) {
+            if (Arrays.asList(p.getTwoPosition()).contains("NE")) {
                 Literal falseP = new Literal(p.getOrigin(), false);
                 for (int i = 0; i < collisions.size(); i ++) {
                     if (collisions.get(i).equals(p)) {
                         break;
                     }
                     int value = collisions.get(i).getOrigin();
-                    if (collisions.get(i).getPosition().equals("NE")) {
+                    if (Arrays.asList(collisions.get(i).getTwoPosition()).contains("NE")) {
                         Literal falseCollision = new Literal(value, false);
                         makeClauses(falseP, falseCollision);
                     }
-                    if (collisions.get(i).getPosition().equals("NW")) {
+                    if (Arrays.asList(collisions.get(i).getTwoPosition()).contains("NW")) {
                         Literal trueCollision = new Literal(value, true);
                         makeClauses(falseP, trueCollision);
                     }
                 }
             }
-            if (p.getPosition().equals("NW")) {
+            if (Arrays.asList(p.getTwoPosition()).contains("NW")) {
                 Literal trueP = new Literal(p.getOrigin(), true);
                 for (Point collision : collisions) {
                     if (collision.equals(p)) {
                         break;
                     }
                     int value = collision.getOrigin();
-                    if (collision.getPosition().equals("NE")) {
+                    if (Arrays.asList(collision.getTwoPosition()).contains("NE")) {
                         Literal falseCollision = new Literal(value, false);
                         makeClauses(trueP, falseCollision);
                     }
-                    if (collision.getPosition().equals("NW")) {
+                    if (Arrays.asList(collision.getTwoPosition()).contains("NW")) {
                         Literal trueCollision = new Literal(value, true);
                         makeClauses(trueP, trueCollision);
                     }

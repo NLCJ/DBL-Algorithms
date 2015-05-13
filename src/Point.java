@@ -50,6 +50,9 @@ public class Point {
     public String getPosition() {
         return this.position;
     }
+    public String[] getTwoPosition() {
+        return this.twoPositionArray;
+    }
 
     public void setSlider(double slider) {
         this.slider = slider;
