@@ -17,7 +17,7 @@ public class Collision {
     public List<Point> collisions;
 
     public Collision() {
-        collisions = new ArrayList();
+        collisions = new ArrayList<>();
     }
 
     public boolean collide(Point p, Point pp) {

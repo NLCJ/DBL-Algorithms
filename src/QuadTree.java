@@ -22,7 +22,7 @@ public class QuadTree {
     
     public QuadTree(int lvl, int minx, int maxx, int miny, int maxy){
         level = lvl; //the level of the node
-        points = new ArrayList(); //new list for points on this node
+        points = new ArrayList<>(); //new list for points on this node
         node = new QuadTree[4]; //the 4 children NW NE SW SE
         xmin = minx; //the minimum x of the quadtree frame
         xmax = maxx; //the maximum x of the quadtree frame
