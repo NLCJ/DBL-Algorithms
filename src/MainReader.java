@@ -89,7 +89,7 @@ public class MainReader {
     void Reader() {
         try {
 
-            File file = new File("data-of-awesomeness.txt");
+            File file = new File("input.txt");
 
             Scanner sc = new Scanner(file);
 

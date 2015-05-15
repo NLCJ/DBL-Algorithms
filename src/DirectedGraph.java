@@ -1,29 +1,29 @@
-/*****************************************************************************
- * File: DirectedGraph.java
- * Author: Keith Schwarz (htiek@cs.stanford.edu)
- *
- * A class representing a directed graph.  Internally, the class is represented
- * by an adjacency list.
- */
+
 import java.util.*; // For HashMap, HashSet
 
+/**
+ *
+ * @author Stefan Habets
+ */
 public final class DirectedGraph<T> implements Iterable<T> {
     /* A map from nodes in the graph to sets of outgoing edges.  Each
      * set of edges is represented by a map from edges to doubles.
      */
+
     private final Map<T, Set<T>> mGraph = new HashMap<T, Set<T>>();
 
     /**
-     * Adds a new node to the graph.  If the node already exists, this
-     * function is a no-op.
+     * Adds a new node to the graph. If the node already exists, this function
+     * is a no-op.
      *
      * @param node The node to add.
      * @return Whether or not the node was added.
      */
     public boolean addNode(T node) {
         /* If the node already exists, don't do anything. */
-        if (mGraph.containsKey(node))
+        if (mGraph.containsKey(node)) {
             return false;
+        }
 
         /* Otherwise, add the node with an empty set of outgoing edges. */
         mGraph.put(node, new HashSet<T>());
@@ -31,29 +31,30 @@ public final class DirectedGraph<T> implements Iterable<T> {
     }
 
     /**
-     * Given a start node, and a destination, adds an arc from the start node 
-     * to the destination.  If an arc already exists, this operation is a 
-     * no-op.  If either endpoint does not exist in the graph, throws a 
+     * Given a start node, and a destination, adds an arc from the start node to
+     * the destination. If an arc already exists, this operation is a no-op. If
+     * either endpoint does not exist in the graph, throws a
      * NoSuchElementException.
      *
      * @param start The start node.
      * @param dest The destination node.
      * @throws NoSuchElementException If either the start or destination nodes
-     *                                do not exist.
+     * do not exist.
      */
     public void addEdge(T start, T dest) {
         /* Confirm both endpoints exist. */
-        if (!mGraph.containsKey(start) || !mGraph.containsKey(dest))
+        if ( ! mGraph.containsKey(start) ||  ! mGraph.containsKey(dest)) {
             throw new NoSuchElementException("Both nodes must be in the graph.");
+        }
 
         /* Add the edge. */
         mGraph.get(start).add(dest);
     }
 
     /**
-     * Removes the edge from start to dest from the graph.  If the edge does
-     * not exist, this operation is a no-op.  If either endpoint does not
-     * exist, this throws a NoSuchElementException.
+     * Removes the edge from start to dest from the graph. If the edge does not
+     * exist, this operation is a no-op. If either endpoint does not exist, this
+     * throws a NoSuchElementException.
      *
      * @param start The start node.
      * @param dest The destination node.
@@ -61,15 +62,16 @@ public final class DirectedGraph<T> implements Iterable<T> {
      */
     public void removeEdge(T start, T dest) {
         /* Confirm both endpoints exist. */
-        if (!mGraph.containsKey(start) || !mGraph.containsKey(dest))
+        if ( ! mGraph.containsKey(start) ||  ! mGraph.containsKey(dest)) {
             throw new NoSuchElementException("Both nodes must be in the graph.");
+        }
 
         mGraph.get(start).remove(dest);
     }
 
     /**
      * Given two nodes in the graph, returns whether there is an edge from the
-     * first node to the second node.  If either node does not exist in the
+     * first node to the second node. If either node does not exist in the
      * graph, throws a NoSuchElementException.
      *
      * @param start The start node.
@@ -79,15 +81,16 @@ public final class DirectedGraph<T> implements Iterable<T> {
      */
     public boolean edgeExists(T start, T end) {
         /* Confirm both endpoints exist. */
-        if (!mGraph.containsKey(start) || !mGraph.containsKey(end))
+        if ( ! mGraph.containsKey(start) ||  ! mGraph.containsKey(end)) {
             throw new NoSuchElementException("Both nodes must be in the graph.");
+        }
 
         return mGraph.get(start).contains(end);
     }
 
     /**
-     * Given a node in the graph, returns an immutable view of the edges
-     * leaving that node as a set of endpoints.
+     * Given a node in the graph, returns an immutable view of the edges leaving
+     * that node as a set of endpoints.
      *
      * @param node The node whose edges should be queried.
      * @return An immutable view of the edges leaving that node.
@@ -96,8 +99,9 @@ public final class DirectedGraph<T> implements Iterable<T> {
     public Set<T> edgesFrom(T node) {
         /* Check that the node exists. */
         Set<T> arcs = mGraph.get(node);
-        if (arcs == null)
+        if (arcs == null) {
             throw new NoSuchElementException("Source node does not exist.");
+        }
 
         return Collections.unmodifiableSet(arcs);
     }

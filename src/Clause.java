@@ -1,11 +1,10 @@
-/******************************************************************************
- * File: Clause.java
- * Author: Keith Schwarz (htiek@cs.stanford.edu)
+
+/**
  *
- * A class representing a clause in a 2SAT formula.  Each clause a disjunction
- * of two literals.
+ * @author Stefan Habets
  */
 public final class Clause<T> {
+
     private final Literal<T> mOne; // The two literals this clause is made of.
     private final Literal<T> mTwo;
 
