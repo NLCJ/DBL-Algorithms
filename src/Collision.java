@@ -1,7 +1,10 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -9,676 +12,120 @@ import java.util.List;
  */
 public class Collision {
 
-    public List<Point> collisions;
+    public List<Label> collisions;
 
     public Collision() {
         collisions = new ArrayList<>();
     }
 
-    public boolean collide(Point p, Point pp) {
-        String posp = p.getPosition();
-        String pospp = pp.getPosition();
-        int xp = p.getX();
-        int xpp = pp.getX();
-        int yp = p.getY();
-        int ypp = p.getY();
+    /**
+     * Checks for intersections of labels between point p and q
+     *
+     * @param p: the first point
+     * @param q: the second point
+     * @return List of labels that overlap
+     */
+    public static void collide(Point p, List<Label> q, Map<Label, Set<Label>> collisions) {
+        List<Label> pLabels = p.getLabels();
 
-        if (p.equals(pp)) {
-            return false;
-        }
-
-        //------ p pos = NW
-        if (Arrays.asList(posp).contains("NW")) {
-            if (Arrays.asList(pospp).contains("NW")) {
-                if (xp >= xpp) {
-                    int gap = (xp - p.getWidth()) - xpp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
+        for (Label lp : pLabels) {
+            for (Label lq : q) {
+                if (lp.equals(lq)) {
+                    continue;
                 }
-                if (xp < xpp) {
-                    int gap = (xpp - pp.getWidth()) - xp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (Arrays.asList(pospp).contains("NE")) {
-                if (xp >= xpp) {
-                    int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                if (xp < xpp) {
-                    int gap = xpp - xp;
-                    if (gap < 0) {
-                        if (yp > ypp) {
-                            int ygap = yp - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp > ypp) {
-                            int ygap = ypp - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (pospp.equals("SW")) {
-                if (xp >= xpp) {
-                    int gap = (xp - p.getWidth()) - xpp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                if (xp < xpp) {
-                    int gap = (xpp - pp.getWidth()) - xp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (pospp.equals("SE")) {
-                if (xp >= xpp) {
-                    int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                if (xp < xpp) {
-                    int gap = xpp - xp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp > ypp) {
-                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
+                if (intersects(lp, lq)) {
+                    addCollisionToMap(collisions, lp, lq);
                 }
             }
         }
+    }
 
-        //------ p pos = NE
-        if (Arrays.asList(posp).contains("NE")) {
-            if (Arrays.asList(pospp).contains("NW")) {
-                if (xp >= xpp) {
-                    int gap = xp - xpp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                if (xp < xpp) {
-                    int gap = (xpp - pp.getWidth()) - (xp + p.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (Arrays.asList(pospp).contains("NE")) {
-                if (xp >= xpp) {
-                    int gap = xp - (xpp + pp.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                if (xp < xpp) {
-                    int gap = xpp - (xp + p.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp > ypp) {
-                            int ygap = ypp - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (pospp.equals("SW")) {
-                if (xp >= xpp) {
-                    int gap = xp - xpp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                if (xp < xpp) {
-                    int gap = (xpp - pp.getWidth()) - (xp + p.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (pospp.equals("SE")) {
-                if (xp >= xpp) {
-                    int gap = xp - (xpp + pp.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                if (xp < xpp) {
-                    int gap = xpp - (xp + p.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = yp - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp > ypp) {
-                            int ygap = (ypp - pp.getHeight()) - (yp + p.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
+    /**
+     * Checks if two labels overlap
+     *
+     * @param p: first label
+     * @param q: second label
+     * @return p and q intersect
+     */
+    public static boolean intersects(Label p, Label q) {
+        if (Math.abs(p.getReference().getX() - q.getReference().getX()) < MainReader.width) {
+            if (Math.abs(p.getReference().getY() - q.getReference().getY()) < MainReader.height) {
+                return true;
             }
         }
-
-        //------ p pos = SW
-        if (posp.equals("SW")) {
-            if (pospp.equals("NW")) {
-                if (xp >= xpp) {
-                    int gap = (xp - p.getWidth()) - xpp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                if (xp < xpp) {
-                    int gap = (xpp - pp.getWidth()) - xp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (pospp.equals("NE")) {
-                if (xp >= xpp) {
-                    int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                if (xp < xpp) {
-                    int gap = xpp - xp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (pospp.equals("SW")) {
-                if (xp >= xpp) {
-                    int gap = (xp - p.getWidth()) - xpp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                if (xp < xpp) {
-                    int gap = (xpp - pp.getWidth()) - xp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (pospp.equals("SE")) {
-                if (xp >= xpp) {
-                    int gap = (xp - p.getWidth()) - (xpp + pp.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                if (xp < xpp) {
-                    int gap = xpp - xp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        //------ p pos = SE
-        if (posp.equals("SE")) {
-            if (pospp.equals("NW")) {
-                if (xp >= xpp) {
-                    int gap = xp - xpp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                if (xp < xpp) {
-                    int gap = (xpp - pp.getWidth()) - (xp + p.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (pospp.equals("NE")) {
-                if (xp >= xpp) {
-                    int gap = xp - (xpp + pp.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = ypp - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                if (xp < xpp) {
-                    int gap = xpp - (xp + p.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - (ypp + pp.getHeight());
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp > ypp) {
-                            int ygap = ypp - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (pospp.equals("SW")) {
-                if (xp >= xpp) {
-                    int gap = xp - xpp;
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                if (xp < xpp) {
-                    int gap = (xpp - pp.getWidth()) - (xp + p.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (pospp.equals("SE")) {
-                if (xp >= xpp) {
-                    int gap = xp - (xpp + pp.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                if (xp < xpp) {
-                    int gap = xpp - (xp + p.getWidth());
-                    if (gap < 0) {
-                        if (yp >= ypp) {
-                            int ygap = (yp - p.getHeight()) - ypp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                        if (yp < ypp) {
-                            int ygap = (ypp - pp.getHeight()) - yp;
-                            if (ygap < 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        //-------p pos = slider 
-        if (posp.equals("slider")) {
-            if (xp >= xpp) {
-                double gap = (xp - (p.getWidth() - p.getSlider())) - (xpp + pp.getSlider());
-                if (gap < 0) {
-                    if (yp >= ypp) {
-                        double ygap = yp - (ypp + pp.getHeight());
-                        if (ygap < 0) {
-                            return true;
-                        }
-                    }
-                    if (yp < ypp) {
-                        double ygap = ypp - (yp + p.getHeight());
-                        if (ygap < 0) {
-                            return true;
-                        }
-                    }
-                }
-            }
-            if (xp < xpp) {
-                double gap = (xpp - (pp.getWidth() - pp.getSlider())) - (xp + p.getSlider());
-                if (gap < 0) {
-                    if (yp >= ypp) {
-                        double ygap = yp - (ypp + pp.getHeight());
-                        if (ygap < 0) {
-                            return true;
-                        }
-                    }
-                    if (yp < ypp) {
-                        double ygap = ypp - (yp + p.getHeight());
-                        if (ygap < 0) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
         return false;
     }
 
-    public List allCollisions(List potential, Point p) {
+    /**
+     * Adds a collision to a given collisions mapping
+     *
+     * @param collisions: map of current collisions
+     * @param p: source label
+     * @param q: overlapping label
+     */
+    private static void addCollisionToMap(Map<Label, Set<Label>> collisions, Label p, Label q) {
+        Set<Label> temp;
+        final Point anchorP = p.getAnchor();
+        final Point anchorQ = q.getAnchor();
+        if (anchorP.getX() <= anchorQ.getX()) {
+            if (anchorP.getX() < anchorQ.getX()) {
+                temp = addCollisionL(collisions, p, q);
+                collisions.put(p, temp);
+            } else {
+                if (anchorP.getY() < anchorQ.getY()) {
+                    temp = addCollisionL(collisions, p, q);
+                    collisions.put(p, temp);
+                } else {
+                    temp = addCollisionL(collisions, q, p);
+                    collisions.put(q, temp);
+                }
+            }
+        } else {
+            temp = addCollisionL(collisions, q, p);
+            collisions.put(q, temp);
+        }
+    }
 
-        for (Object potential1 : potential) {
-            Point pp = (Point) potential1;
-            if (collide(p, pp)) {
-                collisions.add(pp);
+    private static Set<Label> addCollisionL(Map<Label, Set<Label>> collisions, Label p, Label q) {
+        Set<Label> temp;
+        if (collisions.containsKey(p)) {
+            temp = collisions.get(p);
+        } else {
+            temp = new HashSet<Label>();
+        }
+        temp.add(q);
+        return temp;
+    }
+
+    private static void removeCollisionFromMap(Map<Label, Set<Label>> collisions, Label p, Label q) {
+        final Set<Label> getP = collisions.get(p);
+        if (getP != null &&  ! getP.isEmpty()) {
+            getP.remove(q);
+            if (getP.isEmpty()) {
+                collisions.remove(p);
             }
         }
-//        for (int i = 0; i < collisions.size(); i++) {
-//            System.out.println(collisions.get(i).getX() + " x " + collisions.get(i).getY());
-//        }
+        final Set<Label> getQ = collisions.get(q);
+        if (getQ != null &&  ! getQ.isEmpty()) {
+            getQ.remove(p);
+            if (getQ.isEmpty()) {
+                collisions.remove(q);
+            }
+        }
+    }
+
+    public List allCollisions(List potential, Label l) {
+        for (Object potential1 : potential) {
+            Label l2 = (Label) potential1;
+            if (intersects(l, l2)) {
+                collisions.add(l2);
+            }
+        }
+        return collisions;
+    }
+
+    public static Map<Label, Set<Label>> allCollisions(List<Label> potential, Point p, Map<Label, Set<Label>> collisions) {
+        collide(p, potential, collisions);
         return collisions;
     }
 }
