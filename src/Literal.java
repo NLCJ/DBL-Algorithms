@@ -4,22 +4,20 @@
  * @author Stefan Habets
  */
 public final class Literal<T> {
-
     private final T mValue;            // The variable in question
     private final boolean mIsPositive; // Whether this is X (true) or ~X (false)
 
     /**
-     * Constructs a new literal from the specified value and sign. Null literals
-     * are not supported.
+     * Constructs a new literal from the specified value and sign.  Null
+     * literals are not supported.
      *
      * @param value The value representing the literal.
      * @param isPositive Whether the value is positive or negative.
      */
     public Literal(T value, boolean isPositive) {
         /* Check that the value is indeed non-null. */
-        if (value == null) {
+        if (value == null)
             throw new NullPointerException("Cannot use null literals.");
-        }
 
         mValue = value;
         mIsPositive = isPositive;
@@ -31,7 +29,11 @@ public final class Literal<T> {
      * @return A Literal holding the negation of this literal.
      */
     public Literal<T> negation() {
-        return new Literal<T>(value(),  ! isPositive());
+        return new Literal<T>(value(), !isPositive());
+    }
+    
+    public Placement getPlacement(){
+        return mIsPositive ? Placement.NE : Placement.NW;
     }
 
     /**
@@ -71,9 +73,8 @@ public final class Literal<T> {
     @Override
     public boolean equals(Object obj) {
         /* Confirm that the other object has the proper type. */
-        if ( ! (obj instanceof Literal)) {
+        if (!(obj instanceof Literal))
             return false;
-        }
 
         /* Downcast, then do a field-by-field comparison. */
         Literal<?> realObj = (Literal) obj;

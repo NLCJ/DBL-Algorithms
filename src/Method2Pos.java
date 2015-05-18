@@ -1,7 +1,9 @@
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -10,156 +12,93 @@ import java.util.List;
 public class Method2Pos {
 
     private Point[] result;
-    ArrayList clauses = new ArrayList();
-    ArrayList<Point> possibleCollisions = new ArrayList();
+    ArrayList<Clause<Point>> clauses = new ArrayList<Clause<Point>>();
     Collision c = new Collision();
     QuadTree quad = new QuadTree(1, 0, 20, 0, 20);
 
     //The method which "calculates" the position of the labels
     public Point[] PositionCalculator(int w, int h, Point[] p) {
-        //Set default position to NE
-        for (Point point : p) {
-            point.setPosition("NE");
-        }
         //Return the point in the original order
-        return originalOrder(p);
+        this.result = MergeSort.originalOrder(p);
+        return result;
     }
 
-//    public void makeLiterals() {
-//        for (int i = 0; i < value; i ++) {
-//            new Literal(i, true);
-//            new Literal(i, false);
-//        }
-//        Literal li = new Literal(100, true);
-//        Literal lit = new Literal(2, false);
-//        makeClauses(li, lit);
-//        Literal lite = new Literal(100, true);
-//        Literal liter = new Literal(2, true);
-//        makeClauses(lite, liter);
-//        Literal litera = new Literal(100, false);
-//        Literal literal = new Literal(2, false);
-//        makeClauses(litera, literal);
-////        Literal lita = new Literal(100, false);
-////        Literal litar = new Literal(2, true);
-////        makeClauses(lita, litar);
-//        removeClauses(clauses);
-//    }
-
-    public void makeClauses(Literal one, Literal two) {
-        Clause clause = new Clause(one, two);
-        clauses.add(clause);
-    }
-
-    public void searchClauses(Point[] points) {
-        List<Point> collisions = new ArrayList();
+    public void quadtree(Point[] points) {
         for (Point p : points) {
-            collisions.clear();
-            collisions = realCollisions(posCollisions(p), p);
-//        for (int j = 0; j < collisions.size(); j ++) {
-//            Point point = (Point) collisions.get(j);
-//            System.out.println(point.getX() + " aa " + point.getY());
-//       }
-            if (Arrays.asList(p.getTwoPosition()).contains("NE")) {
-                Literal falseP = new Literal(p.getOrigin(), false);
-                for (int i = 0; i < collisions.size(); i ++) {
-                    if (collisions.get(i).equals(p)) {
-                        break;
-                    }
-                    int value = collisions.get(i).getOrigin();
-                    if (Arrays.asList(collisions.get(i).getTwoPosition()).contains("NE")) {
-                        Literal falseCollision = new Literal(value, false);
-                        makeClauses(falseP, falseCollision);
-                    }
-                    if (Arrays.asList(collisions.get(i).getTwoPosition()).contains("NW")) {
-                        Literal trueCollision = new Literal(value, true);
-                        makeClauses(falseP, trueCollision);
-                    }
-                }
-            }
-            if (Arrays.asList(p.getTwoPosition()).contains("NW")) {
-                Literal trueP = new Literal(p.getOrigin(), true);
-                for (Point collision : collisions) {
-                    if (collision.equals(p)) {
-                        break;
-                    }
-                    int value = collision.getOrigin();
-                    if (Arrays.asList(collision.getTwoPosition()).contains("NE")) {
-                        Literal falseCollision = new Literal(value, false);
-                        makeClauses(trueP, falseCollision);
-                    }
-                    if (Arrays.asList(collision.getTwoPosition()).contains("NW")) {
-                        Literal trueCollision = new Literal(value, true);
-                        makeClauses(trueP, trueCollision);
-                    }
-                }
-            }
+            p.getLabels().stream().forEach((l) -> {
+                quad.insert(l);
+            });
         }
-        for (int i = 0; i < clauses.size(); i ++) {
-            System.out.println(clauses.get(i));
-        }
-        removeClauses(clauses);
     }
 
-    public void removeClauses(List<Clause<Literal>> clauses) {
+    public void findCollisions(Point[] points) {
+        Map<Label, Set<Label>> collisions = new HashMap<Label, Set<Label>>();
+        for (Point p : points) {
+            Collision.allCollisions(posCollisions(p), p, collisions);
+        }
+
+        for (Label l : collisions.keySet()) {
+            Set<Label> labels = collisions.get(l);
+            if (labels != null) {
+                for (Label l2 : labels) {
+                    clauses.add(new Clause<Point>(l.convertToLiteral(), l2.convertToLiteral()));
+                    clauses.add(new Clause<Point>(l2.convertToLiteral(), l.convertToLiteral()));
+                }
+            }
+        }
+        
+        //TODO clauses are only from not to not! something wrong here!
+        System.out.println("Clauses: " + clauses);
+        System.out.println("Collisions: " + collisions);
+        
         while (TwoSat.isSatisfiable(clauses) != null) {
-            Literal badPoint = TwoSat.isSatisfiable(clauses);
+            Clause<Point> badPoint = TwoSat.isSatisfiable(clauses);
+
+            badPoint.first().value().removeLabel(badPoint.first().getPlacement());
+            badPoint.second().value().removeLabel(badPoint.second().getPlacement());
 
             System.out.println("niet nullo " + badPoint.toString());
-            for (int j = 0; j < clauses.size(); j ++) {
-                if (clauses.get(j).first().value() == badPoint.value() || clauses.get(j).second().value() == badPoint.value()) {
+            for (int j = 0; j < clauses.size(); j++) {
+                if (clauses.get(j).first().value() == badPoint.first().value() || clauses.get(j).second().value() == badPoint.first().value()
+                        || clauses.get(j).first().value() == badPoint.second().value() || clauses.get(j).second().value() == badPoint.second().value()
+                        ) {
+                    System.out.println("Removing clause " + clauses.get(j));
                     clauses.remove(j);
-                    j --;
+                    j--;
                 }
             }
-            for (int i = 0; i < clauses.size(); i ++) {
+
+            for (int i = 0; i < clauses.size(); i++) {
                 System.out.println(clauses.get(i));
             }
         }
-        System.out.println("nullo");
+
+        /*for (Point p : MainReader.points) {
+            System.out.println(p.getLabels());
+        }*/
     }
 
-    public void quadtreee(Point[] p) {
-        for (Point points : p) {
-            quad.insert(points);
-        }
-    }
-
-    public ArrayList posCollisions(Point p) {
-
-        possibleCollisions.clear();
-        quad.retrieve(possibleCollisions, p);
-
-//        for (int j = 0; j < possibleCollisions.size(); j ++) {
-//            Point point = (Point) possibleCollisions.get(j);
-//            System.out.println(point.getX() + " " + point.getY());
-//        }
-        return possibleCollisions;
-    }
-
-    public List realCollisions(ArrayList possiCollisions, Point p) {
-        List<Point> col = new ArrayList();
+    public List validCollisions(ArrayList possiCollisions, Label l) {
+        List<Label> col = new ArrayList();
         col.clear();
-        col = c.allCollisions(possiCollisions, p);
-//        for (int i = 0; i < testt.size(); i++) {
-//            System.out.println(testt.get(i).getX() + " uu " + testt.get(i).getY());
-//        }
+        col = c.allCollisions(possiCollisions, l);
         return col;
     }
 
-//Puts the points back into their original order as it was documented.
-    public Point[] originalOrder(Point[] p) {
-        //Original order output
-        Point[] originalOrder = new Point[p.length];
+    public ArrayList posCollisions(Label l) {
+        ArrayList<Label> possibleCollisions = new ArrayList();
+        possibleCollisions.clear();
+        quad.retrieve(possibleCollisions, l);
+        return possibleCollisions;
+    }
 
-        //For each point - place at the original position
-        for (Point point : p) {
-            originalOrder[point.getOrigin()] = point;
+    public ArrayList<Label> posCollisions(Point p) {
+        ArrayList<Label> possibleCollisions = new ArrayList<Label>();
+        possibleCollisions.clear();
+        for (Label l : p.getLabels()) {
+            quad.retrieve(possibleCollisions, l);
         }
-
-        // Store the result
-        this.result = originalOrder;
-
-        return originalOrder;
+        return possibleCollisions;
     }
 
     public void Output2Position(String s, int w, int h, int n_p, Point[] p) {
@@ -173,9 +112,13 @@ public class Method2Pos {
         System.out.println("numbers of labels: " + n_p);
 
         //Output each of the points
-//        for (Point point : output) {
-//            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
-//        }
+        for (Point point : output) {
+            if (!point.getLabels().isEmpty()) {
+                System.out.println(point.getX() + " " + point.getY() + " " + point.getLabels().get(0).getPlacement());
+            } else {
+                System.out.println(point.getX() + " " + point.getY() + " NA");
+            }
+        }
     }
 
     /**

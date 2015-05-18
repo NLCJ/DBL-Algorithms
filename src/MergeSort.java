@@ -1,4 +1,3 @@
-
 /**
  *
  * @author s130973
@@ -7,8 +6,23 @@ public class MergeSort {
 
     private Point[] numbers;
     private Point[] helper;
-
     private int amount_of_points;
+
+    //Puts the points back into their original order as it was documented.
+    public static Point[] originalOrder(Point[] p) {
+        //Original order output
+        Point[] originalOrder = new Point[p.length];
+
+        //For each point - place at the original position
+        for (Point point : p) {
+            originalOrder[point.getOrigin()] = point;
+        }
+
+        // Store the result
+        //this.result = originalOrder;
+
+        return originalOrder;
+    }
 
     public void sort(Point[] values) {
 
@@ -38,8 +52,8 @@ public class MergeSort {
     private void mergeY(int low, int middle, int high) {
 
         // Copy both parts into the helper array
-        for (int i = low; i <= high; i ++) {
-            helper[i] = new Point(numbers[i].getX(), numbers[i].getY(), numbers[i].getHeight(), numbers[i].getWidth(), numbers[i].getOrigin());
+        for (int i = low; i <= high; i++) {
+            helper[i] = numbers[i];
         }
 
         int i = low;
@@ -49,25 +63,19 @@ public class MergeSort {
         // to the original array
         while (i <= middle && j <= high) {
             if (helper[i].getY() <= helper[j].getY()) {
-                numbers[k].setX(helper[i].getX());
-                numbers[k].setY(helper[i].getY());
-                numbers[k].setOrigin(helper[i].getOrigin());
-                i ++;
+                numbers[k] = helper[i];
+                i++;
             } else {
-                numbers[k].setX(helper[j].getX());
-                numbers[k].setY(helper[j].getY());
-                numbers[k].setOrigin(helper[j].getOrigin());
-                j ++;
+                numbers[k] = helper[j];
+                j++;
             }
-            k ++;
+            k++;
         }
         // Copy the rest of the left side of the array into the target array
         while (i <= middle) {
-            numbers[k].setX(helper[i].getX());
-            numbers[k].setY(helper[i].getY());
-            numbers[k].setOrigin(helper[i].getOrigin());
-            k ++;
-            i ++;
+            numbers[k] = helper[i];
+            k++;
+            i++;
         }
 
     }
@@ -90,10 +98,8 @@ public class MergeSort {
     private void mergeX(int low, int middle, int high) {
 
         // Copy both parts into the helper array
-        for (int i = low; i <= high; i ++) {
-            helper[i].setX(numbers[i].getX());
-            helper[i].setY(numbers[i].getY());
-            helper[i].setOrigin(numbers[i].getOrigin());
+        for (int i = low; i <= high; i++) {
+            helper[i] = numbers[i];
         }
 
         int i = low;
@@ -105,29 +111,21 @@ public class MergeSort {
             // Set the variables to switch 
 
             if (helper[i].getX() <= helper[j].getX()) {
-                numbers[k].setX(helper[i].getX());
-                numbers[k].setY(helper[i].getY());
-                numbers[k].setOrigin(helper[i].getOrigin());
+                numbers[k] = helper[i];
 
-                helper[i].setX(numbers[k].getX());
-                helper[i].setY(numbers[k].getY());
-                helper[i].setOrigin(numbers[k].getOrigin());
-                i ++;
+                helper[i] = numbers[k];
+                i++;
             } else {
-                numbers[k].setX(helper[j].getX());
-                numbers[k].setY(helper[j].getY());
-                numbers[k].setOrigin(helper[j].getOrigin());
-                j ++;
+                numbers[k] = helper[j];
+                j++;
             }
-            k ++;
+            k++;
         }
         // Copy the rest of the left side of the array into the target array
         while (i <= middle) {
-            numbers[k].setX(helper[i].getX());
-            numbers[k].setY(helper[i].getY());
-            numbers[k].setOrigin(helper[i].getOrigin());
-            k ++;
-            i ++;
+            numbers[k] = helper[i];
+            k++;
+            i++;
         }
 
     }
