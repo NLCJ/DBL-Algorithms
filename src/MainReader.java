@@ -87,6 +87,7 @@ class MainReader {
     void Reader() {
       //  System.out.println("Reading file");
         try {
+
             File file = new File("input.txt");
 
             Scanner sc = new Scanner(file);
