@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,12 +21,15 @@ class MainReader {
 
     public static int width;
     public static int height;
+    public static int numberLabels;
 
     public MainReader() {
 
     }
 
     Method2Pos pos_2 = new Method2Pos();
+    Method4Pos pos_4 = new Method4Pos();
+    MethodSlider slider = new MethodSlider();
     MergeSort mergesort = new MergeSort();
     public static Point[] points;
     public static Model pModel;
@@ -34,7 +38,7 @@ class MainReader {
     private JPanel p;
     private JLabel l;
     private JPanel plot;
-    
+
     /*
      In order to view the panel correcly
      switch to full screen mode. 
@@ -79,11 +83,11 @@ class MainReader {
             }
         }
     }
-    
+
     void Reader() {
-        System.out.println("Reading file");
+      //  System.out.println("Reading file");
         try {
-            File file = new File("src/label/input.txt");
+            File file = new File("input.txt");
 
             Scanner sc = new Scanner(file);
 
@@ -93,11 +97,12 @@ class MainReader {
             width = Integer.parseInt(sc.nextLine().substring(7));
             height = Integer.parseInt(sc.nextLine().substring(8));
             int number_points = Integer.parseInt(sc.nextLine().substring(18));
+            numberLabels = number_points;
 
             // Create array for points
             points = new Point[number_points];
             // Place each point in the array
-            for (int i = 0; i < number_points; i++) {
+            for (int i = 0; i < number_points; i ++) {
                 int x = sc.nextInt();
                 int y = sc.nextInt();
 
@@ -113,7 +118,14 @@ class MainReader {
                 //pos_2.makeLiterals();
                 pos_2.Output2Position(placement_model, width, height, number_points, points);
                 //Gui(placement_model, width, height, number_points, points_2pos);
-
+            }
+            if (placement_model.equals("4pos")) {
+                Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
+                pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
+            }
+             if (placement_model.equals("1slider")) {
+                Point[] points_slider = slider.originalOrder(points);
+                slider.OutputSlider(placement_model, width, height, number_points, points_slider);
             }
 
         } catch (FileNotFoundException ex) {

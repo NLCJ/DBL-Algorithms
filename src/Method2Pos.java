@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -46,36 +47,36 @@ public class Method2Pos {
                 }
             }
         }
-        
+
         //TODO clauses are only from not to not! something wrong here!
-        System.out.println("Clauses: " + clauses);
-        System.out.println("Collisions: " + collisions);
-        
+       // System.out.println("Clauses: " + clauses);
+       // System.out.println("Collisions: " + collisions);
+
         while (TwoSat.isSatisfiable(clauses) != null) {
             Clause<Point> badPoint = TwoSat.isSatisfiable(clauses);
+            MainReader.numberLabels --;
 
             badPoint.first().value().removeLabel(badPoint.first().getPlacement());
             badPoint.second().value().removeLabel(badPoint.second().getPlacement());
 
-            System.out.println("niet nullo " + badPoint.toString());
-            for (int j = 0; j < clauses.size(); j++) {
+         //   System.out.println("niet nullo " + badPoint.toString());
+            for (int j = 0; j < clauses.size(); j ++) {
                 if (clauses.get(j).first().value() == badPoint.first().value() || clauses.get(j).second().value() == badPoint.first().value()
-                        || clauses.get(j).first().value() == badPoint.second().value() || clauses.get(j).second().value() == badPoint.second().value()
-                        ) {
-                    System.out.println("Removing clause " + clauses.get(j));
+                        || clauses.get(j).first().value() == badPoint.second().value() || clauses.get(j).second().value() == badPoint.second().value()) {
+               //     System.out.println("Removing clause " + clauses.get(j));
                     clauses.remove(j);
-                    j--;
+                    j --;
                 }
             }
 
-            for (int i = 0; i < clauses.size(); i++) {
-                System.out.println(clauses.get(i));
-            }
+//            for (int i = 0; i < clauses.size(); i ++) {
+//                System.out.println(clauses.get(i));
+//            }
         }
 
         /*for (Point p : MainReader.points) {
-            System.out.println(p.getLabels());
-        }*/
+         System.out.println(p.getLabels());
+         }*/
     }
 
     public List validCollisions(ArrayList possiCollisions, Label l) {
@@ -109,14 +110,14 @@ public class Method2Pos {
         System.out.println("width: " + w);
         System.out.println("height: " + h);
         System.out.println("number of points: " + n_p);
-        System.out.println("numbers of labels: " + n_p);
+        System.out.println("numbers of labels: " + MainReader.numberLabels);
 
         //Output each of the points
         for (Point point : output) {
-            if (!point.getLabels().isEmpty()) {
-                System.out.println(point.getX() + " " + point.getY() + " " + point.getLabels().get(0).getPlacement());
+            if ( ! point.getLabels().isEmpty()) {
+                System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
             } else {
-                System.out.println(point.getX() + " " + point.getY() + " NA");
+                System.out.println((int) point.getX() + " " + (int) point.getY() + " NILL");
             }
         }
     }

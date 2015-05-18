@@ -4,17 +4,15 @@
  * @author Ivan Kozlov
  */
 public class Method4Pos {
+
     private Point[] result;
     MergeSort mergesort = new MergeSort();
 
     //The method which "calculates" the position of the labels
     public Point[] PositionCalculator(int w, int h, Point[] p) {
-        //Set default position to NE
-        for (Point point : p) {
-            point.setPosition("NE");
-        }
         //Return the point in the original order
-        return originalOrder(p);
+        this.result = MergeSort.originalOrder(p);
+        return result;
     }
 
     //Puts the points back into their original order as it was documented.
@@ -29,14 +27,14 @@ public class Method4Pos {
 
         return originalOrder;
     }
-    
+
     public void Output4Position(String s, int w, int h, int n_p, Point[] p) {
         //Reorder the points to the original order
         Point[] output = PositionCalculator(w, h, p);
-        
+
         // Store the result
         this.result = output;
-        
+
         //Required static outpu
         System.out.println("placement model: " + s);
         System.out.println("width: " + w);
@@ -46,12 +44,17 @@ public class Method4Pos {
 
         //Output each of the points
         for (Point point : output) {
-            System.out.println(point.getX() + " " + point.getY() + " " + point.getPosition());
+            if ( ! point.getLabels().isEmpty()) {
+                System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
+            } else {
+                System.out.println((int) point.getX() + " " + (int) point.getY() + " NA");
+            }
         }
     }
-    
+
     /**
      * Return the result
+     *
      * @return
      */
     public Point[] getResult() {

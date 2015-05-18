@@ -25,9 +25,9 @@ public class MethodSlider {
         Collections.reverse( Arrays.asList(p) );
             
         // Set the default slider position to 0
-        for ( Point point : p ) {
-            point.setSlider( 0 );
-        }
+//        for ( Point point : p ) {
+//            point.setShift( 0 );
+//        }
         
         // Start placing the points
         placePoints( p );
@@ -45,41 +45,41 @@ public class MethodSlider {
     
     public void fixCollision( Point newPoint, Point oldPoint, double step, boolean die ) {
         // Check if collision
-        if( this.collision.collide( newPoint, oldPoint ) ) {
-            newPoint.setSlider( newPoint.getSlider() - step );
-            
-            if( die ) {
-                return;
-            }
-            
-            // Check if step reached maximum
-            if( Double.compare( step, 0.0078125 ) == 0 ) {
-                // Check if the slider is at the mostleft
-                if( newPoint.getSlider() == 0 ) {
-                    // Remove the slider position
-                    newPoint.setSlider( -1 );      
-                } else {
-                    fixCollision( newPoint, oldPoint, 0.0078125, true );
-                }
-                return;
-            } else {
-                // Move slider again
-                fixCollision( newPoint, oldPoint, step / 2, false );
-            }
-        } else {
-            newPoint.setSlider( newPoint.getSlider() + step );
-            
-            // Check if step reached maximum
-            if( Double.compare( step, 0.0078125 ) == 0 ) {
-                // Check if I die
-                if( !die ) {
-                    fixCollision( newPoint, oldPoint, 0.0078125, true );
-                }
-            } else {
-                // Move slider again
-                fixCollision( newPoint, oldPoint, step / 2, false );
-            }
-        }
+//        if( this.collision.collide( newPoint, oldPoint ) ) {
+//            newPoint.setSlider( newPoint.getSlider() - step );
+//            
+//            if( die ) {
+//                return;
+//            }
+//            
+//            // Check if step reached maximum
+//            if( Double.compare( step, 0.0078125 ) == 0 ) {
+//                // Check if the slider is at the mostleft
+//                if( newPoint.getSlider() == 0 ) {
+//                    // Remove the slider position
+//                    newPoint.setSlider( -1 );      
+//                } else {
+//                    fixCollision( newPoint, oldPoint, 0.0078125, true );
+//                }
+//                return;
+//            } else {
+//                // Move slider again
+//                fixCollision( newPoint, oldPoint, step / 2, false );
+//            }
+//        } else {
+//            newPoint.setSlider( newPoint.getSlider() + step );
+//            
+//            // Check if step reached maximum
+//            if( Double.compare( step, 0.0078125 ) == 0 ) {
+//                // Check if I die
+//                if( !die ) {
+//                    fixCollision( newPoint, oldPoint, 0.0078125, true );
+//                }
+//            } else {
+//                // Move slider again
+//                fixCollision( newPoint, oldPoint, step / 2, false );
+//            }
+//        }
     }
     
     public Point[] originalOrder( Point[] p ) {
@@ -111,7 +111,7 @@ public class MethodSlider {
 
         // Output each of the points
         for ( Point point : output ) {
-            System.out.println( point.getX() + " " + point.getY() + " " + point.getSlider() );
+            System.out.println( (int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getShift() );
         }
     }
 }
