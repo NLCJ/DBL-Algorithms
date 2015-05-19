@@ -110,7 +110,7 @@ public class Method2Pos {
         System.out.println("width: " + w);
         System.out.println("height: " + h);
         System.out.println("number of points: " + n_p);
-        System.out.println("numbers of labels: " + MainReader.numberLabels);
+        System.out.println("number of labels: " + MainReader.numberLabels);
 
         //Output each of the points
         for (Point point : output) {

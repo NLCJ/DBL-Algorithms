@@ -40,7 +40,7 @@ public class Method4Pos {
         System.out.println("width: " + w);
         System.out.println("height: " + h);
         System.out.println("number of points: " + n_p);
-        System.out.println("nubmers of labels: " + n_p);
+        System.out.println("number of labels: " + n_p);
 
         //Output each of the points
         for (Point point : output) {
