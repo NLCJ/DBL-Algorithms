@@ -78,7 +78,7 @@ class MainReader {
             for (int i = 0; i < pnt.length; i ++) {
                 x_p[i][0] = (int) pnt[i].getX();
                 x_p[i][1] = (int) pnt[i].getY();
-                pos_s[i] = pnt[i].getLabels().get(0).getPlacement().toString();
+//                pos_s[i] = pnt[i].getLabels().get(0).getPlacement().toString();
 
             }
         }
@@ -118,15 +118,17 @@ class MainReader {
                 //pos_2.searchClauses(points);
                 //pos_2.makeLiterals();
                 pos_2.Output2Position(placement_model, width, height, number_points, points);
-                //Gui(placement_model, width, height, number_points, points_2pos);
+                Gui(placement_model, width, height, number_points, points_2pos);
             }
             if (placement_model.equals("4pos")) {
                 Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
                 pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
+                Gui(placement_model, width, height, number_points, points_4pos);
             }
              if (placement_model.equals("1slider")) {
                 Point[] points_slider = slider.originalOrder(points);
                 slider.OutputSlider(placement_model, width, height, number_points, points_slider);
+                Gui(placement_model, width, height, number_points, points_slider);
             }
 
         } catch (FileNotFoundException ex) {
