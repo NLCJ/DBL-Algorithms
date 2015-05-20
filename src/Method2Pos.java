@@ -15,7 +15,7 @@ public class Method2Pos {
     private Point[] result;
     ArrayList<Clause<Point>> clauses = new ArrayList<Clause<Point>>();
     Collision c = new Collision();
-    QuadTree quad = new QuadTree(1, 0, 20, 0, 20);
+    QuadTree quad = new QuadTree(10, 0, 20, 0, 20);
 
     //The method which "calculates" the position of the labels
     public Point[] PositionCalculator(int w, int h, Point[] p) {
@@ -49,9 +49,8 @@ public class Method2Pos {
         }
 
         //TODO clauses are only from not to not! something wrong here!
-       // System.out.println("Clauses: " + clauses);
-       // System.out.println("Collisions: " + collisions);
-
+        // System.out.println("Clauses: " + clauses);
+        // System.out.println("Collisions: " + collisions);
         while (TwoSat.isSatisfiable(clauses) != null) {
             Clause<Point> badPoint = TwoSat.isSatisfiable(clauses);
             MainReader.numberLabels --;
@@ -59,11 +58,11 @@ public class Method2Pos {
             badPoint.first().value().removeLabel(badPoint.first().getPlacement());
             badPoint.second().value().removeLabel(badPoint.second().getPlacement());
 
-         //   System.out.println("niet nullo " + badPoint.toString());
+            //   System.out.println("niet nullo " + badPoint.toString());
             for (int j = 0; j < clauses.size(); j ++) {
                 if (clauses.get(j).first().value() == badPoint.first().value() || clauses.get(j).second().value() == badPoint.first().value()
                         || clauses.get(j).first().value() == badPoint.second().value() || clauses.get(j).second().value() == badPoint.second().value()) {
-               //     System.out.println("Removing clause " + clauses.get(j));
+                    //     System.out.println("Removing clause " + clauses.get(j));
                     clauses.remove(j);
                     j --;
                 }
@@ -84,13 +83,6 @@ public class Method2Pos {
         col.clear();
         col = c.allCollisions(possiCollisions, l);
         return col;
-    }
-
-    public ArrayList posCollisions(Label l) {
-        ArrayList<Label> possibleCollisions = new ArrayList();
-        possibleCollisions.clear();
-        quad.retrieve(possibleCollisions, l);
-        return possibleCollisions;
     }
 
     public ArrayList<Label> posCollisions(Point p) {

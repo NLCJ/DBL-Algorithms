@@ -6,7 +6,6 @@ import javax.swing.*;
  *
  * @author Ivan Kozlov
  */
-
 public class PlotPanel extends JPanel {
 
     int[][] x_p;
@@ -40,11 +39,13 @@ public class PlotPanel extends JPanel {
             g2d.fillOval(x - 2, y - 2, 4, 4);
 
             if (s.equals("2pos")) {
-                if (pnt[i].getLabels().get(0).getPlacement().equals("NE")) {
-                    g2d.drawRect(x, y - width, height, width);
-                } else {
-                    if (pnt[i].getLabels().get(0).getPlacement().equals("NW")) {
-                        g2d.drawRect(x - height, y - width, height, width);
+                if (!(pnt[i].getLabels().isEmpty())) {
+                    if (pnt[i].getLabels().get(0).getPlacement().equals("NE")) {
+                        g2d.drawRect(x, y - width, height, width);
+                    } else {
+                        if (pnt[i].getLabels().get(0).getPlacement().equals("NW")) {
+                            g2d.drawRect(x - height, y - width, height, width);
+                        }
                     }
                 }
             }

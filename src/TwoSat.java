@@ -1,3 +1,4 @@
+
 import java.util.*;
 
 /**
@@ -20,8 +21,8 @@ public final class TwoSat {
             variables.add(clause.first().value());
             variables.add(clause.second().value());
         }
-        
-       // System.out.println("Variables: " + variables);
+
+        // System.out.println("Variables: " + variables);
 
         /* Construct the directed graph of implications.  Begin by creating the
          * nodes.
@@ -46,21 +47,20 @@ public final class TwoSat {
 //            System.out.println(l + " TO " + implications.edgesFrom(l));
 //        }
 
-        /* Compute the SCCs of this graph using Kosaraju's algorithm. */
+        /* Compute the SCCs of this graph */
         Map<Literal<T>, Integer> scc = SCC.stronglyConnectedComponents(implications);
 
         /* Finally, check whether any literal and its negation are in the same
          * strongly connected component.
          */
-    //    System.out.println(scc);
-
+        //    System.out.println(scc);
         for (T variable : variables) {
             if (scc.get(new Literal<T>(variable, true)).equals(scc.get(new Literal<T>(variable, false)))) {
                 return new Clause(new Literal<T>(variable, true), new Literal<T>(variable, false));
             }
         }
         /* If not, the formula must be satisfiable. */
-      //  System.out.println("No Problems!");
+        //  System.out.println("No Problems!");
         return null;
     }
 }
