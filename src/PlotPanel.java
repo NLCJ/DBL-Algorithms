@@ -39,23 +39,17 @@ public class PlotPanel extends JPanel {
             g2d.fillOval(x - 2, y - 2, 4, 4);
 
             if (s.equals("2pos")) {
-                if (!(pnt[i].getLabels().isEmpty())) {
+                //if (!(pnt[i].getLabels().isEmpty())) {
                     if (pnt[i].getLabels().get(0).getPlacement().equals("NE")) {
-                        g2d.drawRect(x, y - width, height, width);
+                        System.out.println("THIS FUCKING VAR"+width);
+                        g2d.drawRect(x, y - MainReader.width, MainReader.height, MainReader.width);
                     } else {
                         if (pnt[i].getLabels().get(0).getPlacement().equals("NW")) {
-                            g2d.drawRect(x - height, y - width, height, width);
+                            System.out.println("THIS FUCKING VAR"+width);
+                            g2d.drawRect(x - MainReader.height, y - MainReader.width, MainReader.height, MainReader.width);
                         }
 
-           /* if (s.equals("2pos")) {
-                if (pnt[i].getLabels().get(0).getPlacement().equals("NE")) {
-                    g2d.drawRect(x, y - width, height, width);
-                } else {
-                    if (pnt[i].getLabels().get(0).getPlacement().equals("NW")) {
-                        g2d.drawRect(x - height, y - width, height, width);
-
                     }
-                }
             }
             if (s.equals("4pos")) {
                 if (pnt[i].getLabels().get(0).getPlacement().equals("NE")) {
@@ -73,9 +67,10 @@ public class PlotPanel extends JPanel {
             }
 
             if (s.equals("1slider")) {
+                System.out.println("THIS FUCKING VAR"+width);
                 g2d.drawRect((int) (x - pnt[i].getLabels().get(0).getShift())*width, y - width, height, width);
-            }*/
+            }
         }
 
     }
-}
+            }

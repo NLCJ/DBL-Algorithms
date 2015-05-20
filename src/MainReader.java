@@ -49,8 +49,8 @@ class MainReader {
     public void Gui(String s, int h, int w, int n, Point[] pnt) {
         double[] shift = new double[pnt.length];
         int[][] x_p = new int[pnt.length][2];
-        int width_ = w;
-        int height_ = h;
+        int width_ = MainReader.width;
+        int height_ = MainReader.height;
         String[] pos_s = new String[pnt.length];
         String pos_ = s;
         f = new JFrame("Label point plot: " + s + " model");
@@ -90,7 +90,7 @@ class MainReader {
         //  System.out.println("Reading file");
         try {
 
-            File file = new File("input.txt");
+            File file = new File("data-of-awesomeness.txt");
 
             Scanner sc = new Scanner(file);
 
@@ -114,23 +114,23 @@ class MainReader {
 
             // Determine what placement model is called for
             if (placement_model.equals("2pos")) {
-                Point[] points_2pos = pos_2.PositionCalculator(width, height, points);
+                Point[] points_2pos = pos_2.PositionCalculator(MainReader.width, MainReader.height, points);
                 pos_2.quadtree(points);
                 pos_2.findCollisions(points);
                 //pos_2.searchClauses(points);
                 //pos_2.makeLiterals();
-                pos_2.Output2Position(placement_model, width, height, number_points, points);
-                Gui(placement_model, width, height, number_points, points_2pos);
+                pos_2.Output2Position(placement_model, MainReader.width, MainReader.height, number_points, points);
+                Gui(placement_model, MainReader.width, MainReader.height, number_points, points_2pos);
             }
             if (placement_model.equals("4pos")) {
-                Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
-                pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
+                Point[] points_4pos = pos_4.PositionCalculator(MainReader.width, MainReader.height, points);
+                pos_4.Output4Position(placement_model, MainReader.width, MainReader.height, number_points, points_4pos);
                 Gui(placement_model, width, height, number_points, points_4pos);
             }
             if (placement_model.equals("1slider")) {
                 Point[] points_slider = slider.originalOrder(points);
-                slider.OutputSlider(placement_model, width, height, number_points, points_slider);
-                Gui(placement_model, width, height, number_points, points_slider);
+                slider.OutputSlider(placement_model, MainReader.width, MainReader.height, number_points, points_slider);
+                Gui(placement_model, MainReader.width, MainReader.height, number_points, points_slider);
             }
 
         } catch (FileNotFoundException ex) {
