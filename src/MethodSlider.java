@@ -68,8 +68,10 @@ public class MethodSlider {
         int pointsRightLabel = 0;
         
         // Current label conditions
-        double labelX = point.getLabels().get( 0 ).getAnchor().getX();
-        double labelY = point.getLabels().get( 0 ).getAnchor().getY();
+        double labelX = point.getLabels().get( 0 ).getReference().getX();
+        double labelY = point.getLabels().get( 0 ).getReference().getY();
+        
+        double leftMostLabelRightOfPointX = 0;
         
         // For each point determine where
         for( Point potentialCollisionPoint : potentialCollisionPoints ) {
@@ -83,10 +85,15 @@ public class MethodSlider {
                 // Point is within reach of the most right label
                 pointsRightLabel++;
                 
-                // Check if there is a collision with that label
-                
+                // Update the left X of the label
+                if( potentialCollisionPoint.getLabels().get( 0 ).getReference().getX() < leftMostLabelRightOfPointX ) {
+                    leftMostLabelRightOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
+                }
             }
         }
+        
+        // Set shift of label
+        
     }
     
     public Point[] originalOrder( Point[] p ) {
