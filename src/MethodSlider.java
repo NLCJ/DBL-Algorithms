@@ -29,11 +29,6 @@ public class MethodSlider {
         
         // Start at the right bottom with placeing labels - thus inverting the sorted array
         Collections.reverse( Arrays.asList(p) );
-            
-        // Set the default slider position to 0
-//        for ( Point point : p ) {
-//            point.setShift( 0 );
-//        }
         
         // Start placing the points
         placePoints( p );
@@ -44,7 +39,7 @@ public class MethodSlider {
     
     public void placePoints( Point[] points ) {    
         // For each point
-        for( int i = 1; i < points.length; i++ ) {
+        for( int i = 0; i < points.length; i++ ) {
             // Create quad tree
             quadTree.insert( points[ i ] );
         }
@@ -55,60 +50,44 @@ public class MethodSlider {
         for (Point p : points) {
             // Get point collision
             Collision.allCollisions( quadTree.retrieve( new ArrayList<Label>(), p ), p, collisions);
-        }
-        
-        for (Point point : collisions.keySet()) {
-            Set<Point> pointsCollision = collisions.get( point );
-            for ( Point pointCollision : pointsCollision ) {
-                fixCollision(point, pointCollision);
-            }
+            
+            // Try to fix the collision for this point
+            fixCollision( p, collisions.keySet() );
         }
     }
     
-    public void fixCollision( Point point, Point pointCollision ) {
-        // Determine which one is more to the right
-        if( pointCollision.getX() > point.getX() ) {
-            // The collision point is to the right - start working from there
-        } else {
-            // The point is to the right, start working from here
-        }
+    // Actually fix the collision
+    public void fixCollision( Point point, Set<Point> potentialCollisionPoints ) {
+        // Active point info
+        double activePointX = point.getX();
+        double activePointY = point.getY();
         
-        // Check if collision - Stefan broke it
-//        if( this.collision.collide( newPoint, oldPoint ) ) {
-//            newPoint.setSlider( newPoint.getSlider() - step );
-//            
-//            if( die ) {
-//                return;
-//            }
-//            
-//            // Check if step reached maximum
-//            if( Double.compare( step, 0.0078125 ) == 0 ) {
-//                // Check if the slider is at the mostleft
-//                if( newPoint.getSlider() == 0 ) {
-//                    // Remove the slider position
-//                    newPoint.setSlider( -1 );      
-//                } else {
-//                    fixCollision( newPoint, oldPoint, 0.0078125, true );
-//                }
-//                return;
-//            } else {
-//                // Move slider again
-//                fixCollision( newPoint, oldPoint, step / 2, false );
-//            }
-//        } else {
-//            newPoint.setSlider( newPoint.getSlider() + step );
-//            
-//            // Check if step reached maximum
-//            if( Double.compare( step, 0.0078125 ) == 0 ) {
-//                // Check if I die
-//                if( !die ) {
-//                    fixCollision( newPoint, oldPoint, 0.0078125, true );
-//                }
-//            } else {
-//                // Move slider again
-//                fixCollision( newPoint, oldPoint, step / 2, false );
-//            }
-//        }
+        // Keep track of how many labels are on the left and right
+        int pointsLeftLabel = 0;
+        int pointsRightLabel = 0;
+        
+        // Current label conditions
+        double labelX = point.getLabels().get( 0 ).getAnchor().getX();
+        double labelY = point.getLabels().get( 0 ).getAnchor().getY();
+        
+        // For each point determine where
+        for( Point potentialCollisionPoint : potentialCollisionPoints ) {
+            // Check if that point is to the left AND within the label width
+            if( potentialCollisionPoint.getX() < activePointX && potentialCollisionPoint.getX() > ( activePointX - MainReader.width )
+                && potentialCollisionPoint.getY() > activePointY && potentialCollisionPoint.getY() < ( activePointY + MainReader.height ) ) {
+                // Point is within reach of the most left label
+                pointsLeftLabel++;
+            } else if( potentialCollisionPoint.getX() > activePointX && potentialCollisionPoint.getX() < ( activePointX + MainReader.width )
+                    && potentialCollisionPoint.getY() > activePointY && potentialCollisionPoint.getY() < ( activePointY + MainReader.height ) ) {
+                // Point is within reach of the most right label
+                pointsRightLabel++;
+                
+                // Check if there is a collision with that label
+                if ( potentialCollisionPoint.getLabels().get( 0 ).getAnchor().getX() ) {
+                    
+                }
+            }
+        }
     }
     
     public Point[] originalOrder( Point[] p ) {
