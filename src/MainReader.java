@@ -22,6 +22,7 @@ class MainReader {
     public static int width;
     public static int height;
     public static int numberLabels;
+    public static String placement_model;
 
     public MainReader() {
 
@@ -92,7 +93,7 @@ class MainReader {
             Scanner sc = new Scanner(file);
 
             // Get the model data
-            String placement_model = sc.nextLine().substring(17);
+            placement_model = sc.nextLine().substring(17);
             pModel = Model.fromString(placement_model);
             width = Integer.parseInt(sc.nextLine().substring(7));
             height = Integer.parseInt(sc.nextLine().substring(8));
