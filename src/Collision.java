@@ -17,6 +17,7 @@ public class Collision {
 
     public Collision() {
         collisions = new ArrayList<>();
+        sliderCollisions = new ArrayList<>();
     }
 
     /**
