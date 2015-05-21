@@ -13,6 +13,7 @@ import java.util.Set;
 public class Collision {
 
     public List<Label> collisions;
+    public List<Point> sliderCollisions;
 
     public Collision() {
         collisions = new ArrayList<>();
@@ -127,5 +128,54 @@ public class Collision {
     public static Map<Label, Set<Label>> allCollisions(List<Label> potential, Point p, Map<Label, Set<Label>> collisions) {
         collide(p, potential, collisions);
         return collisions;
+    }
+    
+    //------- Slider Collisions
+    public List sliderCollisions(List potential, Point p){
+        //for all the points in the list with potential collisions
+        for(int i = 0; i < potential.size(); i++){
+            //if sliderCollide is true
+            Point pot = (Point)potential.get(i);
+            if(sliderCollide(p, pot)){
+                //add point to the sliderCollisions list
+                Point pp = (Point) potential.get(i);
+                sliderCollisions.add(pp);
+            }
+        }
+        for(int i = 0; i < sliderCollisions.size(); i++){
+            Point cp = (Point) sliderCollisions.get(i);
+            System.out.println("point: " + p.getX() + " " + p.getY() + " collides with: " + cp.getX() + " " + cp.getY());
+        }
+        //return the list sliderCollisions
+        return sliderCollisions;
+    }
+    
+    public boolean sliderCollide(Point p, Point pot){
+        //if the x of p is bigger than the x of pot
+        if(p.getX() > pot.getX()){
+            //calculate the gap and if the gap is less than 0
+            double gap = (p.getX() - MainReader.width) - (pot.getX() + MainReader.width);
+            if(gap < 0){
+                //calculate the y gap and if the y gap is less than 0 return true
+                double ygap = p.getY() - (pot.getY()+MainReader.height);
+                if(ygap < 0){
+                    return true;
+                }
+            }
+        }
+        //if the x of p is less than the x of pot
+        if(p.getX() < pot.getX()){
+            //calculate the gap and if the gap is less than 0
+            double gap = (pot.getX() - MainReader.width) - (p.getX() + MainReader.width);
+            if(gap < 0){
+                //calculate the y gap and if the y gap is less than 0 then return true
+                double ygap = p.getY() - (pot.getY()+MainReader.height);
+                if(ygap < 0){
+                    return true;
+                }
+            }
+        }
+        //if all fails then there's no collision and thus return false
+        return false;
     }
 }
