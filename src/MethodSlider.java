@@ -1,5 +1,10 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -9,6 +14,7 @@ public class MethodSlider {
     MergeSort mergesort = new MergeSort();
     private Point[] result;
     private Collision collision = new Collision();
+    private QuadTree quadTree = new QuadTree( 10, 0, 10000, 0, 10000 );
     
     /**
      * Return the result
@@ -31,20 +37,34 @@ public class MethodSlider {
         
         // Start placing the points
         placePoints( p );
+        findCollisions( p );
 
         return originalOrder( p );
     }
     
-    public void placePoints( Point[] points ) {
+    public void placePoints( Point[] points ) {    
         // For each point
         for( int i = 1; i < points.length; i++ ) {
-            // Fix the collision - if any
-            fixCollision( points[ i ], points[ i - 1 ], 0.50, false );
+            // Create quad tree
+            quadTree.insert( points[ i ].getLabels().get( 0 ) );
+        }
+    }
+    
+    public void findCollisions(Point[] points) {
+        Map<Label, Set<Label>> collisions = new HashMap<Label, Set<Label>>();
+        for (Point p : points) {
+            // Get point collision
+            Collision.allCollisions( quadTree.retrieve( new ArrayList<Label>(), p.getLabels().get( 0 ) ), p, collisions);
+        }
+        
+        for (Label l : collisions.keySet()) {
+            Set<Label> labels = collisions.get(l);
         }
     }
     
     public void fixCollision( Point newPoint, Point oldPoint, double step, boolean die ) {
-        // Check if collision
+        
+        // Check if collision - Stefan broke it
 //        if( this.collision.collide( newPoint, oldPoint ) ) {
 //            newPoint.setSlider( newPoint.getSlider() - step );
 //            
@@ -111,7 +131,7 @@ public class MethodSlider {
 
         // Output each of the points
         for ( Point point : output ) {
-            System.out.println( (int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getShift() );
+            //System.out.println( (int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getShift() );
         }
     }
 }
