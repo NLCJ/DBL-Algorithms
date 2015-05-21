@@ -88,8 +88,7 @@ class MainReader {
         //  System.out.println("Reading file");
         try {
 
-            File file = new File("data-of-awesomeness.txt");
-file = new File("input.txt");
+            File file = new File("input.txt");
             Scanner sc = new Scanner(file);
 
             // Get the model data
@@ -134,7 +133,6 @@ file = new File("input.txt");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public static void main(String[] args) {

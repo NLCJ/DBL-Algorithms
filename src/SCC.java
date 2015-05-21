@@ -141,7 +141,7 @@ public final class SCC {
      * @param result A map in which to associate nodes with labels.
      * @param label The label that we should assign each node in this SCC.
      */
-    private static <T> void markReachableNodes(T node, DirectedGraph<T> g,
+    public static <T> void markReachableNodes(T node, DirectedGraph<T> g,
             Map<T, Integer> result,
             int label) {
         /* If we've visited this node before, stop the search. */
