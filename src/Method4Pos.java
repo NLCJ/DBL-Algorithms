@@ -7,6 +7,7 @@ public class Method4Pos {
 
     private Point[] result;
     MergeSort mergesort = new MergeSort();
+    QuadTree quad = new QuadTree(10, 0, 20, 0, 20);
 
     //The method which "calculates" the position of the labels
     public Point[] PositionCalculator(int w, int h, Point[] p) {
@@ -27,7 +28,12 @@ public class Method4Pos {
 
         return originalOrder;
     }
-
+     public void quadtree(Point[] points) {
+        for (Point p : points) {
+                quad.insert(p);
+           
+        }
+    }
     public void Output4Position(String s, int w, int h, int n_p, Point[] p) {
         //Reorder the points to the original order
         Point[] output = PositionCalculator(w, h, p);
@@ -47,7 +53,7 @@ public class Method4Pos {
             if ( ! point.getLabels().isEmpty()) {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
             } else {
-                System.out.println((int) point.getX() + " " + (int) point.getY() + " NA");
+                System.out.println((int) point.getX() + " " + (int) point.getY() + " NIL");
             }
         }
     }
