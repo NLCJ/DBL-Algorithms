@@ -27,9 +27,8 @@ public class Method2Pos {
 
     public void quadtree(Point[] points) {
         for (Point p : points) {
-            p.getLabels().stream().forEach((l) -> {
-                quad.insert(l);
-            });
+                quad.insert(p);
+           
         }
     }
 
@@ -118,9 +117,7 @@ public class Method2Pos {
     public ArrayList<Label> posCollisions(Point p) {
         ArrayList<Label> possibleCollisions = new ArrayList<Label>();
         possibleCollisions.clear();
-        for (Label l : p.getLabels()) {
-            quad.retrieve(possibleCollisions, l);
-        }
+            quad.retrieve(possibleCollisions, p);
         return possibleCollisions;
     }
 
