@@ -7,6 +7,7 @@ import java.util.*;
  */
 public final class TwoSat {
 
+    public static DirectedGraph g;
     /**
      * Given as input a list of clauses representing a 2-CNF formula, returns
      * whether that formula is satisfiable.
@@ -19,7 +20,7 @@ public final class TwoSat {
         Set<T> variables = new HashSet<T>();
         for (Clause<T> clause : formula) {
             variables.add(clause.first().value());
-            variables.add(clause.second().value());
+            variables.add(clause.second().value());   
         }
 
         // System.out.println("Variables: " + variables);
@@ -61,6 +62,7 @@ public final class TwoSat {
         }
         /* If not, the formula must be satisfiable. */
         //  System.out.println("No Problems!");
+        g = implications;
         return null;
     }
 }

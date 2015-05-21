@@ -62,6 +62,9 @@ public class Label {
                     }
                 }
                 reference = new Point(anchor.getX() - (width - a), anchor.getY(), -1);
+                if (reference.getY() != anchor.getY()) {
+                System.out.println("niet gelijk");
+                }
                 //reference point needs a translation of (-(width - a), 0)
                 break;
         }

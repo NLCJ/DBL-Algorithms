@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  *
@@ -72,6 +73,10 @@ public class Method2Pos {
 //                System.out.println(clauses.get(i));
 //            }
         }
+        if (TwoSat.g == null) {
+            System.out.println("error");
+        } 
+        Stack<Literal<Point>> stack = SCC.dfsVisitOrder(SCC.graphReverse(TwoSat.g));
 
         /*for (Point p : MainReader.points) {
          System.out.println(p.getLabels());
@@ -90,6 +95,9 @@ public class Method2Pos {
         possibleCollisions.clear();
         for (Label l : p.getLabels()) {
             quad.retrieve(possibleCollisions, l);
+        }
+        for ( int i = 0; i < possibleCollisions.size(); i++) {
+        System.out.println(possibleCollisions.get(i) + "hoi");
         }
         return possibleCollisions;
     }

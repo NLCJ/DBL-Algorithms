@@ -61,7 +61,7 @@ public final class SCC {
      * @param g The graph to reverse.
      * @return The reverse graph.
      */
-    private static <T> DirectedGraph<T> graphReverse(DirectedGraph<T> g) {
+    public static <T> DirectedGraph<T> graphReverse(DirectedGraph<T> g) {
         DirectedGraph<T> result = new DirectedGraph<T>();
 
         /* Copy over the nodes. */
@@ -87,7 +87,7 @@ public final class SCC {
      * @return A stack of nodes in the order in which the DFS finished exploring
      * them.
      */
-    private static <T> Stack<T> dfsVisitOrder(DirectedGraph<T> g) {
+    public static <T> Stack<T> dfsVisitOrder(DirectedGraph<T> g) {
         /* The resulting ordering of the nodes. */
         Stack<T> result = new Stack<T>();
 

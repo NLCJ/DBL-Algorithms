@@ -46,11 +46,9 @@ class MainReader {
      which tells you what positioning model is used
      and message about going fullscreen 
      */
-    public void Gui(String s, int h, int w, int n, Point[] pnt) {
+    public void Gui(String s, int n, Point[] pnt) {
         double[] shift = new double[pnt.length];
         int[][] x_p = new int[pnt.length][2];
-        int width_ = w;
-        int height_ = h;
         String[] pos_s = new String[pnt.length];
         String pos_ = s;
         f = new JFrame("Label point plot: " + s + " model");
@@ -59,7 +57,7 @@ class MainReader {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //f.setExtendedState(Frame.MAXIMIZED_BOTH);
         p = new JPanel();
-        plot = new PlotPanel(x_p, shift, pos_s, width_, height_, pos_, pnt);
+        plot = new PlotPanel(x_p, shift, pos_s, pos_, pnt);
         plot.setSize(10000, 10000);
         p.setLayout(new BorderLayout());
         p.setBackground(Color.YELLOW);
@@ -90,8 +88,8 @@ class MainReader {
         //  System.out.println("Reading file");
         try {
 
-            File file = new File("input.txt");
-
+            File file = new File("data-of-awesomeness.txt");
+file = new File("input.txt");
             Scanner sc = new Scanner(file);
 
             // Get the model data
@@ -120,17 +118,17 @@ class MainReader {
                 //pos_2.searchClauses(points);
                 //pos_2.makeLiterals();
                 pos_2.Output2Position(placement_model, width, height, number_points, points);
-                Gui(placement_model, width, height, number_points, points_2pos);
+                Gui(placement_model, number_points, points_2pos);
             }
             if (placement_model.equals("4pos")) {
                 Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
                 pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
-                Gui(placement_model, width, height, number_points, points_4pos);
+                Gui(placement_model, number_points, points_4pos);
             }
             if (placement_model.equals("1slider")) {
                 Point[] points_slider = slider.originalOrder(points);
                 slider.OutputSlider(placement_model, width, height, number_points, points_slider);
-                Gui(placement_model, width, height, number_points, points_slider);
+                Gui(placement_model, number_points, points_slider);
             }
 
         } catch (FileNotFoundException ex) {

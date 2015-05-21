@@ -11,18 +11,16 @@ public class PlotPanel extends JPanel {
     int[][] x_p;
     double[] shift;
     String[] position;
-    int width;
-    int height;
+    int width = MainReader.width;
+    int height = MainReader.height;
     String s;
     Point[] pnt;
 
-    PlotPanel(int[][] x_p, double[] shift, String[] position, int width, int height, String s, Point[] pnt) {
+    PlotPanel(int[][] x_p, double[] shift, String[] position, String s, Point[] pnt) {
         this.x_p = x_p;
         this.pnt = pnt;
         this.shift = shift;
         this.position = position;
-        this.width = width;
-        this.height = height;
         this.s = s;
     }
 
@@ -34,48 +32,21 @@ public class PlotPanel extends JPanel {
 
         g2d.setColor(Color.BLACK);
         for (int i = 0; i < pnt.length; i ++) {
-            int x = (int)pnt[i].getX();
-            int y = (int)pnt[i].getY();
+
+            if (pnt[i].getLabels() == null || pnt[i].getLabels().isEmpty()) {
+                continue;
+            }
+            for (Label l : pnt[i].getLabels()) {
+                int x = (int) l.getReference().getX();
+                int y = 10000 - (int) l.getReference().getY();
+                System.out.println(x + " " + (y - height));
+                g2d.drawRect(x, y - height, height, width);
+            }
+
+            int x = (int) pnt[i].getLabels().get(0).getAnchor().getX();
+            int y = 10000 - (int) pnt[i].getLabels().get(0).getAnchor().getY();
             g2d.fillOval(x - 2, y - 2, 4, 4);
 
-            if (s.equals("2pos")) {
-                if (!(pnt[i].getLabels().isEmpty())) {
-                    if (pnt[i].getLabels().get(0).getPlacement().equals("NE")) {
-                        g2d.drawRect(x, y - width, height, width);
-                    } else {
-                        if (pnt[i].getLabels().get(0).getPlacement().equals("NW")) {
-                            g2d.drawRect(x - height, y - width, height, width);
-                        }
-
-           /* if (s.equals("2pos")) {
-                if (pnt[i].getLabels().get(0).getPlacement().equals("NE")) {
-                    g2d.drawRect(x, y - width, height, width);
-                } else {
-                    if (pnt[i].getLabels().get(0).getPlacement().equals("NW")) {
-                        g2d.drawRect(x - height, y - width, height, width);
-
-                    }
-                }
-            }
-            if (s.equals("4pos")) {
-                if (pnt[i].getLabels().get(0).getPlacement().equals("NE")) {
-                    g2d.drawRect(x, y - width, height, width);
-                }
-                if (pnt[i].getLabels().get(0).getPlacement().equals("NW")) {
-                    g2d.drawRect(x - height, y - width, height, width);
-                }
-                if (pnt[i].getLabels().get(0).getPlacement().equals("SE")) {
-                    g2d.drawRect(x, y, height, width);
-                }
-                if (pnt[i].getLabels().get(0).getPlacement().equals("SW")) {
-                    g2d.drawRect(x - height, y, height, width);
-                }
-            }
-
-            if (s.equals("1slider")) {
-                g2d.drawRect((int) (x - pnt[i].getLabels().get(0).getShift())*width, y - width, height, width);
-            }*/
         }
-
     }
 }
