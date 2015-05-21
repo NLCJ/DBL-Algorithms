@@ -27,15 +27,23 @@ public class Method2Pos {
 
     public void quadtree(Point[] points) {
         for (Point p : points) {
-                quad.insert(p);
-           
+            quad.insert(p);
+
         }
     }
 
     public void findCollisions(Point[] points) {
         Map<Label, Set<Label>> collisions = new HashMap<Label, Set<Label>>();
+        List<Point> possiCollisions = new ArrayList<Point>();
+        List<Label> poCollisions = new ArrayList<Label>();
+
         for (Point p : points) {
-            Collision.allCollisions(posCollisions(p), p, collisions);
+            possiCollisions = posCollisions(p);
+            for (int i = 0; i < possiCollisions.size(); i ++) {
+                poCollisions.add(possiCollisions.get(i).getLabels().get(0));
+                poCollisions.add(possiCollisions.get(i).getLabels().get(1));
+            }
+            Collision.allCollisions(poCollisions, p, collisions);
         }
 
         for (Label l : collisions.keySet()) {
@@ -78,7 +86,6 @@ public class Method2Pos {
         Stack<Literal<Point>> stack = SCC.dfsVisitOrder(SCC.graphReverse(TwoSat.g));
 
         Map<Literal<Point>, Integer> result = new HashMap<Literal<Point>, Integer>();
-        int iteration = 0;
 
         while ( ! stack.isEmpty()) {
             Literal<Point> p = stack.pop();
@@ -98,7 +105,6 @@ public class Method2Pos {
                 }
                 p.value().setLabels(labels);
             }
-            
 
         }
 
@@ -107,17 +113,13 @@ public class Method2Pos {
 //        } 
     }
 
-    public List validCollisions(ArrayList possiCollisions, Label l) {
-        List<Label> col = new ArrayList();
-        col.clear();
-        col = c.allCollisions(possiCollisions, l);
-        return col;
-    }
-
-    public ArrayList<Label> posCollisions(Point p) {
-        ArrayList<Label> possibleCollisions = new ArrayList<Label>();
+    public ArrayList<Point> posCollisions(Point p) {
+        ArrayList<Point> possibleCollisions = new ArrayList<Point>();
         possibleCollisions.clear();
-            quad.retrieve(possibleCollisions, p);
+        quad.retrieve(possibleCollisions, p);
+//        for (int i = 0; i < possibleCollisions.size(); i ++) {
+//        System.out.println(possibleCollisions.get(i).getLabels().get(0));
+//        }
         return possibleCollisions;
     }
 
@@ -137,7 +139,7 @@ public class Method2Pos {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
             } else {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " NILL");
-            } 
+            }
         }
     }
 

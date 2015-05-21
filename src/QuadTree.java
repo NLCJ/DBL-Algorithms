@@ -260,7 +260,7 @@ public class QuadTree {
         }
     }
 
-    public List retrieve(List potentialCollisionPoints, Point p) {
+    public List retrieve(List<Point> potentialCollisionPoints, Point p) {
         //get the index of point p
         int index = getIndex(p);
         //if index is not -1 and there exists a child node
