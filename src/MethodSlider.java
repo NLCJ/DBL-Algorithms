@@ -46,7 +46,7 @@ public class MethodSlider {
         // For each point
         for( int i = 1; i < points.length; i++ ) {
             // Create quad tree
-            quadTree.insert( points[ i ].getLabels().get( 0 ) );
+            quadTree.insert( points[ i ] );
         }
     }
     
@@ -54,15 +54,24 @@ public class MethodSlider {
         Map<Label, Set<Label>> collisions = new HashMap<Label, Set<Label>>();
         for (Point p : points) {
             // Get point collision
-            Collision.allCollisions( quadTree.retrieve( new ArrayList<Label>(), p.getLabels().get( 0 ) ), p, collisions);
+            Collision.allCollisions( quadTree.retrieve( new ArrayList<Label>(), p ), p, collisions);
         }
         
-        for (Label l : collisions.keySet()) {
-            Set<Label> labels = collisions.get(l);
+        for (Point point : collisions.keySet()) {
+            Set<Point> pointsCollision = collisions.get( point );
+            for ( Point pointCollision : pointsCollision ) {
+                fixCollision(point, pointCollision);
+            }
         }
     }
     
-    public void fixCollision( Point newPoint, Point oldPoint, double step, boolean die ) {
+    public void fixCollision( Point point, Point pointCollision ) {
+        // Determine which one is more to the right
+        if( pointCollision.getX() > point.getX() ) {
+            // The collision point is to the right - start working from there
+        } else {
+            // The point is to the right, start working from here
+        }
         
         // Check if collision - Stefan broke it
 //        if( this.collision.collide( newPoint, oldPoint ) ) {
