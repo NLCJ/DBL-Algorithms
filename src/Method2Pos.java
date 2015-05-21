@@ -74,13 +74,38 @@ public class Method2Pos {
 //            }
         }
         if (TwoSat.g == null) {
-            System.out.println("error");
-        } 
+            throw new Error("Error!");
+        }
         Stack<Literal<Point>> stack = SCC.dfsVisitOrder(SCC.graphReverse(TwoSat.g));
 
-        /*for (Point p : MainReader.points) {
-         System.out.println(p.getLabels());
-         }*/
+        Map<Literal<Point>, Integer> result = new HashMap<Literal<Point>, Integer>();
+        int iteration = 0;
+
+        while ( ! stack.isEmpty()) {
+            Literal<Point> p = stack.pop();
+            boolean temp = false;
+            for (Label l : p.value().getLabels()) {
+                if (l.getPlacement() == p.getPlacement()) {
+                    temp = true;
+                }
+            }
+            if (temp) {
+                //hier is ie contained, dus al het andere wegpleuren
+                ArrayList<Label> labels = new ArrayList<Label>();
+                for (Label l : p.value().reproduceLabels()) {
+                    if (l.getPlacement() == p.getPlacement()) {
+                        labels.add(l);
+                    }
+                }
+                p.value().setLabels(labels);
+            }
+            
+
+        }
+
+//        for (Point p : MainReader.points) {
+//            System.out.println(p.getLabels());
+//        } 
     }
 
     public List validCollisions(ArrayList possiCollisions, Label l) {
@@ -95,9 +120,6 @@ public class Method2Pos {
         possibleCollisions.clear();
         for (Label l : p.getLabels()) {
             quad.retrieve(possibleCollisions, l);
-        }
-        for ( int i = 0; i < possibleCollisions.size(); i++) {
-        System.out.println(possibleCollisions.get(i) + "hoi");
         }
         return possibleCollisions;
     }
@@ -118,7 +140,7 @@ public class Method2Pos {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
             } else {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " NILL");
-            }
+            } 
         }
     }
 

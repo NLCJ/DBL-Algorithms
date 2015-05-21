@@ -39,11 +39,12 @@ public class Point {
         this.x = x;
         this.y = y;
         this.origin = origin;
-        reproduceLabels();
+        this.labels = reproduceLabels();
     }
 
-    public final void reproduceLabels() {
+    public final List<Label> reproduceLabels() {
         Placement[] placements;
+        ArrayList<Label> labels = new ArrayList<Label>();
         switch (MainReader.pModel) {
             case TWOPOS:
                 placements = Placement.twoPos();
@@ -58,6 +59,7 @@ public class Point {
         for (Placement p : placements) {
             labels.add(new Label(this, p, MainReader.width, MainReader.height));
         }
+        return labels;
     }
 
     public void removeLabel(Placement p) {
