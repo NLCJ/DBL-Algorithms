@@ -133,6 +133,7 @@ public class Collision {
     
     //------- Slider Collisions
     public List sliderCollisions(List potential, Point p){
+        sliderCollisions.clear();
         //for all the points in the list with potential collisions
         for(int i = 0; i < potential.size(); i++){
             //if sliderCollide is true
@@ -152,15 +153,30 @@ public class Collision {
     }
     
     public boolean sliderCollide(Point p, Point pot){
+        if(p.getX() == pot.getX() && p.getY() == pot.getY()){
+            return false;
+        }
         //if the x of p is bigger than the x of pot
-        if(p.getX() > pot.getX()){
+        if(p.getX() >= pot.getX()){
             //calculate the gap and if the gap is less than 0
             double gap = (p.getX() - MainReader.width) - (pot.getX() + MainReader.width);
+            //System.out.println("p: " + p.getX() + " " + p.getY() + "pot: " + pot.getX() + " " + pot.getY() + " gap p>=pot: " + gap);
             if(gap < 0){
-                //calculate the y gap and if the y gap is less than 0 return true
-                double ygap = p.getY() - (pot.getY()+MainReader.height);
-                if(ygap < 0){
-                    return true;
+                if(p.getY() >= pot.getY()){
+                    //calculate the y gap and if the y gap is less than 0 return true
+                    double ygap = p.getY() - (pot.getY()+MainReader.height);
+                    //System.out.println("p: " + p.getX() + " " + p.getY() + "pot: " + pot.getX() + " " + pot.getY() + " ygap p>=pot: " + ygap);
+                    if(ygap < 0){
+                        return true;
+                    }
+                }
+                if(p.getY() < pot.getY()){
+                    //calculate the y gap and if the y gap is less than 0 return true
+                    double ygap = pot.getY() - (p.getY()+MainReader.height);
+                    //System.out.println("p: " + p.getX() + " " + p.getY() + "pot: " + pot.getX() + " " + pot.getY() + " ygap p>=pot: " + ygap);
+                    if(ygap < 0){
+                        return true;
+                    }
                 }
             }
         }
@@ -168,11 +184,21 @@ public class Collision {
         if(p.getX() < pot.getX()){
             //calculate the gap and if the gap is less than 0
             double gap = (pot.getX() - MainReader.width) - (p.getX() + MainReader.width);
+            //System.out.println("gap p<pot: " + gap);
             if(gap < 0){
-                //calculate the y gap and if the y gap is less than 0 then return true
-                double ygap = p.getY() - (pot.getY()+MainReader.height);
-                if(ygap < 0){
-                    return true;
+                if(p.getY() >= pot.getY()){
+                    //calculate the y gap and if the y gap is less than 0 then return true
+                    double ygap = p.getY() - (pot.getY()+MainReader.height);
+                    if(ygap < 0){
+                        return true;
+                    }
+                }
+                if(p.getY() < pot.getY()){
+                    //calculate the y gap and if the y gap is less than 0 then return true
+                    double ygap = pot.getY() - (p.getY()+MainReader.height);
+                    if(ygap < 0){
+                        return true;
+                    }
                 }
             }
         }
