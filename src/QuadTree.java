@@ -13,8 +13,8 @@ public class QuadTree {
     public int MAXPOINTS = 5;
     //where the current level is stored
     public int level;
-    //list of labels
-    public List labels;
+    //list of points
+    public List points;
     //nodes of the QuadTree
     public QuadTree[] node;
     //the boundaries of the quadtree's node
@@ -22,7 +22,7 @@ public class QuadTree {
 
     public QuadTree(int lvl, int minx, int maxx, int miny, int maxy) {
         level = lvl; //the level of the node
-        labels = new ArrayList<>(); //new list for labels on this node
+        points = new ArrayList<>(); //new list for points on this node
         node = new QuadTree[4]; //the 4 children NW NE SW SE
         xmin = minx; //the minimum x of the quadtree frame
         xmax = maxx; //the maximum x of the quadtree frame
@@ -31,7 +31,7 @@ public class QuadTree {
     }
 
     public void clear() {
-        labels.clear();//clear the list of labels for this node
+        points.clear();//clear the list of points for this node
 
         //for each child check if the child is empty (equals to null)
         for (int i = 0; i < node.length; i++) {
@@ -56,7 +56,7 @@ public class QuadTree {
         node[3] = new QuadTree(level + 1, xmin + width, xmax, ymin, ymin + height); //the SE child
     }
 
-    public int getIndex(Label l) {
+    public int getIndex(Point p) {
         //calculate the width and height of the child nodes
         int width = (xmax - xmin) / 2;
         int height = (ymax - ymin) / 2;
@@ -65,9 +65,33 @@ public class QuadTree {
         boolean top = false;
         boolean bot = false;
         //the position of the point (NW, NE, SW, SE, slider)
-        Placement pos = l.getPlacement();
+        //Placement pos = p.getPlacement();
+        //the placement model of the set of points
+        String model = MainReader.placement_model;
 
         //-----top or bottom part
+        if(model.equals("4pos")){
+            
+            //check if the Y is bigger than the node height and the Y+height is bigger than the node height
+            //if so then it is within the top part of the child nodes
+            if (p.getY() - MainReader.height > height && p.getY() + MainReader.height > height) {
+                top = true;
+            } //else check if the Y is less than the node height and Y+height is less than the node height
+            //if so then it is within the bottom part of the child nodes
+            else if (p.getY() - MainReader.height < height && p.getY() + MainReader.height < height) {
+                bot = true;
+            }
+        }
+        if(model.equals("2pos") || model.equals("1slider")){
+            if(p.getY() > height && p.getY() + MainReader.height > height){
+                top = true;
+            }
+            else if(p.getY() < height && p.getY() + MainReader.height < height){
+                bot = true;
+            }
+        }
+        
+        /*
         //if the pos is NW or NE or slider
         if (pos == Placement.NE || pos == Placement.NW || pos == Placement.Slider) {
             //check if the Y is bigger than the node height and the Y+height is bigger than the node height
@@ -92,10 +116,28 @@ public class QuadTree {
             else if (l.getAnchor().getY() < height && l.getAnchor().getY() - MainReader.height < height) {
                 bot = true;
             }
-        }
+        }*/
 
         //-------right or left part
-        //if the position is NW or SW
+        if(p.getX() + MainReader.width < width && p.getX() - MainReader.width < width){
+            if(top){
+               return 0; 
+            }
+            if(bot){
+                return 2;
+            }
+        }
+        
+        if(p.getX() + MainReader.width > width && p.getX() - MainReader.width > width){
+            if(top){
+                return 1;
+            }
+            if(bot){
+                return 3;
+            }
+        }
+        
+        /*//if the position is NW or SW
         if (pos == Placement.NW || pos == Placement.SW) {
             //check if X is less than the node width and X-width is less than the node width
             if ((l.getAnchor().getX() < width) && (l.getAnchor().getX() - MainReader.width < width)) {
@@ -171,45 +213,45 @@ public class QuadTree {
                     return 3;
                 }
             }
-        }
-        //if label doesn't fit in any child node, return -1
+        }*/
+        //if point p doesn't fit in any child node, return -1
         return -1;
     }
 
-    public void insert(Label l) {
+    public void insert(Point p) {
         //check if the parent doesn't have a child
-        //if so get the index of Label l
+        //if so get the index of point p
         if (node[0] != null) {
-            int index = getIndex(l);
-            //if index of Label l is not -1 
-            //then insert Label l in the child with the corresponding index and return (recursion)
+            int index = getIndex(p);
+            //if index of point p is not -1 
+            //then insert point p in the child with the corresponding index and return (recursion)
             if (index != -1) {
-                node[index].insert(l);
+                node[index].insert(p);
                 return;
             }
         }
-        //add Label l to the list of labels
-        labels.add(l);
+        //add point p to the list of points
+        points.add(p);
 
-        //if the labels size is bigger than the maximum allowed labels and less than the max allowed levels
-        if (labels.size() > MAXPOINTS && level < MAXLEVEL) {
+        //if the points' size is bigger than the maximum allowed points and less than the max allowed levels
+        if (points.size() > MAXPOINTS && level < MAXLEVEL) {
             //if there are no child nodes, create them by calling the split method
             if (node[0] == null) {
                 split();
             }
             //while i is less than the labels size
             int i = 0;
-            while (i < labels.size()) {
+            while (i < points.size()) {
                 //get the point from the list and get the index of that point
-                Label l2 = (Label) labels.get(i);
-                int index = getIndex(l2);
+                Point p2 = (Point) points.get(i);
+                int index = getIndex(p2);
 
                 //if the index of Label lp is not -1
                 if (index != -1) {
-                    //remove the Label lp from the labels list 
+                    //remove the point at i from the points list 
                     //and insert it in the child node with the corresponding index
-                    l2 = (Label) labels.remove(i);
-                    node[index].insert(l2);
+                    p2 = (Point) points.remove(i);
+                    node[index].insert(p2);
                 } //else add 1 to i
                 else {
                     i++;
@@ -218,17 +260,17 @@ public class QuadTree {
         }
     }
 
-    public List retrieve(List potentialCollisionPoints, Label l) {
-        //get the index of Label l
-        int index = getIndex(l);
+    public List retrieve(List potentialCollisionPoints, Point p) {
+        //get the index of point p
+        int index = getIndex(p);
         //if index is not -1 and there exists a child node
         //then get the list of potential collisions from the child node with the corresponding index (recursion)
         if (index != -1 && node[0] != null) {
-            node[index].retrieve(potentialCollisionPoints, l);
+            node[index].retrieve(potentialCollisionPoints, p);
         }
-        //add all the labels in the list of labels to the potential collisions list and return the list
-        //(in this node all the labels in the array labels can potentially collide with Label l)
-        potentialCollisionPoints.addAll(labels);
+        //add all the points in the list of points to the potential collisions list and return the list
+        //(in this node all the points' labels in the array points can potentially collide with point p's label)
+        potentialCollisionPoints.addAll(points);
         return potentialCollisionPoints;
     }
 }
