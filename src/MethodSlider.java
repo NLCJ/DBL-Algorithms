@@ -46,18 +46,19 @@ public class MethodSlider {
     }
     
     public void findCollisions(Point[] points) {
-        Map<Label, Set<Label>> collisions = new HashMap<Label, Set<Label>>();
+        Map<Point, Set<Point>> collisions = new HashMap<Point, Set<Point>>();
         for (Point p : points) {
             // Get point collision
-            Collision.allCollisions( quadTree.retrieve( new ArrayList<Label>(), p ), p, collisions);
+            List test = quadTree.retrieve( new ArrayList<Point>(), p );
+            List potentialCollisions = collision.sliderCollisions( test, p );
             
             // Try to fix the collision for this point
-            fixCollision( p, collisions.keySet() );
+            fixCollision( p, potentialCollisions );
         }
     }
     
     // Actually fix the collision
-    public void fixCollision( Point point, Set<Point> potentialCollisionPoints ) {
+    public void fixCollision( Point point, List<Point> potentialCollisionPoints ) {
         // Active point info
         double activePointX = point.getX();
         double activePointY = point.getY();
@@ -83,9 +84,7 @@ public class MethodSlider {
                 pointsRightLabel++;
                 
                 // Check if there is a collision with that label
-                if ( potentialCollisionPoint.getLabels().get( 0 ).getAnchor().getX() ) {
-                    
-                }
+                
             }
         }
     }
