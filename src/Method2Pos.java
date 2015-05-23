@@ -83,7 +83,8 @@ public class Method2Pos {
         if (TwoSat.g == null) {
             throw new Error("Error!");
         }
-        Stack<Literal<Point>> stack = SCC.dfsVisitOrder(SCC.graphReverse(TwoSat.g));
+        //reverseOrder(g) eigenlijk
+        Stack<Literal<Point>> stack = SCC.dfsVisitOrder(TwoSat.g);
 
         Map<Literal<Point>, Integer> result = new HashMap<Literal<Point>, Integer>();
 
