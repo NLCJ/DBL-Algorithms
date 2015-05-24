@@ -16,7 +16,7 @@ public class Method2Pos {
     private Point[] result;
     ArrayList<Clause<Point>> clauses = new ArrayList<Clause<Point>>();
     Collision c = new Collision();
-    QuadTree quad = new QuadTree(10, 0, 20, 0, 20);
+    QuadTree quad = new QuadTree(0, 0, 10000, 0, 10000);
 
     //The method which "calculates" the position of the labels
     public Point[] PositionCalculator(int w, int h, Point[] p) {
@@ -44,6 +44,7 @@ public class Method2Pos {
                 poCollisions.add(possiCollisions.get(i).getLabels().get(1));
             }
             Collision.allCollisions(poCollisions, p, collisions);
+            poCollisions.clear();
         }
 
         for (Label l : collisions.keySet()) {
