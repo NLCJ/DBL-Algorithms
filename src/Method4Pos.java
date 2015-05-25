@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 /**
  *
@@ -6,7 +10,7 @@ import java.util.Set;
 public class Method4Pos {
     private double c = 100000.0;// the temperature in the annealing schedule
     private Point[] result;
-    private Set<Label> collisions;
+    private Map<Label,Set<Label>> collisions;
     private double OldScore;
     private double NewScore;
     MergeSort mergesort = new MergeSort();
@@ -37,21 +41,47 @@ public class Method4Pos {
            
         }
     }
-    
+    public ArrayList<Point> posCollisions(Point p) {
+        ArrayList<Point> possibleCollisions = new ArrayList<Point>();
+        possibleCollisions.clear();
+        quad.retrieve(possibleCollisions, p);
+//        for (int i = 0; i < possibleCollisions.size(); i ++) {
+//        System.out.println(possibleCollisions.get(i).getLabels().get(0));
+//        }
+        return possibleCollisions;
+    }
     /**
      * Gives all points a random initial label placement
-     * @param p the list points to give the random labels
+     * @param points the list points to give the random labels
      */
      
-    public void RandomInitialPosition(Point[] p){
+    public void RandomInitialPosition(Point[] points){
+
+        for(Point p : points){
+        p.setLabels(null);
+        }
     }
     /**
      * Finds the collisions of the labels
-     * @param p The points that has the labels
+     * @param points The points that has the labels
      * @return the actual collisions
      */
-    public Set<Label> FindCollisions(Point[] p){
-        return null;
+    public Map<Label, Set<Label>> FindCollisions(Point[] points){
+        Map<Label, Set<Label>> collisions = new HashMap<Label, Set<Label>>();
+        List<Point> possiCollisions = new ArrayList<Point>();
+        List<Label> poCollisions = new ArrayList<Label>();
+
+        for (Point p : points) {
+            possiCollisions = posCollisions(p);
+            for (int i = 0; i < possiCollisions.size(); i ++) {
+                poCollisions.add(possiCollisions.get(i).getLabels().get(0));
+                Collision.allCollisions(poCollisions, p, collisions);
+            poCollisions.clear();;
+            }
+           
+            
+        }
+        return collisions;
     }
     /**
      * Changes a label of a random point to a random position
@@ -64,6 +94,7 @@ public class Method4Pos {
      * @param p the same as ever
      */
     public void Annealing(Point[] p){
+        quadtree(p);
         RandomInitialPosition(p);
         collisions = FindCollisions(p);
         OldScore = collisions.size() * 1.0;
@@ -73,8 +104,8 @@ public class Method4Pos {
         NewScore = collisions.size() * 1.0;
         if(OldScore < NewScore){
             double AcceptanceChance = AcceptanceChance();
-            double random = RandomGenerator.randomDouble();
-            if(AcceptanceChance < random ){
+            double randomdouble = RandomDouble();
+            if(AcceptanceChance < randomdouble ){//c needs to be a random number
                 RevertChanges(p);
             }
         }
@@ -89,21 +120,26 @@ public class Method4Pos {
     
    
     public double AcceptanceChance(){
-        return 1.0;
+        return Math.exp((OldScore-NewScore)/c);
     }
-    
+    public double RandomDouble(){
+        return c;//this doesn`t make sense, I know.
+    }
+    public int Randomint(){
+        return 5;//this doesn`t make sens, I know.
+    }
     /**
      * Reverts the change back to the position before the change of the random 
      * label.
-     * @param p the same as ever
+     * @param points the same as ever
      */
-    public void RevertChanges(Point[] p){
+    public void RevertChanges(Point[] points){
     }
     /**
      * Removes the collisions of the solution, if there are any
-     * @param p The list of points
+     * @param points The same as ever
      */
-    public void RemoveCollisions(Point[] p){
+    public void RemoveCollisions(Point[] points){
     }
             
             
