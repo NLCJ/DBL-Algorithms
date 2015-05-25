@@ -4,9 +4,11 @@ import java.util.Set;
  * @author Ivan Kozlov
  */
 public class Method4Pos {
-    private double c;// the temperature in the annealing schedule
+    private double c = 100000.0;// the temperature in the annealing schedule
     private Point[] result;
     private Set<Label> collisions;
+    private double OldScore;
+    private double NewScore;
     MergeSort mergesort = new MergeSort();
     QuadTree quad = new QuadTree(10, 0, 20, 0, 20);
 
@@ -59,18 +61,34 @@ public class Method4Pos {
     }
     /**
      * The actual annealing schedule
+     * @param p the same as ever
      */
-    public void Annealing(){
+    public void Annealing(Point[] p){
+        RandomInitialPosition(p);
+        collisions = FindCollisions(p);
+        OldScore = collisions.size() * 1.0;
+        while(c > 1 && OldScore > 0){
+        ChangeRandomLabel(p);
+        collisions = FindCollisions(p);
+        NewScore = collisions.size() * 1.0;
+        if(OldScore < NewScore){
+            double AcceptanceChance = AcceptanceChance();
+            double random = RandomGenerator.randomDouble();
+            if(AcceptanceChance < random ){
+                RevertChanges(p);
+            }
+        }
+        NewScore = OldScore;
+        c--;//Needs to be changed.
+        }
     }
     /**
-     * Calculates the acceptance chance
-     * @param Oldscore The "old" number of collisions
-     * @param NewScore The "new" number of collisions     
+     * Calculates the acceptance chance    
      * @return the acceptance chance
      */
     
    
-    public double AcceptanceChance( double Oldscore, double NewScore){
+    public double AcceptanceChance(){
         return 1.0;
     }
     
