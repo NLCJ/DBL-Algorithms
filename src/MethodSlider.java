@@ -85,9 +85,10 @@ public class MethodSlider {
             double potentialCollisionPointY = potentialCollisionPoint.getY();
             
             // Check if that point is to the left AND within the label width
-            if( potentialCollisionPointX < activePointX && potentialCollisionPointX > ( activePointX - MainReader.width )
-                && potentialCollisionPointY > activePointY && potentialCollisionPointY < ( activePointY + MainReader.height ) ) {
+            if( potentialCollisionPointX <= activePointX && potentialCollisionPointX > ( activePointX - MainReader.width )
+                && potentialCollisionPointY >= activePointY && potentialCollisionPointY < ( activePointY + MainReader.height ) ) {
                 // Point is within reach of the most left label
+                System.out.println("point is within most left label");
                 pointsRightLabel++;
                 
                 // Update the right most label X
@@ -95,7 +96,7 @@ public class MethodSlider {
                     rightMostLabelLeftOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
                 }
             } else if( potentialCollisionPointX > activePointX && potentialCollisionPointX < ( activePointX + MainReader.width )
-                    && potentialCollisionPointY > activePointY && potentialCollisionPointY < ( activePointY + MainReader.height ) ) {
+                    && potentialCollisionPointY >= activePointY && potentialCollisionPointY < ( activePointY + MainReader.height ) ) {
                 // Point is within reach of the most right label
                 pointsLeftLabel++;
                 
@@ -110,6 +111,7 @@ public class MethodSlider {
         if( pointsLeftLabel + pointsRightLabel  >= 2 && ( leftMostLabelRightOfPointX - rightMostLabelLeftOfPointX ) < MainReader.width ) {
             // Set the shift to impossible
             point.getLabels().get( 0 ).setShift( -1 );
+            System.out.println("point: " + point + " is impossible");
         } else if ( pointsRightLabel >= pointsLeftLabel && leftMostLabelRightOfPointX > 0 ) {
             // Set the label
             point.getLabels().get( 0 ).setShift( ( leftMostLabelRightOfPointX - activePointX ) / MainReader.width );
