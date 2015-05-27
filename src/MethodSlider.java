@@ -34,8 +34,7 @@ public class MethodSlider {
         placePoints( p );
         findCollisions( p );
         findCollisions( p );
-        findCollisions( p );
-
+        
         return originalOrder( p );
     }
     
@@ -83,7 +82,7 @@ public class MethodSlider {
         for( Point potentialCollisionPoint : potentialCollisionPoints ) {
             double potentialCollisionPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
             double potentialCollisionPointY = potentialCollisionPoint.getY();
-            
+           
             // Check if that point is to the left AND within the label width
             if( potentialCollisionPointX <= activePointX  ) {
                 // Point is within reach of the most left label
@@ -91,7 +90,7 @@ public class MethodSlider {
                 
                 // Update the right most label X
                 if( ( potentialCollisionPointX >= rightMostLabelLeftOfPointX || rightMostLabelLeftOfPointX == 0 ) &&
-                        ( ( potentialCollisionPointX + MainReader.width ) >= activePointX ) && potentialCollisionPointY >= activePointY ) {
+                        ( ( potentialCollisionPointX + MainReader.width ) >= activePointX ) && potentialCollisionPointY <= activePointY ) {
                     rightMostLabelLeftOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX() + MainReader.width;
                 }
             } else if( potentialCollisionPointX >= activePointX ) {
