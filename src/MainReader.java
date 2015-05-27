@@ -128,6 +128,9 @@ class MainReader {
             if (placement_model.equals("1slider")) {
                 Point[] points_slider = slider.originalOrder(points);
                 slider.OutputSlider(placement_model, width, height, number_points, points_slider);
+                for(int i = 0; i<points_slider.length;i++){
+                    System.out.println(points_slider[i].getLabels().get(0).getShift());
+                }
                 Gui(placement_model, number_points, points_slider);
             }
 
