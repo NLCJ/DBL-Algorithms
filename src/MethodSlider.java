@@ -33,6 +33,8 @@ public class MethodSlider {
         // Start placing the points
         placePoints( p );
         findCollisions( p );
+        findCollisions( p );
+        findCollisions( p );
 
         return originalOrder( p );
     }
@@ -80,23 +82,24 @@ public class MethodSlider {
         // For each point determine where
         for( Point potentialCollisionPoint : potentialCollisionPoints ) {
             double potentialCollisionPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
+            double potentialCollisionPointY = potentialCollisionPoint.getY();
             
             // Check if that point is to the left AND within the label width
-            if( potentialCollisionPointX < activePointX  ) {
+            if( potentialCollisionPointX <= activePointX  ) {
                 // Point is within reach of the most left label
                 pointsRightLabel++;
                 
                 // Update the right most label X
-                if( ( potentialCollisionPointX > rightMostLabelLeftOfPointX || rightMostLabelLeftOfPointX == 0 ) &&
-                        ( ( potentialCollisionPointX + MainReader.width ) > activePointX ) ) {
+                if( ( potentialCollisionPointX >= rightMostLabelLeftOfPointX || rightMostLabelLeftOfPointX == 0 ) &&
+                        ( ( potentialCollisionPointX + MainReader.width ) >= activePointX ) && potentialCollisionPointY >= activePointY ) {
                     rightMostLabelLeftOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX() + MainReader.width;
                 }
-            } else if( potentialCollisionPointX > activePointX ) {
+            } else if( potentialCollisionPointX >= activePointX ) {
                 // Point is within reach of the most right label
                 pointsLeftLabel++;
                 
                 // Update the left X of the label if it is within reach
-                if( ( potentialCollisionPointX < leftMostLabelRightOfPointX || leftMostLabelRightOfPointX == 0 ) && 
+                if( ( potentialCollisionPointX <= leftMostLabelRightOfPointX || leftMostLabelRightOfPointX == 0 ) && 
                         ( potentialCollisionPointX < ( activePointX + MainReader.width ) ) ) {
                     leftMostLabelRightOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
                 }
@@ -104,7 +107,7 @@ public class MethodSlider {
         }
         
         // Check if there can be a label placed between two points
-        if( ( pointsLeftLabel + pointsRightLabel ) >= 2 && ( leftMostLabelRightOfPointX - rightMostLabelLeftOfPointX ) < MainReader.width ) {
+        if( ( pointsLeftLabel + pointsRightLabel ) >= 2 && ( leftMostLabelRightOfPointX - rightMostLabelLeftOfPointX ) <= MainReader.width && leftMostLabelRightOfPointX > 0 && rightMostLabelLeftOfPointX > 0 ) {
             // Set the shift to impossible
             point.getLabels().get( 0 ).setShift( -1 );
         } else if ( pointsRightLabel > pointsLeftLabel && rightMostLabelLeftOfPointX > 0 && rightMostLabelLeftOfPointX < activePointX ) {
