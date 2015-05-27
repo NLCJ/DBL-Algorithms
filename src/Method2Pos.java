@@ -108,19 +108,12 @@ public class Method2Pos {
                 p.value().setLabels(labels);
             }
         }
-
-//        for (Point p : MainReader.points) {
-//            System.out.println(p.getLabels());
-//        } 
     }
 
     public ArrayList<Point> posCollisions(Point p) {
         ArrayList<Point> possibleCollisions = new ArrayList<Point>();
         possibleCollisions.clear();
         quad.retrieve(possibleCollisions, p);
-//        for (int i = 0; i < possibleCollisions.size(); i ++) {
-//        System.out.println(possibleCollisions.get(i).getLabels().get(0));
-//        }
         return possibleCollisions;
     }
 
