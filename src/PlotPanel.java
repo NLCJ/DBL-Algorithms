@@ -59,7 +59,7 @@ public class PlotPanel extends JPanel {
                     g2d.setColor( Color.ORANGE );
                     break;
                 default:
-                    g2d.setColor( Color.MAGENTA );
+                    g2d.setColor( Color.RED );
                     break;
             }
             
@@ -67,7 +67,11 @@ public class PlotPanel extends JPanel {
             double x = label.getReference().getX();
             double y = 10000 - label.getReference().getY();
             
-            g2d.drawRect( (int) x, (int) y - height, width, height );
+            if( shiftLabel < 0 ) {
+                g2d.drawRect( (int) x, (int) y - height, width, height );
+            } else {
+                g2d.fillRect( (int) x, (int) y - height, width, height );
+            }
             
             // Draw the point
             int pointX = (int) label.getAnchor().getX();

@@ -86,7 +86,7 @@ public class Label {
         // Check if the shift is 'valid'
         if( shift >= 0 && shift <= 1 ) {
             // Create a reference point for the label
-            this.reference = new Point( this.anchor.getX()- MainReader.width + ( shift * MainReader.width ), this.anchor.getY(), -1 );
+            this.reference = new Point( this.anchor.getX() - MainReader.width + ( shift * MainReader.width ), this.anchor.getY(), -1 );
         } else {
             this.reference = new Point( this.anchor.getX(), this.anchor.getY(), -1 );
         }
