@@ -42,6 +42,7 @@ public class MethodSlider {
         for( int i = 0; i < points.length; i++ ) {
             // Create quad tree
             quadTree.insert( points[ i ] );
+            System.out.println("point set in tree: " + points[i]);
         }
     }
     
@@ -70,6 +71,7 @@ public class MethodSlider {
         // Current label conditions
         double labelX = point.getLabels().get( 0 ).getReference().getX();
         double labelY = point.getLabels().get( 0 ).getReference().getY();
+        System.out.println("labelX: " + labelX + " from point: " + point);
         
         double leftMostLabelRightOfPointX = 0;
         double rightMostLabelLeftOfPointX = 0;
