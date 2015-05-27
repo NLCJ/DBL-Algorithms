@@ -78,7 +78,7 @@ public class PlotPanel extends JPanel {
             int pointY = 10000 - (int) label.getAnchor().getY();
             g2d.fillOval( pointX - 2, pointY - 2, 4, 4 );
             
-            System.out.println( "Shift: " + shiftLabel );
+            //System.out.println( "Shift: " + shiftLabel );
             
 //            if (pnt1.getLabels() == null || pnt1.getLabels().isEmpty()) {
 //                continue;

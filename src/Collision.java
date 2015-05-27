@@ -146,7 +146,7 @@ public class Collision {
         }
         for(int i = 0; i < sliderCollisions.size(); i++){
             Point cp = (Point) sliderCollisions.get(i);
-            System.out.println("point: " + p.getX() + " " + p.getY() + " collides with: " + cp.getX() + " " + cp.getY());
+            //System.out.println("point: " + p.getX() + " " + p.getY() + " collides with: " + cp.getX() + " " + cp.getY());
         }
         //return the list sliderCollisions
         return sliderCollisions;

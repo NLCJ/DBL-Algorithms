@@ -263,14 +263,48 @@ public class QuadTree {
     public List retrieve(List<Point> potentialCollisionPoints, Point p) {
         //get the index of point p
         int index = getIndex(p);
+        //System.out.println("point: " + p + " index: " + index);
         //if index is not -1 and there exists a child node
         //then get the list of potential collisions from the child node with the corresponding index (recursion)
         if (index != -1 && node[0] != null) {
             node[index].retrieve(potentialCollisionPoints, p);
         }
+        
+        //System.out.println("node[0]: " + node[0]);
+        
+        if(index == -1 && node[0] != null){
+            //System.out.println("In -1 if statement");
+            List<Point> pc = new ArrayList<>();
+            pc = pointsInChild(pc,node);
+            //for(int j = 0; j < pc.size(); j++){
+            //    System.out.println("point in child: " + pc.get(j));
+            //}
+            potentialCollisionPoints.addAll(pc);
+            //for(int j = 0; j < potentialCollisionPoints.size(); j++){
+            //    System.out.println("point in pot: " + potentialCollisionPoints.get(j));
+            //}
+        }
+        
+        //System.out.println("point: " + p + " index: " + index);
+        //for(int i = 0; i < points.size(); i++){
+        //    System.out.println(points.get(i));
+        //}
+        //System.out.println();
+        
         //add all the points in the list of points to the potential collisions list and return the list
         //(in this node all the points' labels in the array points can potentially collide with point p's label)
         potentialCollisionPoints.addAll(points);
         return potentialCollisionPoints;
+    }
+    
+    public List pointsInChild(List pc, QuadTree[] child){
+        for(int i = 0; i < child.length; i++){
+            if(child[i].node[0] != null){
+                child[i].pointsInChild(pc, child[i].node);
+            }
+            pc.addAll(child[i].points);
+        }
+        
+        return pc;
     }
 }

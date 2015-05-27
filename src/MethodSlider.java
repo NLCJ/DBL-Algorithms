@@ -52,7 +52,7 @@ public class MethodSlider {
             // Get point collision
             List test = quadTree.retrieve( new ArrayList<Point>(), p );
             List potentialCollisions = collision.sliderCollisions( test, p );
-            
+            //System.out.println("the points used: " + p);
             // Try to fix the collision for this point
             fixCollision( p, potentialCollisions );
         }
