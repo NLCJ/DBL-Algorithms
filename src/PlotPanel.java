@@ -36,11 +36,31 @@ public class PlotPanel extends JPanel {
             double shiftLabel = label.getShift();
             
             // Check what color it should be
-            if( shiftLabel < 0 ) {
+            /*if( shiftLabel < 0 ) {
                 // Set color to red
                 g2d.setColor( Color.RED );
             } else {
                 g2d.setColor( Color.BLACK );
+            }*/
+            
+            int potentialCollisions = point.getPotentialCollision();
+            
+            switch( potentialCollisions ) {
+                case 0: 
+                    g2d.setColor( Color.BLACK );
+                    break;
+                case 1:
+                    g2d.setColor( Color.BLUE );
+                    break;
+                case 2:
+                    g2d.setColor( Color.GREEN );
+                    break;
+                case 3:
+                    g2d.setColor( Color.ORANGE );
+                    break;
+                default:
+                    g2d.setColor( Color.MAGENTA );
+                    break;
             }
             
             // Draw the rectangle
@@ -54,7 +74,7 @@ public class PlotPanel extends JPanel {
             int pointY = 10000 - (int) label.getAnchor().getY();
             g2d.fillOval( pointX - 2, pointY - 2, 4, 4 );
             
-            System.out.println( "Shift" + shiftLabel );
+            System.out.println( "Shift: " + shiftLabel );
             
 //            if (pnt1.getLabels() == null || pnt1.getLabels().isEmpty()) {
 //                continue;

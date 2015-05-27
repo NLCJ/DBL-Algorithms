@@ -60,6 +60,9 @@ public class MethodSlider {
     
     // Actually fix the collision
     public void fixCollision( Point point, List<Point> potentialCollisionPoints ) {
+        // Store the potential collision points
+        point.setPotentialCollision( potentialCollisionPoints.size() );
+        
         // Active point info
         double activePointX = point.getX();
         double activePointY = point.getY();
@@ -104,13 +107,13 @@ public class MethodSlider {
         }
         
         // Check if there can be a label placed between two points
-        if( leftMostLabelRightOfPointX  > 0 && ( leftMostLabelRightOfPointX - rightMostLabelLeftOfPointX ) < MainReader.width ) {
+        if( pointsLeftLabel + pointsRightLabel  >= 2 && ( leftMostLabelRightOfPointX - rightMostLabelLeftOfPointX ) < MainReader.width ) {
             // Set the shift to impossible
             point.getLabels().get( 0 ).setShift( -1 );
-        } else if ( leftMostLabelRightOfPointX > 0 ) {
+        } else if ( pointsRightLabel >= pointsLeftLabel && leftMostLabelRightOfPointX > 0 ) {
             // Set the label
             point.getLabels().get( 0 ).setShift( ( leftMostLabelRightOfPointX - activePointX ) / MainReader.width );
-        } else if ( rightMostLabelLeftOfPointX > 0 ) {
+        } else if ( pointsRightLabel < pointsLeftLabel && rightMostLabelLeftOfPointX > 0 ) {
             // Set the label
             point.getLabels().get( 0 ).setShift( ( activePointX - rightMostLabelLeftOfPointX ) / MainReader.width );
         }

@@ -13,6 +13,7 @@ public class Point {
     private final double y; //y coordinate, cannot be altered afterwards
     private final int origin; //pointer to position in original input
     private List<Label> labels = new ArrayList<Label>();
+    private int potentialCollisions;
 
     /**
      * Creates a point given x and y.
@@ -118,5 +119,13 @@ public class Point {
     @Override
     public String toString() {
         return "Point(" + x + "," + y + ')';
+    }
+    
+    
+    public void setPotentialCollision( int potentialCollisions ) {
+        this.potentialCollisions = potentialCollisions;
+    }
+    public int getPotentialCollision() {
+        return potentialCollisions;
     }
 }
