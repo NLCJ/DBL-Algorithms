@@ -13,8 +13,9 @@ public class Method4Pos {
     private Map<Label,Set<Label>> collisions;
     private double OldScore;
     private double NewScore;
+    RandomGenerator rg = new RandomGenerator();
     MergeSort mergesort = new MergeSort();
-    QuadTree quad = new QuadTree(10, 0, 20, 0, 20);
+    QuadTree quad = new QuadTree(0, 0, 10000, 0, 10000);
 
     //The method which "calculates" the position of the labels
     public Point[] PositionCalculator(int w, int h, Point[] p) {
@@ -97,11 +98,11 @@ public class Method4Pos {
         quadtree(p);
         RandomInitialPosition(p);
         collisions = FindCollisions(p);
-        OldScore = collisions.size() * 1.0;
+        OldScore = (double) collisions.size();
         while(c > 1 && OldScore > 0){
         ChangeRandomLabel(p);
         collisions = FindCollisions(p);
-        NewScore = collisions.size() * 1.0;
+        NewScore = (double) collisions.size();
         if(OldScore < NewScore){
             double AcceptanceChance = AcceptanceChance();
             double randomdouble = RandomDouble();
@@ -123,10 +124,11 @@ public class Method4Pos {
         return Math.exp((OldScore-NewScore)/c);
     }
     public double RandomDouble(){
-        return c;//this doesn`t make sense, I know.
+       
+        return  rg.randomDouble();
     }
-    public int Randomint(){
-        return 5;//this doesn`t make sens, I know.
+    public int Randomint(int max){
+        return rg.randomInt(max);
     }
     /**
      * Reverts the change back to the position before the change of the random 

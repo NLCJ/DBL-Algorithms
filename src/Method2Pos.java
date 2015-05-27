@@ -107,7 +107,6 @@ public class Method2Pos {
                 }
                 p.value().setLabels(labels);
             }
-
         }
 
 //        for (Point p : MainReader.points) {
