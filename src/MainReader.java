@@ -99,7 +99,7 @@ class MainReader {
             height = Integer.parseInt(sc.nextLine().substring(8));
             int number_points = Integer.parseInt(sc.nextLine().substring(18));
             numberLabels = number_points;
-
+            System.out.println("Sup King Martin");
             // Create array for points
             points = new Point[number_points];
             // Place each point in the array
