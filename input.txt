@@ -1,7 +1,11 @@
-placement model: 4pos
-width: 5
-height: 5
-number of points: 3
-1 1
-1 3
-2 1
+placement model: 1slider
+width: 50
+height: 50
+number of points: 7
+100 10
+100 30
+200 10
+450 55
+400 35
+360 65
+500 30
