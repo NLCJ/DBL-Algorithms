@@ -1,14 +1,14 @@
-placement model: 1slider
-width: 10
-height: 5
+placement model: 2pos
+width: 50
+height: 50
 number of points: 10
-11 33
-73 85
-88 58
-77 23
-94 92
-4 9
-72 68
-94 93
-54 2
-22 60
+116 150
+86 82
+81 220
+181 32
+204 226
+29 140
+222 16
+236 96
+97 42
+223 130
