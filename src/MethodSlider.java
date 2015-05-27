@@ -40,6 +40,9 @@ public class MethodSlider {
     public void placePoints( Point[] points ) {    
         // For each point
         for( int i = 0; i < points.length; i++ ) {
+            // Set shift to 1
+            points[ i ].getLabels().get( 0 ).setShift( 1 );
+            
             // Create quad tree
             quadTree.insert( points[ i ] );
         }
@@ -72,6 +75,7 @@ public class MethodSlider {
         double labelY = point.getLabels().get( 0 ).getReference().getY();
         
         double leftMostLabelRightOfPointX = 0;
+        double rightMostLabelLeftOfPointX = 0;
         
         // For each point determine where
         for( Point potentialCollisionPoint : potentialCollisionPoints ) {
@@ -80,22 +84,31 @@ public class MethodSlider {
                 && potentialCollisionPoint.getY() > activePointY && potentialCollisionPoint.getY() < ( activePointY + MainReader.height ) ) {
                 // Point is within reach of the most left label
                 pointsLeftLabel++;
+                
+                // Update the right X of the label
+                if( potentialCollisionPoint.getLabels().get( 0 ).getReference().getX() < rightMostLabelLeftOfPointX || rightMostLabelLeftOfPointX == 0 ) {
+                    rightMostLabelLeftOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
+                }
             } else if( potentialCollisionPoint.getX() > activePointX && potentialCollisionPoint.getX() < ( activePointX + MainReader.width )
                     && potentialCollisionPoint.getY() > activePointY && potentialCollisionPoint.getY() < ( activePointY + MainReader.height ) ) {
                 // Point is within reach of the most right label
                 pointsRightLabel++;
                 
                 // Update the left X of the label
-                if( potentialCollisionPoint.getLabels().get( 0 ).getReference().getX() < leftMostLabelRightOfPointX ) {
+                if( potentialCollisionPoint.getLabels().get( 0 ).getReference().getX() < leftMostLabelRightOfPointX || leftMostLabelRightOfPointX == 0 ) {
                     leftMostLabelRightOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
                 }
             }
         }
-        // Calculate 
-        double shift = ( leftMostLabelRightOfPointX - activePointX ) / MainReader.width;
         
-        // Set shift of label
-        point.getLabels().get( 0 ).setShift( shift );
+        // Check if there fits a label between two collisions
+        if( rightMostLabelLeftOfPointX + MainReader.width > leftMostLabelRightOfPointX ) {
+            point.getLabels().get( 0 ).setShift( -1 );
+        } else if( leftMostLabelRightOfPointX  > 0 ) {
+            point.getLabels().get( 0 ).setShift( ( leftMostLabelRightOfPointX - activePointX ) / MainReader.width );
+        } else {
+            point.getLabels().get( 0 ).setShift( ( activePointX - rightMostLabelLeftOfPointX ) / MainReader.width );
+        }
     }
     
     public Point[] originalOrder( Point[] p ) {
