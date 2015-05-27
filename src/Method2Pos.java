@@ -60,8 +60,9 @@ public class Method2Pos {
         //TODO clauses are only from not to not! something wrong here!
         // System.out.println("Clauses: " + clauses);
         // System.out.println("Collisions: " + collisions);
-        while (TwoSat.isSatisfiable(clauses) != null) {
-            Clause<Point> badPoint = TwoSat.isSatisfiable(clauses);
+        Clause<Point> badPoint = TwoSat.isSatisfiable(clauses);
+        while (badPoint != null) {
+
             MainReader.numberLabels --;
 
             badPoint.first().value().removeLabel(badPoint.first().getPlacement());
@@ -80,6 +81,7 @@ public class Method2Pos {
 //            for (int i = 0; i < clauses.size(); i ++) {
 //                System.out.println(clauses.get(i));
 //            }
+            badPoint = TwoSat.isSatisfiable(clauses);
         }
         if (TwoSat.g == null) {
             throw new Error("Error!");

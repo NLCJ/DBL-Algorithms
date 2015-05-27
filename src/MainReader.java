@@ -89,7 +89,7 @@ class MainReader {
         //  System.out.println("Reading file");
         try {
 
-            File file = new File("data-of-awesomeness.txt");
+            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\input.txt");
             Scanner sc = new Scanner(file);
 
             // Get the model data
@@ -99,7 +99,6 @@ class MainReader {
             height = Integer.parseInt(sc.nextLine().substring(8));
             int number_points = Integer.parseInt(sc.nextLine().substring(18));
             numberLabels = number_points;
-            System.out.println("Sup King Martin");
             // Create array for points
             points = new Point[number_points];
             // Place each point in the array
@@ -122,6 +121,7 @@ class MainReader {
             }
             if (placement_model.equals("4pos")) {
                 Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
+                pos_4.Annealing(points);
                 pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
                 Gui(placement_model, number_points, points_4pos);
             }

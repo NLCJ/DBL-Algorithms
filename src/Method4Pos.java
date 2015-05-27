@@ -49,9 +49,6 @@ public class Method4Pos {
         ArrayList<Point> possibleCollisions = new ArrayList<Point>();
         possibleCollisions.clear();
         quad.retrieve(possibleCollisions, p);
-//        for (int i = 0; i < possibleCollisions.size(); i ++) {
-//        System.out.println(possibleCollisions.get(i).getLabels().get(0));
-//        }
         return possibleCollisions;
     }
 
@@ -60,11 +57,30 @@ public class Method4Pos {
      *
      * @param points the list points to give the random labels
      */
-
     public void RandomInitialPosition(Point[] points) {
-
+        int placement;
+        ArrayList<Label> labels = new ArrayList<Label>();
         for (Point p : points) {
             p.setLabels(null);
+        }
+        for (Point p : points) {
+            placement = RandomInt(3);
+            switch (placement) {
+                case 0:
+                    labels.add(new Label(p, Placement.NW, MainReader.width, MainReader.height));
+                    break;
+                case 1:
+                    labels.add(new Label(p, Placement.NE, MainReader.width, MainReader.height));
+                    break;
+                case 2:
+                    labels.add(new Label(p, Placement.SW, MainReader.width, MainReader.height));
+                    break;
+                case 3:
+                    labels.add(new Label(p, Placement.SE, MainReader.width, MainReader.height));
+                    break;
+            }
+            p.setLabels(labels);
+//            labels.clear();
         }
     }
 
@@ -78,15 +94,19 @@ public class Method4Pos {
         Map<Label, Set<Label>> collisions = new HashMap<Label, Set<Label>>();
         List<Point> possiCollisions = new ArrayList<Point>();
         List<Label> poCollisions = new ArrayList<Label>();
-
         for (Point p : points) {
             possiCollisions = posCollisions(p);
             for (int i = 0; i < possiCollisions.size(); i ++) {
                 poCollisions.add(possiCollisions.get(i).getLabels().get(0));
+//                for (int j = 0; j < possiCollisions.size(); j ++) {
+//                    System.out.println(possiCollisions.get(j).getLabels().get(j) + " hoi");
+//                }
                 Collision.allCollisions(poCollisions, p, collisions);
                 poCollisions.clear();;
             }
-
+        }
+        for (int i = 0; i < collisions.size(); i ++) {
+            System.out.println(collisions.size() + " hoi " +collisions.toString());
         }
         return collisions;
     }
@@ -109,7 +129,7 @@ public class Method4Pos {
         RandomInitialPosition(p);
         collisions = FindCollisions(p);
         OldScore = (double) collisions.size();
-        while (c > 1 && OldScore > 0) {
+        while (c > 100000 && OldScore > 0) {
             ChangeRandomLabel(p);
             collisions = FindCollisions(p);
             NewScore = (double) collisions.size();
@@ -130,7 +150,6 @@ public class Method4Pos {
      *
      * @return the acceptance chance
      */
-
     public double AcceptanceChance() {
         return Math.exp((OldScore - NewScore) / c);
     }
@@ -140,7 +159,7 @@ public class Method4Pos {
         return rg.randomDouble();
     }
 
-    public int Randomint(int max) {
+    public int RandomInt(int max) {
         return rg.randomInt(max);
     }
 
