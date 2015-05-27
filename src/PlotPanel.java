@@ -39,7 +39,7 @@ public class PlotPanel extends JPanel {
             for (Label l : pnt[i].getLabels()) {
                 int x = (int) l.getReference().getX();
                 int y = 10000 - (int) l.getReference().getY();
-                g2d.drawRect(x, y - height, height, width);
+                g2d.drawRect(x, y - height, width, height);
             }
 
             int x = (int) pnt[i].getLabels().get(0).getAnchor().getX();
