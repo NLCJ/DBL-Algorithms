@@ -37,7 +37,13 @@ public class PlotPanel extends JPanel {
                 continue;
             }
             for (Label l : pnt[i].getLabels()) {
-                int x = (int) l.getReference().getX();
+                if(pnt[i].getLabels().get(0).getShift()==-1){
+               g2d.setColor(Color.RED);
+                }
+                if(pnt[i].getLabels().get(0).getShift()==-1){
+               g2d.setColor(Color.BLACK);
+                }
+                    int x = (int) l.getReference().getX();
                 int y = 10000 - (int) l.getReference().getY();
                 g2d.drawRect(x, y - height, width, height);
             }
