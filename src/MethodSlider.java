@@ -14,7 +14,7 @@ public class MethodSlider {
     MergeSort mergesort = new MergeSort();
     private Point[] result;
     private Collision collision = new Collision();
-    private QuadTree quadTree = new QuadTree( 10, 0, 10000, 0, 10000 );
+    private QuadTree quadTree = new QuadTree( 0, 0, 10000, 0, 10000 );
     
     /**
      * Return the result
@@ -91,9 +91,11 @@ public class MethodSlider {
                 }
             }
         }
+        // Calculate 
+        double shift = ( leftMostLabelRightOfPointX - activePointX ) / MainReader.width;
         
         // Set shift of label
-        
+        point.getLabels().get( 0 ).setShift( shift );
     }
     
     public Point[] originalOrder( Point[] p ) {
