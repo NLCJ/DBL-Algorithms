@@ -40,9 +40,6 @@ public class MethodSlider {
     public void placePoints( Point[] points ) {    
         // For each point
         for( int i = 0; i < points.length; i++ ) {
-            // Set shift to 1
-            points[ i ].getLabels().get( 0 ).setShift( 1 );
-            
             // Create quad tree
             quadTree.insert( points[ i ] );
         }
@@ -79,34 +76,40 @@ public class MethodSlider {
         
         // For each point determine where
         for( Point potentialCollisionPoint : potentialCollisionPoints ) {
+            double potentialCollisionPointX = potentialCollisionPoint.getX();
+            double potentialCollisionPointY = potentialCollisionPoint.getY();
+            
             // Check if that point is to the left AND within the label width
-            if( potentialCollisionPoint.getX() < activePointX && potentialCollisionPoint.getX() > ( activePointX - MainReader.width )
-                && potentialCollisionPoint.getY() > activePointY && potentialCollisionPoint.getY() < ( activePointY + MainReader.height ) ) {
+            if( potentialCollisionPointX < activePointX && potentialCollisionPointX > ( activePointX - MainReader.width )
+                && potentialCollisionPointY > activePointY && potentialCollisionPointY < ( activePointY + MainReader.height ) ) {
                 // Point is within reach of the most left label
                 pointsLeftLabel++;
                 
-                // Update the right X of the label
-                if( potentialCollisionPoint.getLabels().get( 0 ).getReference().getX() < rightMostLabelLeftOfPointX || rightMostLabelLeftOfPointX == 0 ) {
-                    rightMostLabelLeftOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
+                // Update the right most label X
+                if( potentialCollisionPointX > rightMostLabelLeftOfPointX ) {
+                    rightMostLabelLeftOfPointX = potentialCollisionPointX;
                 }
-            } else if( potentialCollisionPoint.getX() > activePointX && potentialCollisionPoint.getX() < ( activePointX + MainReader.width )
-                    && potentialCollisionPoint.getY() > activePointY && potentialCollisionPoint.getY() < ( activePointY + MainReader.height ) ) {
+            } else if( potentialCollisionPointX > activePointX && potentialCollisionPointX < ( activePointX + MainReader.width )
+                    && potentialCollisionPointY > activePointY && potentialCollisionPointY < ( activePointY + MainReader.height ) ) {
                 // Point is within reach of the most right label
                 pointsRightLabel++;
                 
                 // Update the left X of the label
-                if( potentialCollisionPoint.getLabels().get( 0 ).getReference().getX() < leftMostLabelRightOfPointX || leftMostLabelRightOfPointX == 0 ) {
-                    leftMostLabelRightOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
+                if( potentialCollisionPointX < leftMostLabelRightOfPointX || leftMostLabelRightOfPointX == 0 ) {
+                    leftMostLabelRightOfPointX = potentialCollisionPointX;
                 }
             }
         }
         
-        // Check if there fits a label between two collisions
-        if( rightMostLabelLeftOfPointX + MainReader.width > leftMostLabelRightOfPointX ) {
+        // Check if there can be a label placed between two points
+        if( leftMostLabelRightOfPointX  > 0 && ( leftMostLabelRightOfPointX - rightMostLabelLeftOfPointX ) < MainReader.width ) {
+            // Set the shift to impossible
             point.getLabels().get( 0 ).setShift( -1 );
-        } else if( leftMostLabelRightOfPointX  > 0 ) {
+        } else if ( leftMostLabelRightOfPointX > 0 ) {
+            // Set the label
             point.getLabels().get( 0 ).setShift( ( leftMostLabelRightOfPointX - activePointX ) / MainReader.width );
-        } else {
+        } else if ( rightMostLabelLeftOfPointX > 0 ) {
+            // Set the label
             point.getLabels().get( 0 ).setShift( ( activePointX - rightMostLabelLeftOfPointX ) / MainReader.width );
         }
     }

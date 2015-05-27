@@ -11,6 +11,7 @@ public class Label {
     private final Point anchor; //The point corresponding to the placement model
     private Point reference; //The lower left corner of the label
     private final Placement placement;
+    private double shift = 1;
 
     /**
      * Creates a label following a given placement.
@@ -94,14 +95,15 @@ public class Label {
      * @param shift: the shift of the label (a/width)
      */
     public void setShift(double shift) {
-        double a; //displacement a
-        if (shift >= 0 && shift <= 1) {
-            a = shift * MainReader.width; //variable a as stated in the problem description                                      
-        } else {
-            a = 0; //in case shift is invalid, shift is 0
-            Logger.getLogger(MainReader.class.getName()).log(Level.WARNING, null, "Shift is invalid");
-        }
-        reference = new Point(anchor.getX() - (MainReader.width - a), anchor.getY(), -1);
+        this.shift = shift;
+//        double a; //displacement a
+//        if (shift >= 0 && shift <= 1) {
+//            a = shift * MainReader.width; //variable a as stated in the problem description                                      
+//        } else {
+//            a = 0; //in case shift is invalid, shift is 0
+//            Logger.getLogger(MainReader.class.getName()).log(Level.WARNING, null, "Shift is invalid");
+//        }
+//        reference = new Point(anchor.getX() - (MainReader.width - a), anchor.getY(), -1);
         //reference point needs a translation of (-(width - a), 0)
     }
 
@@ -111,7 +113,8 @@ public class Label {
      * @return the shift of the label
      */
     public double getShift() {
-        return (MainReader.width - (anchor.getX() - reference.getX())) / MainReader.width;
+        return shift;
+        //return (MainReader.width - (anchor.getX() - reference.getX())) / MainReader.width;
     }
 
     /**
