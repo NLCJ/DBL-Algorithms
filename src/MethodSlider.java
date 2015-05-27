@@ -83,20 +83,20 @@ public class MethodSlider {
             if( potentialCollisionPointX < activePointX && potentialCollisionPointX > ( activePointX - MainReader.width )
                 && potentialCollisionPointY > activePointY && potentialCollisionPointY < ( activePointY + MainReader.height ) ) {
                 // Point is within reach of the most left label
-                pointsLeftLabel++;
+                pointsRightLabel++;
                 
                 // Update the right most label X
                 if( potentialCollisionPointX > rightMostLabelLeftOfPointX || rightMostLabelLeftOfPointX == 0 ) {
-                    rightMostLabelLeftOfPointX = potentialCollisionPointX;
+                    rightMostLabelLeftOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
                 }
             } else if( potentialCollisionPointX > activePointX && potentialCollisionPointX < ( activePointX + MainReader.width )
                     && potentialCollisionPointY > activePointY && potentialCollisionPointY < ( activePointY + MainReader.height ) ) {
                 // Point is within reach of the most right label
-                pointsRightLabel++;
+                pointsLeftLabel++;
                 
                 // Update the left X of the label
                 if( potentialCollisionPointX < leftMostLabelRightOfPointX || leftMostLabelRightOfPointX == 0 ) {
-                    leftMostLabelRightOfPointX = potentialCollisionPointX;
+                    leftMostLabelRightOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
                 }
             }
         }
