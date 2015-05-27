@@ -51,22 +51,8 @@ public class Label {
                 //reference point needs a translation of (-width, -height)
                 break;
             default: //placement is Slider on default
-                double a;
-                if (shift.length == 0) {
-                    a = 0; //in case shift is not given, assume shift is 0
-                } else {
-                    if (shift[0] >= 0 && shift[0] <= 1) {
-                        a = shift[0] * width; //variable a as stated in the problem description                                      
-                    } else {
-                        a = 0; //in case shift is invalid, shift is 0
-                        Logger.getLogger(MainReader.class.getName()).log(Level.WARNING, null, "Shift is invalid");
-                    }
-                }
-                reference = new Point(anchor.getX() - (width - a), anchor.getY(), -1);
-                if (reference.getY() != anchor.getY()) {
-                System.out.println("niet gelijk");
-                }
-                //reference point needs a translation of (-(width - a), 0)
+
+                this.reference = new Point( this.anchor.getX(), this.anchor.getY(), -1 );
                 break;
         }
     }
@@ -96,15 +82,14 @@ public class Label {
      */
     public void setShift(double shift) {
         this.shift = shift;
-//        double a; //displacement a
-//        if (shift >= 0 && shift <= 1) {
-//            a = shift * MainReader.width; //variable a as stated in the problem description                                      
-//        } else {
-//            a = 0; //in case shift is invalid, shift is 0
-//            Logger.getLogger(MainReader.class.getName()).log(Level.WARNING, null, "Shift is invalid");
-//        }
-//        reference = new Point(anchor.getX() - (MainReader.width - a), anchor.getY(), -1);
-        //reference point needs a translation of (-(width - a), 0)
+        
+        // Check if the shift is 'valid'
+        if( shift >= 0 && shift <= 1 ) {
+            // Create a reference point for the label
+            this.reference = new Point( this.anchor.getX()- MainReader.width + ( shift * MainReader.width ), this.anchor.getY(), -1 );
+        } else {
+            this.reference = new Point( this.anchor.getX(), this.anchor.getY(), -1 );
+        }
     }
 
     /**
@@ -113,23 +98,7 @@ public class Label {
      * @return the shift of the label
      */
     public double getShift() {
-        return shift;
-        //return (MainReader.width - (anchor.getX() - reference.getX())) / MainReader.width;
-    }
-
-    /**
-     * Shifts this label
-     *
-     * @param displacement: the movement of the label
-     */
-    public void addShift(double displacement) {
-        double newX = reference.getX() + displacement;
-        double distance = anchor.getX() - newX;
-        if (distance <= MainReader.width && distance >= 0) {
-            reference = new Point(newX, anchor.getY(), -1);
-        } else {
-            Logger.getLogger(MainReader.class.getName()).log(Level.WARNING, null, "Displacement is invalid");
-        }
+        return this.shift;
     }
 
     public Placement getPlacement() {

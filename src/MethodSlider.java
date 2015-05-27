@@ -86,7 +86,7 @@ public class MethodSlider {
                 pointsLeftLabel++;
                 
                 // Update the right most label X
-                if( potentialCollisionPointX > rightMostLabelLeftOfPointX ) {
+                if( potentialCollisionPointX > rightMostLabelLeftOfPointX || rightMostLabelLeftOfPointX == 0 ) {
                     rightMostLabelLeftOfPointX = potentialCollisionPointX;
                 }
             } else if( potentialCollisionPointX > activePointX && potentialCollisionPointX < ( activePointX + MainReader.width )

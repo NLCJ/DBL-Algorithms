@@ -30,28 +30,50 @@ public class PlotPanel extends JPanel {
         super.paint(g2d);
         this.setBackground(Color.white);
 
-        g2d.setColor(Color.BLACK);
-        for (int i = 0; i < pnt.length; i ++) {
-
-            if (pnt[i].getLabels() == null || pnt[i].getLabels().isEmpty()) {
-                continue;
+        for (Point point : pnt) {
+            // Get the label
+            Label label = point.getLabels().get( 0 );
+            double shiftLabel = label.getShift();
+            
+            // Check what color it should be
+            if( shiftLabel < 0 ) {
+                // Set color to red
+                g2d.setColor( Color.RED );
+            } else {
+                g2d.setColor( Color.BLACK );
             }
-            for (Label l : pnt[i].getLabels()) {
-                if(pnt[i].getLabels().get(0).getShift()==-1){
-               g2d.setColor(Color.RED);
-                }
-                if(pnt[i].getLabels().get(0).getShift()!=-1){
-               g2d.setColor(Color.BLACK);
-                }
-                    int x = (int) l.getReference().getX();
-                int y = 10000 - (int) l.getReference().getY();
-                g2d.drawRect(x, y - height, width, height);
-            }
-
-            int x = (int) pnt[i].getLabels().get(0).getAnchor().getX();
-            int y = 10000 - (int) pnt[i].getLabels().get(0).getAnchor().getY();
-            g2d.fillOval(x - 2, y - 2, 4, 4);
-
+            
+            // Draw the rectangle
+            double x = label.getReference().getX();
+            double y = 10000 - label.getReference().getY();
+            
+            g2d.drawRect( (int) x, (int) y - height, width, height );
+            
+            // Draw the point
+            int pointX = (int) label.getAnchor().getX();
+            int pointY = 10000 - (int) label.getAnchor().getY();
+            g2d.fillOval( pointX - 2, pointY - 2, 4, 4 );
+            
+            System.out.println( "Shift" + shiftLabel );
+            
+//            if (pnt1.getLabels() == null || pnt1.getLabels().isEmpty()) {
+//                continue;
+//            }
+//            for (Label l : pnt1.getLabels()) {
+//                if (pnt1.getLabels().get(0).getShift() == -1) {
+//                    g2d.setColor(Color.RED);
+//                }
+//                if (pnt1.getLabels().get(0).getShift() != -1) {
+//                    g2d.setColor(Color.BLACK);
+//                }
+//                int x = (int) l.getReference().getX();
+//                int y = 10000 - (int) l.getReference().getY();
+//                g2d.drawRect(x, y - height, width, height);
+//                System.out.println( "Shift" + l.getShift() );
+//            }
+//            int x = (int) pnt1.getLabels().get(0).getAnchor().getX();
+//            int y = 10000 - (int) pnt1.getLabels().get(0).getAnchor().getY();
+//            g2d.fillOval(x - 2, y - 2, 4, 4);
         }
     }
 }
