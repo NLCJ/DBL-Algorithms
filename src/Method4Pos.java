@@ -143,6 +143,7 @@ public class Method4Pos {
             NewScore = OldScore;
             c --;//Needs to be changed.
         }
+        RemoveCollisions(p);
     }
 
     /**
