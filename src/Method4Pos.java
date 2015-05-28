@@ -18,7 +18,7 @@ public class Method4Pos {
     Point oldPoint;
     private double OldScore;
     private double NewScore;
-    
+
     RandomGenerator rg = new RandomGenerator();
     MergeSort mergesort = new MergeSort();
     QuadTree quad = new QuadTree(0, 0, 10000, 0, 10000);
@@ -235,11 +235,19 @@ public class Method4Pos {
                 temp = length;
             }
         }
-        for (Label l : collisions.get(tempL)) {
-            Collision.removeCollisionFromMap(collisions, tempL, l);
+        if (tempL != null) {
+            List<Label> tempList = new ArrayList<Label>();
+                for (Label l : collisions.get(tempL)) {
+                    tempList.add(l);
+                }
+                for (int i = 0; i < tempList.size(); i ++) {
+                    Collision.removeCollisionFromMap(collisions, tempL, tempList.get(i));
+                }
+            
         }
         if (tempL != null) {
-        tempL.getAnchor().setLabels(null);
+            tempL.getAnchor().setLabels(null);
+            MainReader.numberLabels --;
         }
     }
 
@@ -255,11 +263,11 @@ public class Method4Pos {
         System.out.println("width: " + w);
         System.out.println("height: " + h);
         System.out.println("number of points: " + n_p);
-        System.out.println("number of labels: " + n_p);
+        System.out.println("number of labels: " + MainReader.numberLabels);
 
         //Output each of the points
         for (Point point : output) {
-            if ( point.getLabels() != null ) {
+            if (point.getLabels() != null) {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
             } else {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " NIL");

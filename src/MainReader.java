@@ -123,7 +123,7 @@ class MainReader {
                 Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
                 pos_4.Annealing(points);
                 pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
-                Gui(placement_model, number_points, points_4pos);
+                //Gui(placement_model, number_points, points_4pos);
             }
             if (placement_model.equals("1slider")) {
                 Point[] points_slider = slider.originalOrder(points);
