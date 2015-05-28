@@ -11,7 +11,7 @@ public class Label {
     private final Point anchor; //The point corresponding to the placement model
     private Point reference; //The lower left corner of the label
     private final Placement placement;
-    private double shift = 1;
+    private double shift = 10;
 
     /**
      * Creates a label following a given placement.

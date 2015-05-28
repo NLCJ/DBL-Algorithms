@@ -26,16 +26,17 @@ public class MethodSlider {
     }
     
     public Point[] ShiftCalculator(int w, int h, Point[] p){
+        // Sort the points
+        Point[] sortedPoints = mergesort.sort( p );
         
         // Start at the right bottom with placeing labels - thus inverting the sorted array
-        Collections.reverse( Arrays.asList(p) );
+        Collections.reverse( Arrays.asList( sortedPoints ) );
         
         // Start placing the points
-        placePoints( p );
-        findCollisions( p );
-        findCollisions( p );
+        placePoints( sortedPoints );
+        findCollisions( sortedPoints );
         
-        return originalOrder( p );
+        return originalOrder( sortedPoints );
     }
     
     public void placePoints( Point[] points ) {    
@@ -60,7 +61,10 @@ public class MethodSlider {
     
     // Actually fix the collision
     public void fixCollision( Point point, List<Point> potentialCollisionPoints ) {
-        // Store the potential collision points
+        // Set the default point shift - can be used to determine placed points
+        point.getLabels().get( 0 ).setShift( 1 );
+        
+        // Store the potential collision points for colors
         point.setPotentialCollision( potentialCollisionPoints.size() );
         
         // Active point info
@@ -82,15 +86,21 @@ public class MethodSlider {
         for( Point potentialCollisionPoint : potentialCollisionPoints ) {
             double potentialCollisionPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
             double potentialCollisionPointY = potentialCollisionPoint.getY();
+            
+            // Get label visibility
+            boolean labelVisible = true;
+            if( potentialCollisionPoint.getLabels().get( 0 ).getShift() == 10 ) {
+                labelVisible = false;
+            }
            
             // Check if that point is to the left AND within the label width
-            if( potentialCollisionPointX <= activePointX  ) {
+            if( potentialCollisionPointX <= activePointX ) {
                 // Point is within reach of the most left label
                 pointsRightLabel++;
                 
                 // Update the right most label X
                 if( ( potentialCollisionPointX >= rightMostLabelLeftOfPointX || rightMostLabelLeftOfPointX == 0 ) &&
-                        ( ( potentialCollisionPointX + MainReader.width ) >= activePointX ) && potentialCollisionPointY <= activePointY ) {
+                        ( ( potentialCollisionPointX + MainReader.width ) >= activePointX ) && potentialCollisionPointY <= activePointY && labelVisible ) {
                     rightMostLabelLeftOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX() + MainReader.width;
                 }
             } else if( potentialCollisionPointX >= activePointX ) {
@@ -99,14 +109,15 @@ public class MethodSlider {
                 
                 // Update the left X of the label if it is within reach
                 if( ( potentialCollisionPointX <= leftMostLabelRightOfPointX || leftMostLabelRightOfPointX == 0 ) && 
-                        ( potentialCollisionPointX < ( activePointX + MainReader.width ) ) ) {
+                        ( potentialCollisionPointX < ( activePointX + MainReader.width ) ) && potentialCollisionPointY <= activePointY && labelVisible ) {
                     leftMostLabelRightOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
                 }
             }
         }
         
         // Check if there can be a label placed between two points
-        if( ( pointsLeftLabel + pointsRightLabel ) >= 2 && ( leftMostLabelRightOfPointX - rightMostLabelLeftOfPointX ) <= MainReader.width && leftMostLabelRightOfPointX > 0 && rightMostLabelLeftOfPointX > 0 ) {
+        if( ( pointsLeftLabel + pointsRightLabel ) >= 2 && 
+                ( leftMostLabelRightOfPointX - rightMostLabelLeftOfPointX ) <= MainReader.width && leftMostLabelRightOfPointX > 0 && rightMostLabelLeftOfPointX > 0 ) {
             // Set the shift to impossible
             point.getLabels().get( 0 ).setShift( -1 );
         } else if ( pointsRightLabel > pointsLeftLabel && rightMostLabelLeftOfPointX > 0 && rightMostLabelLeftOfPointX < activePointX ) {

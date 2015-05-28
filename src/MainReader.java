@@ -90,7 +90,6 @@ class MainReader {
         try {
 
             File file = new File("data-of-awesomeness.txt");
-            file = new File("input.txt");
             Scanner sc = new Scanner(file);
 
             // Get the model data

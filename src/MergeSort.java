@@ -1,3 +1,7 @@
+
+import java.util.Arrays;
+import java.util.Collections;
+
 /**
  *
  * @author s130973
@@ -24,14 +28,15 @@ public class MergeSort {
         return originalOrder;
     }
 
-    public void sort(Point[] values) {
+    public Point[] sort(Point[] values) {
 
         this.numbers = values;
         amount_of_points = values.length;
         this.helper = new Point[amount_of_points];
-        mergesortY(0, amount_of_points - 1);
         mergesortX(0, amount_of_points - 1);
-
+        mergesortY(0, amount_of_points - 1);
+        
+        return this.numbers;
     }
 
     private void mergesortY(int low, int high) {
