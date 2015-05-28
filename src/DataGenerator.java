@@ -24,8 +24,8 @@ public class DataGenerator {
     int labelWidth;
     int labelHeight;
     int amountOfPoints;
-    int maxAxisX = 10000;
-    int maxAxisY = 10000;
+    int maxAxisX/* = 10000*/;
+    int maxAxisY/* = 10000*/;
     int minX;
     int maxX;
     int minY;
@@ -49,10 +49,10 @@ public class DataGenerator {
             this.labelHeight = input.nextInt();
             System.out.print("Enter the amount of points: ");
             this.amountOfPoints = input.nextInt();
-//            System.out.print("Maximum x-axis: ");
-//            this.maxAxisX = input.nextInt();
-//            System.out.print("Maximum y-axis: ");
-//            this.maxAxisY = input.nextInt();
+            System.out.print("Maximum x-axis (standard is 10k): ");
+            this.maxAxisX = input.nextInt();
+            System.out.print("Maximum y-axis (standard is 10k): ");
+            this.maxAxisY = input.nextInt();
             System.out.print("Enter the minimum integer on the x-axis: ");
             this.minX = input.nextInt();
             System.out.print("Enter the maximum integer on the x-axis: ");
