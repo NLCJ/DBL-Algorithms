@@ -59,11 +59,12 @@ public class Method4Pos {
      */
     public void RandomInitialPosition(Point[] points) {
         int placement;
-        ArrayList<Label> labels = new ArrayList<Label>();
+        
         for (Point p : points) {
             p.setLabels(null);
         }
         for (Point p : points) {
+            ArrayList<Label> labels = new ArrayList<Label>();
             placement = RandomInt(3);
             switch (placement) {
                 case 0:
@@ -80,7 +81,6 @@ public class Method4Pos {
                     break;
             }
             p.setLabels(labels);
-//            labels.clear();
         }
     }
 
@@ -100,14 +100,14 @@ public class Method4Pos {
                 poCollisions.add(possiCollisions.get(i).getLabels().get(0));
 //                for (int j = 0; j < possiCollisions.size(); j ++) {
 //                    System.out.println(possiCollisions.get(j).getLabels().get(j) + " hoi");
-//                }
+//               }
                 Collision.allCollisions(poCollisions, p, collisions);
                 poCollisions.clear();;
             }
         }
-        for (int i = 0; i < collisions.size(); i ++) {
-            System.out.println(collisions.size() + " hoi " +collisions.toString());
-        }
+//        for (int i = 0; i < collisions.size(); i ++) {
+//            System.out.println(collisions.size() + " hoi " +collisions.toString());
+//        }
         return collisions;
     }
 
@@ -171,6 +171,7 @@ public class Method4Pos {
      * @param points the same as ever
      */
     public void RevertChanges(Point[] points) {
+        
     }
 
     /**

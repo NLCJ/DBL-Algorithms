@@ -10,7 +10,7 @@ public class Label {
 
     private final Point anchor; //The point corresponding to the placement model
     private Point reference; //The lower left corner of the label
-    private final Placement placement;
+    private Placement placement;
     private double shift = 1;
 
     /**
@@ -103,6 +103,10 @@ public class Label {
 
     public Placement getPlacement() {
         return placement;
+    }
+    
+    public void setPlacement(Placement place) {
+        placement = place;
     }
 
     @Override
