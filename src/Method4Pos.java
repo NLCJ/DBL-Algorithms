@@ -14,6 +14,7 @@ public class Method4Pos {
     private double c = 100000.0;// the temperature in the annealing schedule
     private Point[] result;
     private Map<Label, Set<Label>> collisions;
+    private List<Label> Oldsetting;
     private double OldScore;
     private double NewScore;
     RandomGenerator rg = new RandomGenerator();
@@ -117,6 +118,54 @@ public class Method4Pos {
      * @param p The array containing a point you wish to change
      */
     public void ChangeRandomLabel(Point[] p) {
+        for(Point point : p){//keep the old setting to revert the changes.
+            Oldsetting.add(point.getLabels().get(0));
+        }
+        int i = RandomInt(p.length - 1);
+        int j = RandomInt(2);
+        Placement placement = p[i].getLabels().get(0).getPlacement();
+        switch(placement){
+        case NE:
+            if(j == 0){
+                p[i].getLabels().get(0).setPlacement(Placement.NW);
+            }
+            else if (j == 1){
+                p[i].getLabels().get(0).setPlacement(Placement.SE);
+            }
+            else{
+                p[i].getLabels().get(0).setPlacement(Placement.SW);
+            } 
+        case NW:
+            if(j == 0){
+                p[i].getLabels().get(0).setPlacement(Placement.NE);
+            }
+            else if (j == 1){
+                p[i].getLabels().get(0).setPlacement(Placement.SE);
+            }
+            else{
+                p[i].getLabels().get(0).setPlacement(Placement.SW);
+            } 
+        case SE: 
+            if(j == 0){
+                p[i].getLabels().get(0).setPlacement(Placement.NW);
+            }
+            else if (j == 1){
+                p[i].getLabels().get(0).setPlacement(Placement.NE);
+            }
+            else{
+                p[i].getLabels().get(0).setPlacement(Placement.SW);
+            } 
+        case SW:
+            if(j == 0){
+                p[i].getLabels().get(0).setPlacement(Placement.NW);
+                }
+            else if (j == 1){
+                p[i].getLabels().get(0).setPlacement(Placement.NE);
+            }
+            else{
+                p[i].getLabels().get(0).setPlacement(Placement.SE);
+            } 
+        }
     }
 
     /**
