@@ -134,7 +134,7 @@ public class Method2Pos {
             if ( ! point.getLabels().isEmpty()) {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
             } else {
-                System.out.println((int) point.getX() + " " + (int) point.getY() + " NILL");
+                System.out.println((int) point.getX() + " " + (int) point.getY() + " NIL");
             }
         }
     }
