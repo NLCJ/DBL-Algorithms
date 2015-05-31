@@ -10,7 +10,7 @@ public class Label {
 
     private final Point anchor; //The point corresponding to the placement model
     private Point reference; //The lower left corner of the label
-    private final Placement placement;
+    private Placement placement;
     private boolean visible = false;
     private double shift = 1;
 
