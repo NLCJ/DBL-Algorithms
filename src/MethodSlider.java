@@ -30,7 +30,7 @@ public class MethodSlider {
         Point[] sortedPoints = mergesort.sort( p );
         
         // Start at the right bottom with placeing labels - thus inverting the sorted array
-        Collections.reverse( Arrays.asList( sortedPoints ) );
+        //Collections.reverse( Arrays.asList( sortedPoints ) );
         
         // Start placing the points
         placePoints( sortedPoints );
@@ -53,7 +53,6 @@ public class MethodSlider {
             // Get point collision
             List test = quadTree.retrieve( new ArrayList<Point>(), p );
             List potentialCollisions = collision.sliderCollisions( test, p );
-            //System.out.println("the points used: " + p);
             // Try to fix the collision for this point
             fixCollision( p, potentialCollisions );
         }
@@ -61,74 +60,162 @@ public class MethodSlider {
     
     // Actually fix the collision
     public void fixCollision( Point point, List<Point> potentialCollisionPoints ) {
-        // Set the default point shift - can be used to determine placed points
-        point.getLabels().get( 0 ).setShift( 1 );
+        // Check for each potential collision point if it is visible
+        // - If visible, compare amount of visible and invisible points to the left and to the right
+        // - Check if it fits between two visible points
+        // - Place the label of current point - also update the visbility
         
         // Store the potential collision points for colors
         point.setPotentialCollision( potentialCollisionPoints.size() );
         
-        // Active point info
-        double activePointX = point.getX();
-        double activePointY = point.getY();
+        // Define the variables needed
+        double pointX = point.getX();
+        double pointY = point.getY();
+        Label currentLabel = point.getLabels().get( 0 );
+        int visiblePointsLeft = 0;
+        int visiblePointsRight = 0;
+        int invisiblePointsLeft = 0;
+        int invisiblePointsRight = 0;
+        double closestLeft = 0;
+        double closestRight = 0;
+        boolean closestLeftSet = false;
+        boolean closestRightSet = false;
         
-        // Keep track of how many labels are on the left and right
-        int pointsLeftLabel = 0;
-        int pointsRightLabel = 0;
-        
-        // Current label conditions
-        double labelX = point.getLabels().get( 0 ).getReference().getX();
-        double labelY = point.getLabels().get( 0 ).getReference().getY();
-        
-        double leftMostLabelRightOfPointX = 0;
-        double rightMostLabelLeftOfPointX = 0;
-        
-        // For each point determine where
-        for( Point potentialCollisionPoint : potentialCollisionPoints ) {
-            double potentialCollisionPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
+        // For each potential collision point
+        for ( Point potentialCollisionPoint : potentialCollisionPoints ) {
+            // Define the variables needed
+            double potentialCollisionPointX = potentialCollisionPoint.getX();
             double potentialCollisionPointY = potentialCollisionPoint.getY();
+            Label potentialCollisionLabel = potentialCollisionPoint.getLabels().get( 0 );
+            double potentialCollisionLabelStart = potentialCollisionLabel.getReference().getX();
+            double potentialCollisionLabelEnd = potentialCollisionLabelStart + MainReader.width;
+            double potentialCollisionLabelY = potentialCollisionLabel.getReference().getY();
             
-            // Get label visibility
-            boolean labelVisible = true;
-            if( potentialCollisionPoint.getLabels().get( 0 ).getShift() == 10 ) {
-                labelVisible = false;
-            }
-           
-            // Check if that point is to the left AND within the label width
-            if( potentialCollisionPointX <= activePointX ) {
-                // Point is within reach of the most left label
-                pointsRightLabel++;
+            // Check if the potential collision label is visible - and update the range in which the current label can be placed
+            if( potentialCollisionLabel.isVisible() ) {
+                // The label is already visible
                 
-                // Update the right most label X
-                if( ( potentialCollisionPointX >= rightMostLabelLeftOfPointX || rightMostLabelLeftOfPointX == 0 ) &&
-                        ( ( potentialCollisionPointX + MainReader.width ) >= activePointX ) && potentialCollisionPointY <= activePointY && labelVisible ) {
-                    rightMostLabelLeftOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX() + MainReader.width;
+                // Check if the potential collision point is to the left or to the right of the point
+                if( potentialCollisionPointX <= pointX ) {
+                    // Point is to the left
+                    
+                    // Update the visible labels
+                    visiblePointsLeft++;
+                } else if( potentialCollisionPointX <= ( pointX + MainReader.width ) ) {
+                    // Point is to the right and potential collision label is within reach
+                    
+                    // Update the visible labels
+                    visiblePointsRight++;
                 }
-            } else if( potentialCollisionPointX >= activePointX ) {
-                // Point is within reach of the most right label
-                pointsLeftLabel++;
                 
-                // Update the left X of the label if it is within reach
-                if( ( potentialCollisionPointX <= leftMostLabelRightOfPointX || leftMostLabelRightOfPointX == 0 ) && 
-                        ( potentialCollisionPointX < ( activePointX + MainReader.width ) ) && potentialCollisionPointY <= activePointY && labelVisible ) {
-                    leftMostLabelRightOfPointX = potentialCollisionPoint.getLabels().get( 0 ).getReference().getX();
+                // Check if point is inside a label
+                if( potentialCollisionLabelStart < pointX && potentialCollisionLabelEnd > pointX ) {
+                    // Set closestRight AND closestLeft
+                    closestLeftSet = true;
+                    closestLeft = potentialCollisionLabelStart;
+                    closestRightSet = true;
+                    closestRight = potentialCollisionLabelEnd;
+                } else if( ( !closestRightSet || ( closestRightSet && potentialCollisionLabelStart < closestRight ) ) 
+                        && potentialCollisionLabelStart > pointX && potentialCollisionLabelStart <= ( pointX + MainReader.width ) ) {
+                    // Set closestRight
+                    closestRightSet = true;
+                    closestRight = potentialCollisionLabelStart;
+                }else if( ( !closestLeftSet || ( closestLeftSet && potentialCollisionLabelEnd > closestLeft ) ) 
+                        && potentialCollisionLabelEnd < pointX ) {
+                    // Set the closestLeft
+                    closestLeftSet = true;
+                    closestLeft = potentialCollisionLabelEnd;
                 }
+                
+                // Check if the label end is to the left or to the right
+//                if( ( potentialCollisionLabelX + MainReader.width ) <= pointX ) {
+//                    // Label is to the left of the point - thus closestLeft
+//
+//                    // Check if it is closer to the point than currently
+//                    if( ( !closestLeftSet || ( closestLeftSet && ( potentialCollisionLabelX + MainReader.width ) > closestLeft ) ) ) {
+//                        // Set the closestRight
+//                        closestLeftSet = true;
+//                        closestLeft = potentialCollisionLabelX + MainReader.width;
+//                    }
+//                } else {
+//                    // Label is to the right of the point and within reach - thus closestRight
+//
+//                    // Check if it is closer to the point than currently
+//                    if( ( !closestRightSet || ( closestRightSet && ( potentialCollisionLabelX + MainReader.width ) < closestRight ) ) ) {
+//                        // Set the closestRight
+//                        closestRightSet = true;
+//                        closestRight = potentialCollisionLabelX;
+//                    }
+//                }
+            } else {
+                // The label is not visible (yet)
+                
+                // Check if the label was already placed as invisible (lower Y) - thus not relevant anymore
+                if( potentialCollisionLabelY > pointY ) {
+                    // Check if the label is to the left or to the right
+                    if( potentialCollisionPointX <= pointX ) {
+                        // Update the invisible points
+                        invisiblePointsLeft++;
+                    } else {
+                        // Label is to the right - update invisible points
+                        invisiblePointsRight++;
+                    }
+                 }
             }
         }
         
-        // Check if there can be a label placed between two points
-        if( ( pointsLeftLabel + pointsRightLabel ) >= 2 && 
-                ( leftMostLabelRightOfPointX - rightMostLabelLeftOfPointX ) <= MainReader.width && leftMostLabelRightOfPointX > 0 && rightMostLabelLeftOfPointX > 0 ) {
-            // Set the shift to impossible
-            point.getLabels().get( 0 ).setShift( -1 );
-        } else if ( pointsRightLabel > pointsLeftLabel && rightMostLabelLeftOfPointX > 0 && rightMostLabelLeftOfPointX < activePointX ) {
-            double shift = ( activePointX - rightMostLabelLeftOfPointX ) / MainReader.width;
-            // Set the label
-            point.getLabels().get( 0 ).setShift( shift );
-        } else if ( pointsRightLabel <= pointsLeftLabel && leftMostLabelRightOfPointX > 0 && leftMostLabelRightOfPointX > activePointX ) {
-            double shift = ( leftMostLabelRightOfPointX - activePointX ) / MainReader.width;
-            // Set the label
-            point.getLabels().get( 0 ).setShift( shift );
+        double shift = 1;
+        
+        if( closestLeftSet && closestRightSet ) {
+            // Check if there is enough space
+            if( ( closestRight - closestLeft ) > MainReader.width ) {
+                // If there is plenty space, check if it should be aligned most left or most right
+                shift = ( closestRight - pointX ) / MainReader.width;
+                currentLabel.setShift( shift );
+            } else {
+                // There is no space available
+                currentLabel.setShift( -1 );
+            }
+        } else if( !closestLeftSet && closestRightSet ) {
+            // Set shift
+            shift = ( closestRight - pointX ) / MainReader.width;
+            currentLabel.setShift( shift );
+        } else if( closestLeftSet && !closestRightSet ) {
+            if( invisiblePointsRight > invisiblePointsLeft ) {
+                // Shift as far as possible
+                shift = 1 - ( ( pointX - closestLeft ) / MainReader.width );
+                currentLabel.setShift( shift );
+            } else {
+                currentLabel.setShift( 1 );
+            }
+        } else {
+            if( invisiblePointsRight > invisiblePointsLeft ) {
+                // If there are more points right, sacrifice left
+                currentLabel.setShift( 0 );
+            } else {
+                // Does not matter - set shift to one
+                currentLabel.setShift( 1 );
+            }
         }
+        
+//        // Check if there has to be taken care of labels
+//        if( !closestLeftSet && !closestRightSet ) {
+//            // Set the current shift to 1
+//            currentLabel.setShift( 1 );
+//        } else if ( !closestLeftSet && closestRightSet ) {
+//            // Place label as close as possible to the right
+//            shift = ( closestRight - pointX ) / MainReader.width;
+//            currentLabel.setShift( shift );
+//        } else if ( closestLeftSet && !closestRightSet ) {
+//            // Place label as most as possible to the right
+//            currentLabel.setShift( 1 );
+//        } else if ( ( closestRight - closestLeft ) <= MainReader.width ) {
+//            // There is no space with the current labels placed - remove
+//            shift = -1;
+//            currentLabel.setShift( -1 );
+//        }
+        
+        System.out.println( shift );
     }
     
     public Point[] originalOrder( Point[] p ) {
