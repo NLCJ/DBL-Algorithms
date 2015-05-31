@@ -111,8 +111,16 @@ public class MethodSlider {
                     visiblePointsRight++;
                 }
                 
-                // Check if point is inside a label
-                if( potentialCollisionLabelStart < pointX && potentialCollisionLabelEnd > pointX ) {
+                // Check if label start is at the point
+                if( potentialCollisionLabelEnd == pointX ) {
+                    // Set the left side
+                    closestLeftSet = true;
+                    closestLeft = potentialCollisionLabelEnd;
+                } else if( potentialCollisionLabelStart == pointX ) {
+                    // Set the right side
+                    closestRightSet = true;
+                    closestRight = potentialCollisionLabelStart;
+                } else if( potentialCollisionLabelStart < pointX && potentialCollisionLabelEnd > pointX ) {
                     // Set closestRight AND closestLeft
                     closestLeftSet = true;
                     closestLeft = potentialCollisionLabelStart;
@@ -175,8 +183,15 @@ public class MethodSlider {
             // Check if there is enough space
             if( ( closestRight - closestLeft ) > MainReader.width ) {
                 // If there is plenty space, check if it should be aligned most left or most right
-                shift = ( closestRight - pointX ) / MainReader.width;
-                currentLabel.setShift( shift );
+                if( invisiblePointsRight >= invisiblePointsLeft ) {
+                    // Place as far as possible to the left
+                    shift = 1 - ( ( pointX - closestLeft ) / MainReader.width );
+                    currentLabel.setShift( shift );
+                } else {
+                    // Place as far as possible to the right
+                    shift = ( closestRight - pointX ) / MainReader.width;
+                    currentLabel.setShift( shift );
+                }
             } else {
                 // There is no space available
                 currentLabel.setShift( -1 );
@@ -188,7 +203,7 @@ public class MethodSlider {
             shift = ( closestRight - pointX ) / MainReader.width;
             currentLabel.setShift( shift );
         } else if( closestLeftSet && !closestRightSet ) {
-            if( invisiblePointsRight > invisiblePointsLeft ) {
+            if( invisiblePointsRight >= invisiblePointsLeft ) {
                 // Shift as far as possible
                 shift = 1 - ( ( pointX - closestLeft ) / MainReader.width );
                 currentLabel.setShift( shift );
