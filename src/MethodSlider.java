@@ -15,6 +15,7 @@ public class MethodSlider {
     private Point[] result;
     private Collision collision = new Collision();
     private QuadTree quadTree = new QuadTree( 0, 0, 10000, 0, 10000 );
+    private int pointsPlaced = 0;
     
     /**
      * Return the result
@@ -56,6 +57,8 @@ public class MethodSlider {
             // Try to fix the collision for this point
             fixCollision( p, potentialCollisions );
         }
+        
+        System.out.println( "Points placed: " + pointsPlaced );
     }
     
     // Actually fix the collision
@@ -164,7 +167,9 @@ public class MethodSlider {
             }
         }
         
-        double shift = 1;
+        // Add one to the points placed
+        double shift;
+        this.pointsPlaced++;
         
         if( closestLeftSet && closestRightSet ) {
             // Check if there is enough space
@@ -175,6 +180,8 @@ public class MethodSlider {
             } else {
                 // There is no space available
                 currentLabel.setShift( -1 );
+                // Remove one
+                this.pointsPlaced--;
             }
         } else if( !closestLeftSet && closestRightSet ) {
             // Set shift
@@ -197,7 +204,6 @@ public class MethodSlider {
                 currentLabel.setShift( 1 );
             }
         }
-        
 //        // Check if there has to be taken care of labels
 //        if( !closestLeftSet && !closestRightSet ) {
 //            // Set the current shift to 1
@@ -214,8 +220,6 @@ public class MethodSlider {
 //            shift = -1;
 //            currentLabel.setShift( -1 );
 //        }
-        
-        System.out.println( shift );
     }
     
     public Point[] originalOrder( Point[] p ) {
