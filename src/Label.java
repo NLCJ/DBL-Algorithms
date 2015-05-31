@@ -120,6 +120,10 @@ public class Label {
     public Placement getPlacement() {
         return placement;
     }
+    
+    public void setPlacement(Placement place) {
+        placement = place;
+    }
 
     @Override
     public String toString() {
