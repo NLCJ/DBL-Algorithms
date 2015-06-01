@@ -56,7 +56,7 @@ public class Collision {
 //            }
        // }
         if (Math.abs(p.getReference().getX() - q.getReference().getX()) < MainReader.width) {
-            if (Math.abs(p.getReference().getY() - q.getReference().getY()) < MainReader.height) {
+            if (Math.abs(p.getReference().getY() - q.getReference().getY()) <= MainReader.height) {
                 return true;
             }
         }
