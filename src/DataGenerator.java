@@ -24,8 +24,10 @@ public class DataGenerator {
     int labelWidth;
     int labelHeight;
     int amountOfPoints;
-    int maxAxisX = 10000;
-    int maxAxisY = 10000;
+    int minAxisX/* = 0*/;
+    int minAxisY/* = 0*/;
+    int maxAxisX/* = 10000*/;
+    int maxAxisY/* = 10000*/;
     int minX;
     int maxX;
     int minY;
@@ -42,17 +44,21 @@ public class DataGenerator {
             
             // Store the variables
             System.out.print("Enter the placement model (2pos, 4pos, 1slider): ");
-            this.placementModel = input.nextLine();
+            this.placementModel = "2pos";//input.nextLine();
             System.out.print("Enter the width of the label: ");
             this.labelWidth = input.nextInt();
             System.out.print("Enter the height of the label: ");
             this.labelHeight = input.nextInt();
             System.out.print("Enter the amount of points: ");
             this.amountOfPoints = input.nextInt();
-//            System.out.print("Maximum x-axis: ");
-//            this.maxAxisX = input.nextInt();
-//            System.out.print("Maximum y-axis: ");
-//            this.maxAxisY = input.nextInt();
+            System.out.print("Minimum x-axis (standard is 0): ");
+            this.minAxisX = input.nextInt();
+            System.out.print("Minimum y-axis (standard is 0): ");
+            this.minAxisY = input.nextInt();
+            System.out.print("Maximum x-axis (standard is 10k): ");
+            this.maxAxisX = input.nextInt();
+            System.out.print("Maximum y-axis (standard is 10k): ");
+            this.maxAxisY = input.nextInt();
             System.out.print("Enter the minimum integer on the x-axis: ");
             this.minX = input.nextInt();
             System.out.print("Enter the maximum integer on the x-axis: ");
@@ -94,8 +100,8 @@ public class DataGenerator {
             // Create random to test against accuracy
             if( randInt( 0, 100 ) > accuracy ) {
                 // Random over whole field
-                accurateMinX = 0;
-                accurateMinY = 0;
+                accurateMinX = this.minAxisX;
+                accurateMinY = this.minAxisY;
                 accurateMaxX = this.maxAxisX;
                 accurateMaxY = this.maxAxisY;
             }
