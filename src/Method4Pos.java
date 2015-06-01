@@ -236,10 +236,9 @@ public class Method4Pos {
                 temp = length;
             }
         }
+        
+        
         if (tempL != null) {
-        for (Label l : collisions.get(tempL)) {
-            Collision.removeCollisionFromMap(collisions, tempL, l);
-        }
         
         
             List<Label> tempList = new ArrayList<Label>();
