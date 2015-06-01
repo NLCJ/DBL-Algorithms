@@ -44,7 +44,7 @@ public class DataGenerator {
             
             // Store the variables
             System.out.print("Enter the placement model (2pos, 4pos, 1slider): ");
-            this.placementModel = "2pos";//input.nextLine();
+            this.placementModel = input.nextLine();
             System.out.print("Enter the width of the label: ");
             this.labelWidth = input.nextInt();
             System.out.print("Enter the height of the label: ");
