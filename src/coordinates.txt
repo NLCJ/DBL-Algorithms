@@ -61,3 +61,60 @@ The Netherlands:
 	Smallingerland	54700	53.110	6.090
 	Oosterhout	53600	51.650	4.860
 	Hoogeveen	53500	52.730	6.490
+	Doetinchem	50300	51.970	6.280
+	Barneveld	50200	52.140	5.570
+	Kerkrade	49900	50.870	6.060
+	Weert		49100	51.260	5.700
+	Kampen		49000	52.560	5.910
+	Heerhugowaard	48600	52.670	4.850
+	Rijswijk	48500	52.050	4.360
+	Woerden		48200	52.090	4.910
+	Middelburg	46600	51.500	3.610
+	Noordoostpolder	45900	52.720	5.760
+	Ridderkerk	45900	51.870	4.590
+	Roermond	45900	51.200	5.990
+	Waalwijk	45900	51.700	5.070
+	Vlissingen	45500	51.460	3.570
+	Soest		45400	52.180	5.290
+	Rheden		45200	52.010	6.010
+	Heusden		43700	51.690	5.160
+	Veldhoven	43100	51.390	5.380
+	De bilt		42800	52.120	5.170
+	Heerenveen	42800	52.960	5.920
+	Bemmel		42500	51.900	5.900
+	Huizen		42500	52.300	5.230
+	Steenwijk	42500	52.790	6.100
+	Katwijk		41900	52.210	4.400
+	Tiel		41800	51.910	5.430
+	Zwijndrecht	41400	51.820	4.640
+	Harderwijk	41200	52.350	5.630
+	Uden		40600	51.670	5.610
+	Houten		40400	52.040	5.160
+	Etten-leur	40000	51.580	4.620
+	Hellevoetsluis	40000	51.840	4.130	
+	Maarsen		39800	52.150	5.040
+	Wijchen		39800	51.820	5.730
+	Venray		39700	51.530	5.970
+	Dronten		38200	52.540	5.710
+	Barendrecht	37700	51.860	4.540
+	Nijkerk		37600	52.240	5.480
+	Zutphen		37400	52.140	6.200
+	Heemskerk	37000	52.500	4.630
+	Raalte		37000	52.390	6.270
+	Veghel		36900	51.620	5.550
+	Goes		36700	51.510	3.890
+	Moerdijk	36600	51.650	4.590
+	Hellendoorn	36400	52.390	6.440
+	Beverwijk	36300	52.490	4.650
+	Rijssen		36000	52.320	6.510
+	Pijnacker-noot	35700	52.020	4.420
+	Castricum	35500	52.560	4.670
+	Coevorden	35400	52.670	6.750
+	Gorinchem	35000	51.840	4.960
+	Schouwen-duiv	35000	51.660	3.920
+	De ronde venen	34800	52.200	4.860
+	Terneuzen	34700	51.330	3.840
+	Wageningen	34600	51.980	5.670
+	Stadskanaal	34000	53.000	6.910
+	Hoogezand	33900	53.170	6.760
+	Sneek		33600	53.040	5.650

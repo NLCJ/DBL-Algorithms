@@ -89,16 +89,14 @@ class MainReader {
         //  System.out.println("Reading file");
         try {
 
-<<<<<<< HEAD
+
 
 
 
             File file = new File("data-of-awesomeness-for-1slider.txt");
 
 
-=======
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\2kDimension35.txt");
->>>>>>> 6b63409d0a454e7741f6949f03ccf80371322ed9
+
 
             Scanner sc = new Scanner(file);
 
