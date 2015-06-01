@@ -30,18 +30,13 @@ public class PlotPanel extends JPanel {
         super.paint(g2d);
         this.setBackground(Color.white);
 
+       
+        if(s.equals("1slider")){
         for (Point point : pnt) {
             // Get the label
             Label label = point.getLabels().get( 0 );
             double shiftLabel = label.getShift();
             
-            // Check what color it should be
-            /*if( shiftLabel < 0 ) {
-                // Set color to red
-                g2d.setColor( Color.RED );
-            } else {
-                g2d.setColor( Color.BLACK );
-            }*/
             
             int potentialCollisions = point.getPotentialCollision();
             
@@ -77,27 +72,100 @@ public class PlotPanel extends JPanel {
             int pointX = (int) label.getAnchor().getX();
             int pointY = 10000 - (int) label.getAnchor().getY();
             g2d.fillOval( pointX - 2, pointY - 2, 4, 4 );
+        }
+        }
+        if(s.equals("2pos")){
+              for (Point point : pnt) {
+            // Get the label
+            Label label = point.getLabels().get( 0 );
+            Placement label_place = label.getPlacement();
+            int potentialCollisions = point.getPotentialCollision();
+            Placement[] place_var = Placement.twoPos();
             
-            //System.out.println( "Shift: " + shiftLabel );
+            switch( potentialCollisions ) {
+                case 0: 
+                    g2d.setColor( Color.BLACK );
+                    break;
+                case 1:
+                    g2d.setColor( Color.BLUE );
+                    break;
+                case 2:
+                    g2d.setColor( Color.GREEN );
+                    break;
+                case 3:
+                    g2d.setColor( Color.ORANGE );
+                    break;
+                default:
+                    g2d.setColor( Color.RED );
+                    break;
+            }
             
-//            if (pnt1.getLabels() == null || pnt1.getLabels().isEmpty()) {
-//                continue;
-//            }
-//            for (Label l : pnt1.getLabels()) {
-//                if (pnt1.getLabels().get(0).getShift() == -1) {
-//                    g2d.setColor(Color.RED);
-//                }
-//                if (pnt1.getLabels().get(0).getShift() != -1) {
-//                    g2d.setColor(Color.BLACK);
-//                }
-//                int x = (int) l.getReference().getX();
-//                int y = 10000 - (int) l.getReference().getY();
-//                g2d.drawRect(x, y - height, width, height);
-//                System.out.println( "Shift" + l.getShift() );
-//            }
-//            int x = (int) pnt1.getLabels().get(0).getAnchor().getX();
-//            int y = 10000 - (int) pnt1.getLabels().get(0).getAnchor().getY();
-//            g2d.fillOval(x - 2, y - 2, 4, 4);
+            // Draw the rectangle
+            double x = label.getReference().getX();
+            double y = 10000 - label.getReference().getY();
+            
+            if( label_place == place_var[0] ) {
+                g2d.fillRect( (int) x, (int) y - height, width, height );
+            }
+            if( label_place == place_var[1] ) {
+                g2d.fillRect( (int) x-width, (int) y - height, width, height );
+            }
+            
+            // Draw the point
+            
+            g2d.fillOval( (int)x - 2, (int)y - 2, 4, 4 );
+        }
+        }
+        if(s.equals("4pos")){
+             for (Point point : pnt) {
+            // Get the label
+            Label label = point.getLabels().get( 0 );
+            Placement label_place = label.getPlacement();
+            int potentialCollisions = point.getPotentialCollision();
+            Placement[] place_var = Placement.fourPos();
+            
+            switch( potentialCollisions ) {
+                case 0: 
+                    g2d.setColor( Color.BLACK );
+                    break;
+                case 1:
+                    g2d.setColor( Color.BLUE );
+                    break;
+                case 2:
+                    g2d.setColor( Color.GREEN );
+                    break;
+                case 3:
+                    g2d.setColor( Color.ORANGE );
+                    break;
+                default:
+                    g2d.setColor( Color.RED );
+                    break;
+            }
+            
+            // Draw the rectangle
+            double x = label.getReference().getX();
+            double y = 10000 - label.getReference().getY();
+            
+            if( label_place == place_var[0] ) {
+                g2d.fillRect( (int) x, (int) y - height, width, height );
+            }
+            if( label_place == place_var[2] ) {
+                g2d.fillRect( (int) x-width, (int) y - height, width, height );
+            }
+            if( label_place == place_var[1] ) {
+                g2d.fillRect( (int) x, (int) y, width, height );
+            }
+            if( label_place == place_var[3] ) {
+                g2d.fillRect( (int) x-width, (int) y, width, height );
+            }
+            
+            
+            // Draw the point
+            
+            g2d.fillOval( (int)x - 2, (int)y - 2, 4, 4 );
+        }
+        }
+           
         }
     }
-}
+

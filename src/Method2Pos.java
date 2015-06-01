@@ -57,31 +57,26 @@ public class Method2Pos {
             }
         }
 
-        //TODO clauses are only from not to not! something wrong here!
-        // System.out.println("Clauses: " + clauses);
-        // System.out.println("Collisions: " + collisions);
-        Clause<Point> badPoint = TwoSat.isSatisfiable(clauses);
-        while (badPoint != null) {
+        Clause[] badPoints = TwoSat.isSatisfiable(clauses);
+        for (Clause<Point> badPoint : badPoints) {
+            if (badPoint == null) {
+                continue;
+            }
 
             MainReader.numberLabels --;
 
             badPoint.first().value().removeLabel(badPoint.first().getPlacement());
             badPoint.second().value().removeLabel(badPoint.second().getPlacement());
 
-            //   System.out.println("niet nullo " + badPoint.toString());
             for (int j = 0; j < clauses.size(); j ++) {
                 if (clauses.get(j).first().value() == badPoint.first().value() || clauses.get(j).second().value() == badPoint.first().value()
                         || clauses.get(j).first().value() == badPoint.second().value() || clauses.get(j).second().value() == badPoint.second().value()) {
-                    //     System.out.println("Removing clause " + clauses.get(j));
+
                     clauses.remove(j);
                     j --;
                 }
             }
-
-//            for (int i = 0; i < clauses.size(); i ++) {
-//                System.out.println(clauses.get(i));
-//            }
-            badPoint = TwoSat.isSatisfiable(clauses);
+            badPoints = TwoSat.isSatisfiable(clauses);
         }
         if (TwoSat.g == null) {
             throw new Error("Error!");
