@@ -91,7 +91,7 @@ class MainReader {
 
 
             File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\data-of-awesomeness-for-2pos.txt");
-
+            file = new File("data-of-awesomeness-for-2pos.txt");
             Scanner sc = new Scanner(file);
 
             // Get the model data
@@ -119,7 +119,7 @@ class MainReader {
                 //pos_2.searchClauses(points);
                 //pos_2.makeLiterals();
                 pos_2.Output2Position(placement_model, width, height, number_points, points);
-                //Gui(placement_model, number_points, points_2pos);
+                Gui(placement_model, number_points, points_2pos);
             }
             if (placement_model.equals("4pos")) {
                 Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
