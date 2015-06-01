@@ -108,9 +108,9 @@ public class Method4Pos {
                 poCollisions.clear();;
             }
         }
-        for (int i = 0; i < collisions.size(); i ++) {
-            System.out.println(collisions.size() + " hoi " +collisions.toString());
-        }
+        //for (int i = 0; i < collisions.size(); i ++) {
+            //System.out.println(collisions.size() + " hoi " +collisions.toString());
+        //}
         return collisions;
     }
 
