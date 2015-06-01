@@ -119,7 +119,8 @@ public class PlotPanel extends JPanel {
         if(s.equals("4pos")){
              for (Point point : pnt) {
             // Get the label
-            Label label = point.getLabels().get( 0 );
+           if(!point.getLabels().isEmpty()){
+            Label label = point.getLabels().get(0);
             Placement label_place = label.getPlacement();
             int potentialCollisions = point.getPotentialCollision();
             Placement[] place_var = Placement.fourPos();
@@ -157,12 +158,9 @@ public class PlotPanel extends JPanel {
             }
             if( label_place == place_var[3] ) {
                 g2d.fillRect( (int) x-width, (int) y, width, height );
-            }
-            
-            
-            // Draw the point
-            
+            } 
             g2d.fillOval( (int)x - 2, (int)y - 2, 4, 4 );
+           }
         }
         }
            
