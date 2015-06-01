@@ -91,7 +91,9 @@ class MainReader {
 
 
 
+
             File file = new File("data-of-awesomeness-for-1slider.txt");
+
 
 
             Scanner sc = new Scanner(file);
@@ -121,20 +123,23 @@ class MainReader {
                 //pos_2.searchClauses(points);
                 //pos_2.makeLiterals();
                 pos_2.Output2Position(placement_model, width, height, number_points, points);
-                //Gui(placement_model, number_points, points_2pos);
+
+                //Gui(placement_model, number_points, points_2pos);             
+                DBLGUI gui = new DBLGUI();
+
             }
             if (placement_model.equals("4pos")) {
                 Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
                 pos_4.Annealing(points);
                 pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
-                Gui(placement_model, number_points, points_4pos);
+                //Gui(placement_model, number_points, points_4pos);
+                DBLGUI gui = new DBLGUI();
             }
             if (placement_model.equals("1slider")) {
                 Point[] points_slider = slider.originalOrder(points);
                 slider.OutputSlider(placement_model, width, height, number_points, points_slider);
                 Gui(placement_model, number_points, points_slider);
-            }
-
+            }            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
         }
