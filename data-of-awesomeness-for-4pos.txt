@@ -1,4 +1,3 @@
-<<<<<<< HEAD:data-of-awesomeness-for-4pos.txt
 placement model: 4pos
 width: 25
 height: 25

@@ -172,9 +172,9 @@ public class PlotPanel extends JPanel {
              for (Point point : pnt) {
             // Get the label
            
-            Label label_points_only = point.getLabels().get(0);
-            double x = label_points_only.getReference().getX();
-            double y = 10000 - label_points_only.getReference().getY();
+            Point label_points_only = point;
+            double x = label_points_only.getX();
+            double y = 10000 - label_points_only.getY();
             g2d.fillOval( (int)x - 2, (int)y - 2, 4, 4 );
             
            }
