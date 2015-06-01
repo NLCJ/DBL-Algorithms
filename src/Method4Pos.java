@@ -226,10 +226,11 @@ public class Method4Pos {
      * @param points The same as ever
      */
     public void RemoveCollisions(Point[] points) {
+        List<Label> tempList = new ArrayList<Label>();
           int temp = 0;
         int length;
         Label tempL = null;
-        
+       
         for (Label l : collisions.keySet()) {
             length = collisions.get(l).size();
             if (temp < length) {
@@ -242,18 +243,23 @@ public class Method4Pos {
         if (tempL != null) {
         
         
-            List<Label> tempList = new ArrayList<Label>();
+            
                 for (Label m: collisions.get(tempL)) {
                     tempList.add(m);
                 }
-                for (int i = 0; i < tempList.size(); i ++) {
-                    Collision.removeCollisionFromMap(collisions, tempL, tempList.get(i));
-                }
-            tempL.getAnchor().setLabels(null);
-            MainReader.numberLabels --;
+               
         
         }
+        tempL = null;
+        temp = 0;
         }
+    
+     for (int i = 0; i < tempList.size(); i ++) {
+                    Collision.removeCollisionFromMap(collisions, tempL, tempList.get(i));
+                    tempList.get(i).getAnchor().setLabels(null);                
+            
+            MainReader.numberLabels --;
+     }
     }
     
 
