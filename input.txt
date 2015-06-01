@@ -2,3 +2,10 @@ placement model: 4pos
 width: 50
 height: 50
 number of points: 7
+100 60
+100 80
+200 60
+450 105
+400 85
+360 115
+500 80
