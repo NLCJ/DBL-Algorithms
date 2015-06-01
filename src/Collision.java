@@ -99,7 +99,7 @@ public class Collision {
         return temp;
     }
 
-    private static void removeCollisionFromMap(Map<Label, Set<Label>> collisions, Label p, Label q) {
+    public static void removeCollisionFromMap(Map<Label, Set<Label>> collisions, Label p, Label q) {
         final Set<Label> getP = collisions.get(p);
         if (getP != null &&  ! getP.isEmpty()) {
             getP.remove(q);

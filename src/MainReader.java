@@ -89,7 +89,9 @@ class MainReader {
         //  System.out.println("Reading file");
         try {
 
+
             File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\input.txt");
+
             Scanner sc = new Scanner(file);
 
             // Get the model data
