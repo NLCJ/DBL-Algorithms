@@ -77,6 +77,7 @@ public class PlotPanel extends JPanel {
         if(s.equals("2pos")){
               for (Point point : pnt) {
             // Get the label
+            if(!point.getLabels().isEmpty() || point.getLabels() != null){
             Label label = point.getLabels().get( 0 );
             Placement label_place = label.getPlacement();
             int potentialCollisions = point.getPotentialCollision();
@@ -115,11 +116,12 @@ public class PlotPanel extends JPanel {
             
             g2d.fillOval( (int)x - 2, (int)y - 2, 4, 4 );
         }
+              }
         }
         if(s.equals("4pos")){
              for (Point point : pnt) {
             // Get the label
-           if(!point.getLabels().isEmpty() || point.getLabels() != null){
+           if(point.getLabels().isEmpty() || point.getLabels() != null){
             Label label = point.getLabels().get(0);
             Placement label_place = label.getPlacement();
             int potentialCollisions = point.getPotentialCollision();
@@ -162,6 +164,15 @@ public class PlotPanel extends JPanel {
             g2d.fillOval( (int)x - 2, (int)y - 2, 4, 4 );
            }
         }
+             for (Point point : pnt) {
+            // Get the label
+           
+            Label label_points_only = point.getLabels().get(0);
+            double x = label_points_only.getReference().getX();
+            double y = 10000 - label_points_only.getReference().getY();
+            g2d.fillOval( (int)x - 2, (int)y - 2, 4, 4 );
+            
+           }
         }
            
         }
