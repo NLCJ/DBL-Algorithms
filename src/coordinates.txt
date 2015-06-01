@@ -118,3 +118,56 @@ The Netherlands:
 	Stadskanaal	34000	53.000	6.910
 	Hoogezand	33900	53.170	6.760
 	Sneek		33600	53.040	5.650
+	Vriezenveen	33600	52.430	6.610
+	Epe		33300	52.360	5.980
+	Ijsselstein	33200	52.020	5.040
+	Maassluis	33000	51.920	4.260
+	Noordenveld	32300	53.140	6.420
+	Renkum		32300	51.980	5.740
+	Deurne		32200	51.460	5.790
+	Tynaarlo	32200	53.100	6.670
+	Bergen		32100	52.670	4.710
+	Tytsjerksteradi	31700	53.210	5.910
+	Oldenzaal	31600	52.320	6.940
+	Bussum		31400	52.280	5.170
+	Valkenswaard	31200	51.360	5.450
+	Papendrecht	30800	51.840	4.670
+	Meppel		30600	52.700	6.190
+	Brunssum	30000	50.960	5.960
+	Halderberge	30000	51.590	4.530
+	Boxmeer		29600	51.660	5.940
+	Boxtel		29500	51.590	5.310
+	Leusden		29500	52.130	5.460
+	Krimpen		29400	51.920	4.590	
+	Winterswijk	29000	51.980	6.720
+	Bernheze	28900	51.730	5.520
+	Best		28900	51.500	5.400
+	Delfzijl	28900	53.340	6.910
+	Naaldwijk	28900	52.000	4.190
+	Horst		28600	51.460	6.040
+	Geldrop		28500	51.440	5.560
+	Edam-volendam	28400	52.510	4.990
+	Sint-michielsg	28300	51.640	5.340
+	Veendam		28300	53.100	6.860
+	Gemert-bakel	27900	51.560	5.700
+	Leiderdorp	27400	52.160	4.520
+	Culemborg	27100	51.960	5.230
+	Waddinxveen	27000	52.600	4.650
+	Drimmelen	26800	51.680	4.790
+	Duiven		26800	51.960	6.010
+	Ermelo		26800	52.310	5.610
+	Uithoorn	26800	52.230	4.830
+	Borger-odoorn	26700	52.930	6.790
+	Werkendam	26700	51.820	4.900
+	Nunspeet	26600	52.390	5.790
+	Stein		26500	50.970	5.760
+	Dalfsen		26300	52.510	6.260
+	Denekamp	26300	52.390	6.990
+	Zaltbommel	26000	51.800	5.240
+	Aa en hunze	25900	53.050	6.700
+	Heemstede	25900	52.350	4.610
+	Zevenaar	25900	51.940	6.070
+	Beuningen	25800	51.870	5.780
+	Geldermalsen	25800	51.890	5.300
+	Vught		25800	51.660	5.290
+	Langedijk	25600	52.660	4.780
