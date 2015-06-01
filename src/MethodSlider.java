@@ -132,7 +132,7 @@ public class MethodSlider {
                     closestRightSet = true;
                     closestRight = potentialCollisionLabelStart;
                 }else if( ( !closestLeftSet || ( closestLeftSet && potentialCollisionLabelEnd > closestLeft ) ) 
-                        && potentialCollisionLabelEnd < pointX ) {
+                        && potentialCollisionLabelEnd < pointX && ( potentialCollisionLabelEnd + MainReader.width ) >= pointX ) {
                     // Set the closestLeft
                     closestLeftSet = true;
                     closestLeft = potentialCollisionLabelEnd;
@@ -159,7 +159,7 @@ public class MethodSlider {
 //                    }
 //                }
             } else {
-                // The label is not visible (yet)
+                // The label is not visible yet
                 
                 // Check if the label was already placed as invisible (lower Y) - thus not relevant anymore
                 if( potentialCollisionLabelY > pointY ) {
@@ -176,7 +176,7 @@ public class MethodSlider {
         }
         
         // Add one to the points placed
-        double shift;
+        double shift = 1;
         this.pointsPlaced++;
         
         if( closestLeftSet && closestRightSet ) {
@@ -199,9 +199,14 @@ public class MethodSlider {
                 this.pointsPlaced--;
             }
         } else if( !closestLeftSet && closestRightSet ) {
-            // Set shift
-            shift = ( closestRight - pointX ) / MainReader.width;
-            currentLabel.setShift( shift );
+            if( invisiblePointsRight >= invisiblePointsLeft ) {
+                // Shift as far as possible
+                currentLabel.setShift( 0 );
+            } else {
+                // Set shift
+                shift = ( closestRight - pointX ) / MainReader.width;
+                currentLabel.setShift( shift );
+            }
         } else if( closestLeftSet && !closestRightSet ) {
             if( invisiblePointsRight >= invisiblePointsLeft ) {
                 // Shift as far as possible
@@ -211,7 +216,7 @@ public class MethodSlider {
                 currentLabel.setShift( 1 );
             }
         } else {
-            if( invisiblePointsRight > invisiblePointsLeft ) {
+            if( invisiblePointsRight >= invisiblePointsLeft ) {
                 // If there are more points right, sacrifice left
                 currentLabel.setShift( 0 );
             } else {
@@ -219,6 +224,8 @@ public class MethodSlider {
                 currentLabel.setShift( 1 );
             }
         }
+        
+        System.out.println( shift );
 //        // Check if there has to be taken care of labels
 //        if( !closestLeftSet && !closestRightSet ) {
 //            // Set the current shift to 1
