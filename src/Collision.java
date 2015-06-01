@@ -50,12 +50,12 @@ public class Collision {
      * @return p and q intersect
      */
     public static boolean intersects(Label p, Label q) {
-        if(p.getAnchor().getX() == q.getAnchor().getX()){
-            if (Math.abs(p.getReference().getY() - q.getReference().getY()) < MainReader.height) {
-                return true;
-            }
-        }
-        if (Math.abs(p.getReference().getX() - q.getReference().getX()) <= MainReader.width) {
+//        if(p.getAnchor().getX() == q.getAnchor().getX()){
+//            if (Math.abs(p.getReference().getY() - q.getReference().getY()) < MainReader.height) {
+//                return true;
+//            }
+       // }
+        if (Math.abs(p.getReference().getX() - q.getReference().getX()) < MainReader.width) {
             if (Math.abs(p.getReference().getY() - q.getReference().getY()) < MainReader.height) {
                 return true;
             }

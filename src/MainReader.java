@@ -89,12 +89,16 @@ class MainReader {
         //  System.out.println("Reading file");
         try {
 
+<<<<<<< HEAD
 
 
 
             File file = new File("data-of-awesomeness-for-1slider.txt");
 
 
+=======
+            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\2kDimension35.txt");
+>>>>>>> 6b63409d0a454e7741f6949f03ccf80371322ed9
 
             Scanner sc = new Scanner(file);
 
@@ -124,8 +128,10 @@ class MainReader {
                 //pos_2.makeLiterals();
                 pos_2.Output2Position(placement_model, width, height, number_points, points);
 
+
                 //Gui(placement_model, number_points, points_2pos);             
                 DBLGUI gui = new DBLGUI();
+
 
             }
             if (placement_model.equals("4pos")) {
@@ -139,7 +145,7 @@ class MainReader {
                 Point[] points_slider = slider.originalOrder(points);
                 slider.OutputSlider(placement_model, width, height, number_points, points_slider);
                 Gui(placement_model, number_points, points_slider);
-            }            
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
         }
