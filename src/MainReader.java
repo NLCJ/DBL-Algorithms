@@ -91,7 +91,7 @@ class MainReader {
 
 
 
-            File file = new File("data-of-awesomeness-for-4pos.txt");
+            File file = new File("data-of-awesomeness-for-1slider.txt");
 
 
             Scanner sc = new Scanner(file);
