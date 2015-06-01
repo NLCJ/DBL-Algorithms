@@ -244,7 +244,6 @@ public class Method4Pos {
             }
         }
             for (int i = 0; i < tempList.size(); i++) {
-                        System.out.println(tempList.get(i).toString());
                         Collision.removeCollisionFromMap(tempcollisions, tempL, tempList.get(i));
                         tempList.get(i).getAnchor().removeLabel(tempList.get(i).getPlacement()); 
                         MainReader.numberLabels--;
