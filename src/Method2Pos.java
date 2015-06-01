@@ -63,7 +63,6 @@ public class Method2Pos {
                 if (badPoint == null) {
                     continue;
                 }
-
                 MainReader.numberLabels--;
 
                 badPoint.first().value().removeLabel(badPoint.first().getPlacement());
