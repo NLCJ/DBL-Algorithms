@@ -104,10 +104,10 @@ public class PlotPanel extends JPanel {
             double x = label.getReference().getX();
             double y = 10000 - label.getReference().getY();
             
-            if( label_place == place_var[1] ) {
+            if( label_place == place_var[0] ) {
                 g2d.fillRect( (int) x, (int) y - height, width, height );
             }
-            if( label_place == place_var[2] ) {
+            if( label_place == place_var[1] ) {
                 g2d.fillRect( (int) x-width, (int) y - height, width, height );
             }
             
@@ -146,16 +146,16 @@ public class PlotPanel extends JPanel {
             double x = label.getReference().getX();
             double y = 10000 - label.getReference().getY();
             
-            if( label_place == place_var[1] ) {
+            if( label_place == place_var[0] ) {
                 g2d.fillRect( (int) x, (int) y - height, width, height );
             }
-            if( label_place == place_var[3] ) {
+            if( label_place == place_var[2] ) {
                 g2d.fillRect( (int) x-width, (int) y - height, width, height );
             }
-            if( label_place == place_var[2] ) {
+            if( label_place == place_var[1] ) {
                 g2d.fillRect( (int) x, (int) y, width, height );
             }
-            if( label_place == place_var[4] ) {
+            if( label_place == place_var[3] ) {
                 g2d.fillRect( (int) x-width, (int) y, width, height );
             }
             
