@@ -89,9 +89,10 @@ class MainReader {
         //  System.out.println("Reading file");
         try {
 
+            File file = new File("data-of-awesomeness-for-4pos.txt");
 
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\data-of-awesomeness-for-2pos.txt");
-            file = new File("data-of-awesomeness-for-2pos.txt");
+
+
             Scanner sc = new Scanner(file);
 
             // Get the model data
