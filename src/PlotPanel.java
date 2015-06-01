@@ -120,7 +120,7 @@ public class PlotPanel extends JPanel {
              for (Point point : pnt) {
                  //System.out.println(point.getLabels()!=null);
             // Get the label
-           if(point.getLabels() != null){
+           if(! point.getLabels().isEmpty()){
             Label label = point.getLabels().get(0);
             Placement label_place = label.getPlacement();
             int potentialCollisions = point.getPotentialCollision();
