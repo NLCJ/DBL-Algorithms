@@ -39,7 +39,7 @@ public class Method2Pos {
 
         for (Point p : points) {
             possiCollisions = posCollisions(p);
-            for (int i = 0; i < possiCollisions.size(); i ++) {
+            for (int i = 0; i < possiCollisions.size(); i++) {
                 poCollisions.add(possiCollisions.get(i).getLabels().get(0));
                 poCollisions.add(possiCollisions.get(i).getLabels().get(1));
             }
@@ -57,27 +57,31 @@ public class Method2Pos {
             }
         }
 
-        Clause[] badPoints = TwoSat.isSatisfiable(clauses);
-        for (Clause<Point> badPoint : badPoints) {
-            if (badPoint == null) {
-                continue;
-            }
-
-            MainReader.numberLabels --;
-
-            badPoint.first().value().removeLabel(badPoint.first().getPlacement());
-            badPoint.second().value().removeLabel(badPoint.second().getPlacement());
-
-            for (int j = 0; j < clauses.size(); j ++) {
-                if (clauses.get(j).first().value() == badPoint.first().value() || clauses.get(j).second().value() == badPoint.first().value()
-                        || clauses.get(j).first().value() == badPoint.second().value() || clauses.get(j).second().value() == badPoint.second().value()) {
-
-                    clauses.remove(j);
-                    j --;
+        Literal<Clause[]> badPoints = TwoSat.isSatisfiable(clauses);
+        while (badPoints.isPositive()) {
+            for (Clause<Point> badPoint : badPoints.value()) {
+                if (badPoint == null) {
+                    continue;
                 }
+
+                MainReader.numberLabels--;
+
+                badPoint.first().value().removeLabel(badPoint.first().getPlacement());
+                badPoint.second().value().removeLabel(badPoint.second().getPlacement());
+
+                for (int j = 0; j < clauses.size(); j++) {
+                    if (clauses.get(j).first().value() == badPoint.first().value() || clauses.get(j).second().value() == badPoint.first().value()
+                            || clauses.get(j).first().value() == badPoint.second().value() || clauses.get(j).second().value() == badPoint.second().value()) {
+
+                        clauses.remove(j);
+                        j--;
+                    }
+                }
+
+                badPoints = TwoSat.isSatisfiable(clauses);
             }
-            badPoints = TwoSat.isSatisfiable(clauses);
         }
+
         if (TwoSat.g == null) {
             throw new Error("Error!");
         }
@@ -86,7 +90,7 @@ public class Method2Pos {
 
         Map<Literal<Point>, Integer> result = new HashMap<Literal<Point>, Integer>();
 
-        while ( ! stack.isEmpty()) {
+        while (!stack.isEmpty()) {
             Literal<Point> p = stack.pop();
             boolean temp = false;
             for (Label l : p.value().getLabels()) {
@@ -126,10 +130,10 @@ public class Method2Pos {
 
         //Output each of the points
         for (Point point : output) {
-            if ( ! point.getLabels().isEmpty()) {
+            if (!point.getLabels().isEmpty()) {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
             } else {
-                System.out.println((int) point.getX() + " " + (int) point.getY() + " NILL");
+                System.out.println((int) point.getX() + " " + (int) point.getY() + " NIL");
             }
         }
     }

@@ -18,8 +18,10 @@ public final class TwoSat {
      * @param formula The input 2-CNF formula.
      * @return Whether the formula has a satisfying assignment.
      */
-    public static <T> Clause[] isSatisfiable(List<Clause<T>> formula) {
+    public static <T> Literal<Clause[]> isSatisfiable(List<Clause<T>> formula) {
         /* Begin by populating a set of all the variables in this formula. */
+        boolean overlap = false;
+        
         Set<T> variables = new HashSet<T>();
         for (Clause<T> clause : formula) {
             variables.add(clause.first().value());
@@ -46,21 +48,21 @@ public final class TwoSat {
 
         /* Compute the SCCs of this graph */
         Map<Literal<T>, Integer> scc = SCC.stronglyConnectedComponents(implications);
+        badpoints = new Clause[(new HashSet(scc.values())).size()];
 
-        badpoints = new Clause[scc.values().size()];
-
-        int[] seen = new int[variables.size()];
+        int[] seen = new int[scc.values().size()];
         /* Finally, check whether any literal and its negation are in the same
          * strongly connected component.
          */
         for (T variable : variables) {
-            System.out.println(scc.get(new Literal<T>(variable, false)).toString() + " begin " + scc.get(new Literal<T>(variable, true)));
+            //System.out.println(scc.get(new Literal<T>(variable, false)).toString() + " begin " + scc.get(new Literal<T>(variable, true)));
 
             if (scc.get(new Literal<T>(variable, true)).equals(scc.get(new Literal<T>(variable, false)))) {
-                System.out.println(scc.get(new Literal<T>(variable, true)).toString());
+                overlap = true;
+                //System.out.println(scc.get(new Literal<T>(variable, true)).toString());
                 if (implications.edgesFrom(new Literal<T>(variable, true)).size() > seen[scc.get(new Literal<T>(variable, true))]) {
                     seen[scc.get(new Literal<T>(variable, true))] = implications.edgesFrom(new Literal<T>(variable, true)).size();
-                    System.out.println(badpoints);
+                    //System.out.println(badpoints);
                     badpoints[scc.get(new Literal<T>(variable, true))] = new Clause(new Literal<T>(variable, true), new Literal<T>(variable, false));
                 }
             }
@@ -68,6 +70,6 @@ public final class TwoSat {
         /* Then return the badpoint if none its null */
         g = implications;
 
-        return badpoints;
+        return new Literal(badpoints, overlap);
     }
 }
