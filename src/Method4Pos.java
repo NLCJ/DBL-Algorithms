@@ -14,6 +14,8 @@ public class Method4Pos {
     private double c = 100000.0;// the temperature in the annealing schedule
     private Point[] result;
     private Map<Label, Set<Label>> collisions;
+    Placement oldPlacement;
+    Point oldPoint;
     private double OldScore;
     private double NewScore;
     RandomGenerator rg = new RandomGenerator();
@@ -59,12 +61,13 @@ public class Method4Pos {
      */
     public void RandomInitialPosition(Point[] points) {
         int placement;
-        ArrayList<Label> labels = new ArrayList<Label>();
+        
         for (Point p : points) {
             p.setLabels(null);
         }
         for (Point p : points) {
             placement = RandomInt(3);
+            ArrayList<Label> labels = new ArrayList<Label>();
             switch (placement) {
                 case 0:
                     labels.add(new Label(p, Placement.NW, MainReader.width, MainReader.height));
@@ -117,6 +120,46 @@ public class Method4Pos {
      * @param p The array containing a point you wish to change
      */
     public void ChangeRandomLabel(Point[] p) {
+        int i = RandomInt(p.length - 1);
+        int j = RandomInt(2);
+        Placement placement = p[i].getLabels().get(0).getPlacement();
+    
+         oldPoint = p[i];
+        oldPlacement = placement;
+        switch (placement) {
+            case NE:
+                if (j == 0) {
+                    p[i].getLabels().get(0).setPlacement(Placement.NW);
+                } else if (j == 1) {
+                    p[i].getLabels().get(0).setPlacement(Placement.SE);
+                } else if (j == 2) {
+                    p[i].getLabels().get(0).setPlacement(Placement.SW);
+                }
+            case NW:
+                if (j == 0) {
+                    p[i].getLabels().get(0).setPlacement(Placement.NE);
+                } else if (j == 1) {
+                    p[i].getLabels().get(0).setPlacement(Placement.SE);
+                } else if (j == 2) {
+                    p[i].getLabels().get(0).setPlacement(Placement.SW);
+                }
+            case SE:
+                if (j == 0) {
+                    p[i].getLabels().get(0).setPlacement(Placement.NW);
+                } else if (j == 1) {
+                    p[i].getLabels().get(0).setPlacement(Placement.NE);
+                } else if (j == 2) {
+                    p[i].getLabels().get(0).setPlacement(Placement.SW);
+                      }
+            case SW:
+                if (j == 0) {
+                    p[i].getLabels().get(0).setPlacement(Placement.NW);
+                } else if (j == 1) {
+                    p[i].getLabels().get(0).setPlacement(Placement.NE);
+                } else if (j == 2) {
+                    p[i].getLabels().get(0).setPlacement(Placement.SE);
+                }
+    }
     }
 
     /**
@@ -129,7 +172,7 @@ public class Method4Pos {
         RandomInitialPosition(p);
         collisions = FindCollisions(p);
         OldScore = (double) collisions.size();
-        while (c > 100000 && OldScore > 0) {
+        while (c > 1000000 && OldScore > 0) {
             ChangeRandomLabel(p);
             collisions = FindCollisions(p);
             NewScore = (double) collisions.size();
@@ -137,10 +180,11 @@ public class Method4Pos {
                 double AcceptanceChance = AcceptanceChance();
                 double randomdouble = RandomDouble();
                 if (AcceptanceChance < randomdouble) {//c needs to be a random number
-                    RevertChanges(p);
+                    RevertChanges();
+                    NewScore = OldScore;
                 }
             }
-            NewScore = OldScore;
+           OldScore = NewScore;
             c --;//Needs to be changed.
         }
         RemoveCollisions(p);
@@ -168,9 +212,12 @@ public class Method4Pos {
      * Reverts the change back to the position before the change of the random
      * label.
      *
-     * @param points the same as ever
+     * 
      */
-    public void RevertChanges(Point[] points) {
+    
+         public void RevertChanges() {
+        oldPoint.getLabels().get(0).setPlacement(oldPlacement);
+    
     }
 
     /**
@@ -179,7 +226,35 @@ public class Method4Pos {
      * @param points The same as ever
      */
     public void RemoveCollisions(Point[] points) {
+          int temp = 0;
+        int length;
+        Label tempL = null;
+        for (Label l : collisions.keySet()) {
+            length = collisions.get(l).size();
+            if (temp < length) {
+                tempL = l;
+                temp = length;
+            }
+        }
+        if (tempL != null) {
+        for (Label l : collisions.get(tempL)) {
+            Collision.removeCollisionFromMap(collisions, tempL, l);
+        }
+        
+        
+            List<Label> tempList = new ArrayList<Label>();
+                for (Label l : collisions.get(tempL)) {
+                    tempList.add(l);
+                }
+                for (int i = 0; i < tempList.size(); i ++) {
+                    Collision.removeCollisionFromMap(collisions, tempL, tempList.get(i));
+                }
+            tempL.getAnchor().setLabels(null);
+            MainReader.numberLabels --;
+        
+        }
     }
+    
 
     public void Output4Position(String s, int w, int h, int n_p, Point[] p) {
         //Reorder the points to the original order
@@ -193,11 +268,11 @@ public class Method4Pos {
         System.out.println("width: " + w);
         System.out.println("height: " + h);
         System.out.println("number of points: " + n_p);
-        System.out.println("number of labels: " + n_p);
+        System.out.println("number of labels: " + MainReader.numberLabels);
 
         //Output each of the points
         for (Point point : output) {
-            if ( ! point.getLabels().isEmpty()) {
+            if ( point.getLabels() != null ) {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
             } else {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " NIL");
