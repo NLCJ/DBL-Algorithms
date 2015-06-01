@@ -11,6 +11,7 @@ public class Label {
     private final Point anchor; //The point corresponding to the placement model
     private Point reference; //The lower left corner of the label
     private Placement placement;
+    private boolean visible = false;
     private double shift = 1;
 
     /**
@@ -74,6 +75,15 @@ public class Label {
     public Point getReference() {
         return reference;
     }
+    
+    /**
+     * Visbility of the label - only used for slider
+     * 
+     * @return boolean
+     */
+    public boolean isVisible() {
+        return this.visible;
+    }
 
     /**
      * Sets the shift of this label
@@ -87,8 +97,14 @@ public class Label {
         if( shift >= 0 && shift <= 1 ) {
             // Create a reference point for the label
             this.reference = new Point( this.anchor.getX() - MainReader.width + ( shift * MainReader.width ), this.anchor.getY(), -1 );
+            
+            // This label is visible
+            this.visible = true;
         } else {
             this.reference = new Point( this.anchor.getX(), this.anchor.getY(), -1 );
+            
+            // This label is not visible
+            this.visible = false;
         }
     }
 

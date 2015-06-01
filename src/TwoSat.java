@@ -51,8 +51,11 @@ public final class TwoSat {
         /* Finally, check whether any literal and its negation are in the same
          * strongly connected component.
          */
-        for (T variable : variables) {
+        for (T variable : variables) {            System.out.println(scc.get(new Literal<T>(variable,false)).toString() + " begin " + scc.get(new Literal<T>(variable,true)) );
+
             if (scc.get(new Literal<T>(variable, true)).equals(scc.get(new Literal<T>(variable, false)))) {
+                            System.out.println(scc.get(new Literal<T>(variable,true)).toString());
+
                 if (implications.edgesFrom(new Literal<T>(variable, true)).size() > tempBad) {
                     tempBad = implications.edgesFrom(new Literal<T>(variable, true)).size();
                     badpoint = new Clause(new Literal<T>(variable, true), new Literal<T>(variable, false));

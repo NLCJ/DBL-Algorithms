@@ -24,10 +24,8 @@ public class DataGenerator {
     int labelWidth;
     int labelHeight;
     int amountOfPoints;
-    int minAxisX/* = 0*/;
-    int minAxisY/* = 0*/;
-    int maxAxisX/* = 10000*/;
-    int maxAxisY/* = 10000*/;
+    int maxAxisX = 10000;
+    int maxAxisY = 10000;
     int minX;
     int maxX;
     int minY;
@@ -51,14 +49,10 @@ public class DataGenerator {
             this.labelHeight = input.nextInt();
             System.out.print("Enter the amount of points: ");
             this.amountOfPoints = input.nextInt();
-            System.out.print("Minimum x-axis (standard is 0): ");
-            this.minAxisX = input.nextInt();
-            System.out.print("Minimum y-axis (standard is 0): ");
-            this.minAxisY = input.nextInt();
-            System.out.print("Maximum x-axis (standard is 10k): ");
-            this.maxAxisX = input.nextInt();
-            System.out.print("Maximum y-axis (standard is 10k): ");
-            this.maxAxisY = input.nextInt();
+//            System.out.print("Maximum x-axis: ");
+//            this.maxAxisX = input.nextInt();
+//            System.out.print("Maximum y-axis: ");
+//            this.maxAxisY = input.nextInt();
             System.out.print("Enter the minimum integer on the x-axis: ");
             this.minX = input.nextInt();
             System.out.print("Enter the maximum integer on the x-axis: ");
@@ -100,8 +94,8 @@ public class DataGenerator {
             // Create random to test against accuracy
             if( randInt( 0, 100 ) > accuracy ) {
                 // Random over whole field
-                accurateMinX = this.minAxisX;
-                accurateMinY = this.minAxisY;
+                accurateMinX = 0;
+                accurateMinY = 0;
                 accurateMaxX = this.maxAxisX;
                 accurateMaxY = this.maxAxisY;
             }
