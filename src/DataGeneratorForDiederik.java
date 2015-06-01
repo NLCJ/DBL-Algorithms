@@ -18,14 +18,16 @@ import java.util.logging.Logger;
  *
  * @author s124006
  */
-public class DataGenerator {
+public class DataGeneratorForDiederik {
     // Variables
     String placementModel;
     int labelWidth;
     int labelHeight;
     int amountOfPoints;
-    int maxAxisX = 10000;
-    int maxAxisY = 10000;
+    int minAxisX/* = 0*/;
+    int minAxisY/* = 0*/;
+    int maxAxisX/* = 10000*/;
+    int maxAxisY/* = 10000*/;
     int minX;
     int maxX;
     int minY;
@@ -39,33 +41,37 @@ public class DataGenerator {
         try {
             // Try to get input from the user
             input = new Scanner( System.in ).useLocale( Locale.US );
-            
+            for (int i = 0; i < 100; i++){
             // Store the variables
             System.out.print("Enter the placement model (2pos, 4pos, 1slider): ");
-            this.placementModel = input.nextLine();
+            this.placementModel = "2pos";//input.nextLine();
             System.out.print("Enter the width of the label: ");
-            this.labelWidth = input.nextInt();
+            this.labelWidth = 50;//input.nextInt();
             System.out.print("Enter the height of the label: ");
-            this.labelHeight = input.nextInt();
+            this.labelHeight = 50;//input.nextInt();
             System.out.print("Enter the amount of points: ");
-            this.amountOfPoints = input.nextInt();
-//            System.out.print("Maximum x-axis: ");
-//            this.maxAxisX = input.nextInt();
-//            System.out.print("Maximum y-axis: ");
-//            this.maxAxisY = input.nextInt();
+            this.amountOfPoints = 10000;//input.nextInt();
+            System.out.print("Minimum x-axis (standard is 0): ");
+            this.minAxisX = 0;//input.nextInt();
+            System.out.print("Minimum y-axis (standard is 0): ");
+            this.minAxisY = 0;//input.nextInt();
+            System.out.print("Maximum x-axis (standard is 10k): ");
+            this.maxAxisX = 10000;//input.nextInt();
+            System.out.print("Maximum y-axis (standard is 10k): ");
+            this.maxAxisY = 10000;//input.nextInt();
             System.out.print("Enter the minimum integer on the x-axis: ");
-            this.minX = input.nextInt();
+            this.minX = 0;//input.nextInt();
             System.out.print("Enter the maximum integer on the x-axis: ");
-            this.maxX = input.nextInt();
+            this.maxX = 10000;//input.nextInt();
             System.out.print("Enter the minimum integer on the y-axis: ");
-            this.minY = input.nextInt();
+            this.minY = 0;//input.nextInt();
             System.out.print("Enter the maximum integer on the y-axis: ");
-            this.maxY = input.nextInt();
+            this.maxY = 10000;//input.nextInt();
             System.out.print("Enter the accuracy (0 to 100)%: ");
-            this.accuracy = input.nextDouble();
+            this.accuracy = 100;//input.nextDouble();
             
             // Initialize the file
-            file = new PrintWriter("data-of-awesomeness-for-"+placementModel+".txt", "UTF-8");
+            file = new PrintWriter("dataEven"+placementModel+i+".txt", "UTF-8");
             
             // Print the default information
             file.println( "placement model: " + this.placementModel );
@@ -75,7 +81,7 @@ public class DataGenerator {
             
             // Add output
             output();
-            
+            }
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(DataGenerator.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -94,8 +100,8 @@ public class DataGenerator {
             // Create random to test against accuracy
             if( randInt( 0, 100 ) > accuracy ) {
                 // Random over whole field
-                accurateMinX = 0;
-                accurateMinY = 0;
+                accurateMinX = this.minAxisX;
+                accurateMinY = this.minAxisY;
                 accurateMaxX = this.maxAxisX;
                 accurateMaxY = this.maxAxisY;
             }
@@ -136,6 +142,6 @@ public class DataGenerator {
     }
    
     public static void main(String[] args) {
-        new DataGenerator().askData();
+        new DataGeneratorForDiederik().askData();
     }
 }
