@@ -90,7 +90,9 @@ class MainReader {
         try {
 
 
+
             File file = new File("data-of-awesomeness-for-4pos.txt");
+
 
             Scanner sc = new Scanner(file);
 
