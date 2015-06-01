@@ -101,8 +101,20 @@ public class Collision {
 
     public static void removeCollisionFromMap(Map<Label, Set<Label>> collisions, Label p, Label q) {
         final Set<Label> getP = collisions.get(p);
+        for(int i = 0; i < getP.size(); i++){
+            System.out.println("point nr: " + i);
+        }
         if (getP != null &&  ! getP.isEmpty()) {
+            System.out.println("before removing " + q);
+            for(int i = 0; i < collisions.get(p).size(); i++){
+                System.out.println("set" + collisions.get(p).iterator().next());
+            }
             getP.remove(q);
+            collisions.get(p).remove(q);
+            System.out.println("after removing " + q);
+            for(int i = 0; i < collisions.get(p).size(); i++){
+                System.out.println("set" + collisions.get(p).iterator().next());
+            }
             if (getP.isEmpty()) {
                 collisions.remove(p);
             }
@@ -110,6 +122,7 @@ public class Collision {
         final Set<Label> getQ = collisions.get(q);
         if (getQ != null &&  ! getQ.isEmpty()) {
             getQ.remove(p);
+            collisions.get(q).remove(p);
             if (getQ.isEmpty()) {
                 collisions.remove(q);
             }
