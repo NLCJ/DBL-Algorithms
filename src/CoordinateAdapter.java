@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*    
+/*                 ACCESS FOR STEPHAN HABBETS IS PROHIBITED   
                             ,ooo888888888888888oooo,
                           o8888YYYYYY77iiiiooo8888888o
                          8888YYYY77iiYY8888888888888888
@@ -109,7 +109,8 @@ i8 788888       [88888^^ ooo ^^^^^;;77888^^^^;;7787^^^^ ^^;;;;  iiii;i78888888
  */
 public class CoordinateAdapter {
     double[][] Payload(){
-    double[][] earth_coordinates = new double[277][2];
+   
+        double[][] earth_coordinates = new double[277][2];
         
         try {
 
@@ -129,16 +130,37 @@ public class CoordinateAdapter {
             Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-   return earth_coordinates; }
+   return earth_coordinates; 
+       }
+    
+    int averageX(double[][] habets){
+      double avg_x = 0;
+      double sum = 0;
+      for(int i =0;i<habets.length;i++){
+          sum=sum+habets[i][0];
+      }
+      avg_x= sum/(habets.length+1);
+      return (int)avg_x;  
+    }
+    
+    int[][] recursivePointExtender(double[][] pnts){
+    int[][] final_points = new int[pnts.length][2];    
+   
+    
+    
+    return final_points; 
+    }
     
     void Converter(){
         double[][] CoC = Payload();
         for(int i = 0; i<CoC.length;i++){
-            //range extender to get rid of the negatives
-            CoC[i][0]=(((CoC[i][0]+180)/360)*10000)+3000;
-            CoC[i][1]=(((CoC[i][1]+90)/180)*5000)+8000;
+            //range extender to get rid of the negatives and transforming to 
+            //local system (whole Earth size is now mapped to the plane
+            CoC[i][0]=(((CoC[i][0]+180)/360)*10000)-6000;
+            CoC[i][1]=(((CoC[i][1]+90)/180)*5000)+7000;
             System.out.println((int)CoC[i][0]+" "+(int)CoC[i][1]);
         }
+        System.out.println("avg "+averageX(CoC));
     }
 
     public static void main(String[] args) {
