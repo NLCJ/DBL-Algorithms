@@ -4,7 +4,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*                            ,ooo888888888888888oooo,
+/*    
+                            ,ooo888888888888888oooo,
                           o8888YYYYYY77iiiiooo8888888o
                          8888YYYY77iiYY8888888888888888
                         [88YYY77iiY88888888888888888888]
@@ -107,23 +108,41 @@ i8 788888       [88888^^ ooo ^^^^^;;77888^^^^;;7787^^^^ ^^;;;;  iiii;i78888888
  * @author ivank_000
  */
 public class CoordinateAdapter {
-    void payload(){
-    try {
+    double[][] Payload(){
+    double[][] earth_coordinates = new double[277][2];
+        
+        try {
 
 
             File file = new File("coordinates.txt");            
             Scanner sc = new Scanner(file);
-
+            
+            for (int i =0; i<277;i++) {
+               earth_coordinates[i][0]=sc.nextDouble();
+               earth_coordinates[i][1]=sc.nextDouble();
+                
+            }
+            
           
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+   return earth_coordinates; }
+    
+    void Converter(){
+        double[][] CoC = Payload();
+        for(int i = 0; i<CoC.length;i++){
+            //range extender to get rid of the negatives
+            CoC[i][0]=((CoC[i][0]+180)/360)*10000;
+            CoC[i][1]=((CoC[i][1]+90)/180)*5000;
+            System.out.println(CoC[i][0]+" "+CoC[i][1]);
+        }
     }
 
     public static void main(String[] args) {
-        new CoordinateAdapter().payload();
+        new CoordinateAdapter().Converter();
     }
 }
     
