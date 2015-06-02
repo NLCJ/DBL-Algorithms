@@ -135,8 +135,8 @@ public class CoordinateAdapter {
         double[][] CoC = Payload();
         for(int i = 0; i<CoC.length;i++){
             //range extender to get rid of the negatives
-            CoC[i][0]=(((CoC[i][0]+180)/360)*10000)-6000;
-            CoC[i][1]=(((CoC[i][1]+90)/180)*5000)-2000;
+            CoC[i][0]=(((CoC[i][0]+180)/360)*10000)+3000;
+            CoC[i][1]=(((CoC[i][1]+90)/180)*5000)+8000;
             System.out.println((int)CoC[i][0]+" "+(int)CoC[i][1]);
         }
     }
