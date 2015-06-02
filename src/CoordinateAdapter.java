@@ -114,7 +114,7 @@ public class CoordinateAdapter {
         try {
 
 
-            File file = new File("coordinates.txt");            
+            File file = new File("C:\\Users\\ivank_000\\Documents\\GitHub\\Peach-is-sooo-sorry\\src\\coordinates.txt");            
             Scanner sc = new Scanner(file);
             
             for (int i =0; i<277;i++) {
@@ -135,9 +135,9 @@ public class CoordinateAdapter {
         double[][] CoC = Payload();
         for(int i = 0; i<CoC.length;i++){
             //range extender to get rid of the negatives
-            CoC[i][0]=((CoC[i][0]+180)/360)*10000;
-            CoC[i][1]=((CoC[i][1]+90)/180)*5000;
-            System.out.println(CoC[i][0]+" "+CoC[i][1]);
+            CoC[i][0]=(((CoC[i][0]+180)/360)*10000)-6000;
+            CoC[i][1]=(((CoC[i][1]+90)/180)*5000)-2000;
+            System.out.println((int)CoC[i][0]+" "+(int)CoC[i][1]);
         }
     }
 
