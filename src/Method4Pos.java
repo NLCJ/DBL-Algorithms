@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class Method4Pos {
 
-    private double c = 100;// the temperature in the annealing schedule
+    private double c = 1000;// the temperature in the annealing schedule
     private Point[] result;
     private Map<Label, Set<Label>> collisions;
     Placement oldPlacement;
@@ -180,7 +180,7 @@ public class Method4Pos {
         OldScore = (double) collisions.size();
         while (c >1 && OldScore > 0) {
            
-            for(int i = 0; i < 50; i++){
+            for(int i = 0; i < 1000-c; i++){
             ChangeRandomLabel(p);
             collisions = FindCollisions(p);
             NewScore = (double) collisions.size();
@@ -193,7 +193,7 @@ public class Method4Pos {
                     
                 }
             }
-        }
+            }
             OldScore = NewScore;
            
             c = c* 0.9;//Needs to be changed.
