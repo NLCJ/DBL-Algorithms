@@ -108,43 +108,47 @@ i8 788888       [88888^^ ooo ^^^^^;;77888^^^^;;7787^^^^ ^^;;;;  iiii;i78888888
  * @author ivank_000
  */
 public class CoordinateAdapter {
-    double[][] Payload(){
    
+    
+    double[][] Payload(){
         double[][] earth_coordinates = new double[277][2];
-        
         try {
-
-
             File file = new File("C:\\Users\\ivank_000\\Documents\\GitHub\\Peach-is-sooo-sorry\\src\\coordinates.txt");            
             Scanner sc = new Scanner(file);
-            
             for (int i =0; i<277;i++) {
                earth_coordinates[i][0]=sc.nextDouble();
-               earth_coordinates[i][1]=sc.nextDouble();
-                
-            }
-            
-          
-            
+               earth_coordinates[i][1]=sc.nextDouble();   
+            }   
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
         }
-
    return earth_coordinates; 
        }
     
-    int averageX(double[][] habets){
-      double avg_x = 0;
-      double sum = 0;
-      for(int i =0;i<habets.length;i++){
-          sum=sum+habets[i][0];
-      }
-      avg_x= sum/(habets.length+1);
-      return (int)avg_x;  
+    int mapMinX(double[][] nl_map){
+        int minX = 696969696;
+        for(int i =0;i<nl_map.length;i++){
+            if(minX>nl_map[i][0]){
+                minX=(int)nl_map[i][0];
+            }
+        }
+    return minX;
     }
     
+    
+    int mapMaxX(double[][] nl_map){
+        int maxX = 0;
+        for(int i =0;i<nl_map.length;i++){
+            if(maxX<nl_map[i][0]){
+                maxX=(int)nl_map[i][0];
+            }
+        }
+    return maxX;
+    }
+    
+    
     int[][] recursivePointExtender(double[][] pnts){
-    int[][] final_points = new int[pnts.length][2];    
+         int[][] final_points = new int[pnts.length][2];    
    
     
     
@@ -160,7 +164,7 @@ public class CoordinateAdapter {
             CoC[i][1]=(((CoC[i][1]+90)/180)*5000)+7000;
             System.out.println((int)CoC[i][0]+" "+(int)CoC[i][1]);
         }
-        System.out.println("avg "+averageX(CoC));
+     System.out.println(mapMinX(CoC)+" "+mapMaxX(CoC));
     }
 
     public static void main(String[] args) {
