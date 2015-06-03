@@ -4,7 +4,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*                            ,ooo888888888888888oooo,
+/*                 ACCESS FOR STEPHAN HABBETS IS PROHIBITED   
+                            ,ooo888888888888888oooo,
                           o8888YYYYYY77iiiiooo8888888o
                          8888YYYY77iiYY8888888888888888
                         [88YYY77iiY88888888888888888888]
@@ -107,23 +108,88 @@ i8 788888       [88888^^ ooo ^^^^^;;77888^^^^;;7787^^^^ ^^;;;;  iiii;i78888888
  * @author ivank_000
  */
 public class CoordinateAdapter {
-    void payload(){
-    try {
-
-
-            File file = new File("coordinates.txt");            
+   
+    
+    double[][] Payload(){
+        double[][] earth_coordinates = new double[277][2];
+        try {
+            File file = new File("C:\\Users\\ivank_000\\Documents\\GitHub\\Peach-is-sooo-sorry\\src\\coordinates.txt");            
             Scanner sc = new Scanner(file);
-
-          
-            
+            for (int i =0; i<277;i++) {
+               earth_coordinates[i][0]=sc.nextDouble();
+               earth_coordinates[i][1]=sc.nextDouble();   
+            }   
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+   return earth_coordinates; 
+       }
+    
+    int mapMinX(double[][] nl_map){
+        int minX = 696969696;
+        for(int i =0;i<nl_map.length;i++){
+            if(minX>nl_map[i][0]){
+                minX=(int)nl_map[i][0];
+            }
+        }
+    return minX;
+    }
+    
+    
+    int mapMaxX(double[][] nl_map){
+        int maxX = 0;
+        for(int i =0;i<nl_map.length;i++){
+            if(maxX<nl_map[i][0]){
+                maxX=(int)nl_map[i][0];
+            }
+        }
+    return maxX;
+    }
+    
+     int mapMinY(double[][] nl_map){
+        int minY = 696969696;
+        for(int i =0;i<nl_map.length;i++){
+            if(minY>nl_map[i][1]){
+                minY=(int)nl_map[i][1];
+            }
+        }
+    return minY;
+    }
+    
+    
+    int mapMaxY(double[][] nl_map){
+        int maxY = 0;
+        for(int i =0;i<nl_map.length;i++){
+            if(maxY<nl_map[i][1]){
+                maxY=(int)nl_map[i][1];
+            }
+        }
+    return maxY;
+    }
+    
+    
+    int[][] recursivePointExtender(double[][] pnts){
+         int[][] final_points = new int[pnts.length][2];    
+   
+    
+    
+    return final_points; 
+    }
+    
+    void Converter(){
+        double[][] CoC = Payload();
+        for(int i = 0; i<CoC.length;i++){
+            //range extender to get rid of the negatives and transforming to 
+            //local system (whole Earth size is now mapped to the plane
+            CoC[i][0]=(((CoC[i][0]+180)/360)*10000)-6000;
+            CoC[i][1]=(((CoC[i][1]+90)/180)*5000)+7000;
+            System.out.println((int)CoC[i][0]+" "+(int)CoC[i][1]);
+        }
+     System.out.println(mapMinX(CoC)+"<->"+mapMaxX(CoC)+" "+mapMinY(CoC)+"<->"+mapMaxY(CoC));
     }
 
     public static void main(String[] args) {
-        new CoordinateAdapter().payload();
+        new CoordinateAdapter().Converter();
     }
 }
     

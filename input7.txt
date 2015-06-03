@@ -1,0 +1,11 @@
+placement model: 2pos
+width: 50
+height: 50
+number of points: 7
+100 140
+100 180
+90 130
+180 150
+120 70
+80 240
+150 250

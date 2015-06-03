@@ -35,6 +35,7 @@ public class DataGeneratorForDiederik {
     double accuracy;
     PrintWriter file;
     Scanner input;
+    String distribution;
     
     // Constructor
     private void askData() {
@@ -43,35 +44,23 @@ public class DataGeneratorForDiederik {
             input = new Scanner( System.in ).useLocale( Locale.US );
             for (int i = 0; i < 100; i++){
             // Store the variables
-            System.out.print("Enter the placement model (2pos, 4pos, 1slider): ");
-            this.placementModel = "2pos";//input.nextLine();
-            System.out.print("Enter the width of the label: ");
-            this.labelWidth = 50;//input.nextInt();
-            System.out.print("Enter the height of the label: ");
-            this.labelHeight = 50;//input.nextInt();
-            System.out.print("Enter the amount of points: ");
-            this.amountOfPoints = 10000;//input.nextInt();
-            System.out.print("Minimum x-axis (standard is 0): ");
-            this.minAxisX = 0;//input.nextInt();
-            System.out.print("Minimum y-axis (standard is 0): ");
-            this.minAxisY = 0;//input.nextInt();
-            System.out.print("Maximum x-axis (standard is 10k): ");
-            this.maxAxisX = 10000;//input.nextInt();
-            System.out.print("Maximum y-axis (standard is 10k): ");
-            this.maxAxisY = 10000;//input.nextInt();
-            System.out.print("Enter the minimum integer on the x-axis: ");
-            this.minX = 0;//input.nextInt();
-            System.out.print("Enter the maximum integer on the x-axis: ");
-            this.maxX = 10000;//input.nextInt();
-            System.out.print("Enter the minimum integer on the y-axis: ");
-            this.minY = 0;//input.nextInt();
-            System.out.print("Enter the maximum integer on the y-axis: ");
-            this.maxY = 10000;//input.nextInt();
-            System.out.print("Enter the accuracy (0 to 100)%: ");
-            this.accuracy = 100;//input.nextDouble();
+            this.placementModel = "2pos";
+            this.labelWidth = 10;
+            this.labelHeight = 10;
+            this.amountOfPoints = 10;
+            this.minAxisX = 0;
+            this.minAxisY = 0;
+            this.maxAxisX = 10000;
+            this.maxAxisY = 10000;
+            this.minX = 0;
+            this.maxX = 10000;
+            this.minY = 0;
+            this.maxY = 10000;
+            this.accuracy = 100;
+            this.distribution = "Cluster";
             
             // Initialize the file
-            file = new PrintWriter("dataEven"+placementModel+i+".txt", "UTF-8");
+            file = new PrintWriter("Experimental Data\\"+placementModel+distribution+labelWidth+"x"+amountOfPoints+"#"+(i+1)+".txt", "UTF-8");
             
             // Print the default information
             file.println( "placement model: " + this.placementModel );
