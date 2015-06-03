@@ -291,6 +291,15 @@ public class QuadTree {
         //}
         //System.out.println();
         
+        /*if(p.getX() == 914 && p.getY() == 9303){
+            for(int i = 0; i < points.size(); i++){
+                Point temp = (Point) points.get(i);
+                if(temp.getX() == p.getX())
+                    System.out.println(points.get(i));
+            }
+            //System.out.println();
+        }*/
+        
         //add all the points in the list of points to the potential collisions list and return the list
         //(in this node all the points' labels in the array points can potentially collide with point p's label)
         potentialCollisionPoints.addAll(points);

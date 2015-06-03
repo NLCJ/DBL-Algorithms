@@ -114,6 +114,11 @@ public class Method2Pos {
         ArrayList<Point> possibleCollisions = new ArrayList<Point>();
         possibleCollisions.clear();
         quad.retrieve(possibleCollisions, p);
+        /*for(int i = 0; i < possibleCollisions.size(); i++){
+            if(p.getX() == 914 && p.getY() == 9292 && possibleCollisions.get(i).getX() == 914){
+                System.out.println("Possible Collision: " +p + " "+ possibleCollisions.get(i));
+            }
+        }*/
         return possibleCollisions;
     }
 

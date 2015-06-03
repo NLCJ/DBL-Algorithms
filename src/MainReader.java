@@ -91,7 +91,7 @@ class MainReader {
 
 
             File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\2kDimension35.txt");
-            //file = new File("input.txt");
+            file = new File("2kDimension55.txt");
 
             Scanner sc = new Scanner(file);
 
@@ -115,6 +115,7 @@ class MainReader {
             // Determine what placement model is called for
             if (placement_model.equals("2pos")) {
                 Point[] points_2pos = pos_2.PositionCalculator(width, height, points);
+                mergesort.sort(points);
                 pos_2.quadtree(points);
                 pos_2.findCollisions(points);
                 //pos_2.searchClauses(points);
@@ -134,6 +135,7 @@ class MainReader {
                 Point[] points_slider = slider.originalOrder(points);
                 slider.OutputSlider(placement_model, width, height, number_points, points_slider);
                 Gui(placement_model, number_points, points_slider);
+                //DBLGUI gui = new DBLGUI();
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);

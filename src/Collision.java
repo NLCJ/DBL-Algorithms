@@ -55,11 +55,88 @@ public class Collision {
 //                return true;
 //            }
        // }
-        if (Math.abs(p.getReference().getX() - q.getReference().getX()) < MainReader.width) {
+        //System.out.println(p + " " + q + " refrence p: " + p.getReference() + " reference g: "+ q.getReference()+ " refX - RefX: " + Math.abs(p.getReference().getX() - q.getReference().getX()));
+        //System.out.println(p + " " + q + " anchor: " + q.getAnchor().getX() + " reference: " + q.getReference() +" " + Math.abs(p.getAnchor().getX() - q.getAnchor().getX()));
+        /*if(p.getAnchor().getX() == q.getAnchor().getX() && p.getAnchor().getY() == q.getAnchor().getY() ){
+            //System.out.println(p + " " + q + " are equal");
+            //System.out.println(p + " " + q + " anchor: " + q.getAnchor().getX() + " reference: " + q.getReference() + " is false");
+            return false;
+        }
+        
+        if (Math.abs(p.getReference().getX() - q.getReference().getX()) <= MainReader.width ) {
             if (Math.abs(p.getReference().getY() - q.getReference().getY()) <= MainReader.height) {
+                //System.out.println(p + " " + q + " is true " + Math.abs(p.getReference().getY() - q.getReference().getY()));
                 return true;
             }
+        }*/
+        
+        if((p.getAnchor().getX() == q.getAnchor().getX()) && (p.getAnchor().getY() == q.getAnchor().getY()) ){
+           //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
+               //System.out.println("In equal: " + p + " " + q);
+            //}
+            return false;
         }
+        
+        //if the x of p is bigger than the x of pot
+        if(p.getReference().getX() >= q.getReference().getX()){
+            //calculate the gap and if the gap is less than 0
+            double gap = (p.getReference().getX()) - (q.getReference().getX() + MainReader.width);
+            if(gap < 0){
+                if(p.getReference().getY() >= q.getReference().getY()){
+                    //calculate the y gap and if the y gap is less than 0 return true
+                    double ygap = p.getReference().getY() - (q.getReference().getY()+MainReader.height);
+                    //System.out.println("p: " + p.getX() + " " + p.getY() + "pot: " + pot.getX() + " " + pot.getY() + " ygap p>=pot: " + ygap);
+                    if(ygap < 0){
+                        //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
+                            //System.out.println("Collision p>q & p>q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                        //}
+                        return true;
+                    }
+                }
+                if(p.getReference().getY() < q.getReference().getY()){
+                    //calculate the y gap and if the y gap is less than 0 return true
+                    double ygap = q.getReference().getY() - (p.getReference().getY()+MainReader.height);
+                    //System.out.println("p: " + p.getX() + " " + p.getY() + "pot: " + pot.getX() + " " + pot.getY() + " ygap p>=pot: " + ygap);
+                    if(ygap < 0){
+                        //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
+                            //System.out.println("Collision p>q & p<q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                        //}
+                        return true;
+                    }
+                }
+            }
+        }
+        //if the x of p is less than the x of pot
+        if(p.getReference().getX() < q.getReference().getX()){
+            //calculate the gap and if the gap is less than 0
+            double gap = (q.getReference().getX()) - (p.getReference().getX()+MainReader.width);
+            //System.out.println("gap p<pot: " + gap);
+            if(gap < 0){
+                if(p.getReference().getY() >= q.getReference().getY()){
+                    //calculate the y gap and if the y gap is less than 0 then return true
+                    double ygap = p.getReference().getY() - (q.getReference().getY()+MainReader.height);
+                    if(ygap < 0){
+                        //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
+                            //System.out.println("Collision p<q & p>q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                        //}
+                        return true;
+                    }
+                }
+                if(p.getReference().getY() < q.getReference().getY()){
+                    //calculate the y gap and if the y gap is less than 0 then return true
+                    double ygap = q.getReference().getY() - (p.getReference().getY()+MainReader.height);
+                    if(ygap < 0){
+                        //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
+                            //System.out.println("Collision p<q & p<q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                        //}
+                        return true;
+                    }
+                }
+            }
+        }
+        //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292 ){
+            //System.out.println("NO Collision: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+        //}
         return false;
     }
 
@@ -101,6 +178,7 @@ public class Collision {
             temp = new HashSet<Label>();
         }
         temp.add(q);
+        //System.out.println("collision p: " + p + " temp: " + temp);
         return temp;
     }
 
