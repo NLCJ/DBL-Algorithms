@@ -10,13 +10,14 @@ import java.util.Set;
  */
 public class Method4Pos {
 
-    private double c = 1000000;// the temperature in the annealing schedule
+    private double c = 100;// the temperature in the annealing schedule
     private Point[] result;
     private Map<Label, Set<Label>> collisions;
     Placement oldPlacement;
     Point oldPoint;
     private double OldScore;
     private double NewScore;
+    ArrayList<Label> L = new ArrayList<Label>();
     RandomGenerator rg = new RandomGenerator();
     MergeSort mergesort = new MergeSort();
     QuadTree quad = new QuadTree(0, 0, 10000, 0, 10000);
@@ -119,46 +120,51 @@ public class Method4Pos {
      * @param p The array containing a point you wish to change
      */
     public void ChangeRandomLabel(Point[] p) {
-        int i = RandomInt(p.length - 1);
+        
+        int i = RandomInt(collisions.size() -1);
         int j = RandomInt(2);
-        Placement placement = p[i].getLabels().get(0).getPlacement();
+        for(Label l : collisions.keySet()){
+            L.add(l);
+        }
+        Placement placement = L.get(i).getPlacement();
 
         oldPoint = p[i];
         oldPlacement = placement;
         switch (placement) {
         case NE:
             if (j == 0) {
-                p[i].getLabels().get(0).setPlacement(Placement.NW);
+                L.get(i).setPlacement(Placement.NW);
             } else if (j == 1) {
-                p[i].getLabels().get(0).setPlacement(Placement.SE);
+                L.get(i).setPlacement(Placement.SE);
             } else if (j == 2) {
-                p[i].getLabels().get(0).setPlacement(Placement.SW);
+                L.get(i).setPlacement(Placement.SW);
             }
         case NW:
             if (j == 0) {
-                p[i].getLabels().get(0).setPlacement(Placement.NE);
+                L.get(i).setPlacement(Placement.NE);
             } else if (j == 1) {
-                p[i].getLabels().get(0).setPlacement(Placement.SE);
+                L.get(i).setPlacement(Placement.SE);
             } else if (j == 2) {
-                p[i].getLabels().get(0).setPlacement(Placement.SW);
+                L.get(i).setPlacement(Placement.SW);
             }
         case SE:
             if (j == 0) {
-                p[i].getLabels().get(0).setPlacement(Placement.NW);
+                L.get(i).setPlacement(Placement.NW);
             } else if (j == 1) {
-                p[i].getLabels().get(0).setPlacement(Placement.NE);
+                L.get(i).setPlacement(Placement.NE);
             } else if (j == 2) {
-                p[i].getLabels().get(0).setPlacement(Placement.SW);
+                L.get(i).setPlacement(Placement.SW);
             }
         case SW:
             if (j == 0) {
-                p[i].getLabels().get(0).setPlacement(Placement.NW);
+                L.get(i).setPlacement(Placement.NW);
             } else if (j == 1) {
-                p[i].getLabels().get(0).setPlacement(Placement.NE);
+                L.get(i).setPlacement(Placement.NE);
             } else if (j == 2) {
-                p[i].getLabels().get(0).setPlacement(Placement.SE);
+                L.get(i).setPlacement(Placement.SE);
             }
         }
+        L.clear();
     }
 
     /**
@@ -174,14 +180,14 @@ public class Method4Pos {
         OldScore = (double) collisions.size();
         while (c >1 && OldScore > 0) {
            
-            for(int i = 0; i < 15; i++){
+            for(int i = 0; i < 50; i++){
             ChangeRandomLabel(p);
             collisions = FindCollisions(p);
             NewScore = (double) collisions.size();
             if (OldScore < NewScore) {
                 double AcceptanceChance = AcceptanceChance();
                 double randomdouble = RandomDouble();
-                if (AcceptanceChance < randomdouble) {//c needs to be a random number
+                if (AcceptanceChance < randomdouble) {
                     RevertChanges();
                     NewScore = OldScore;
                     
