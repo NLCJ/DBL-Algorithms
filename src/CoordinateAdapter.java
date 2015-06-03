@@ -146,6 +146,27 @@ public class CoordinateAdapter {
     return maxX;
     }
     
+     int mapMinY(double[][] nl_map){
+        int minY = 696969696;
+        for(int i =0;i<nl_map.length;i++){
+            if(minY>nl_map[i][1]){
+                minY=(int)nl_map[i][1];
+            }
+        }
+    return minY;
+    }
+    
+    
+    int mapMaxY(double[][] nl_map){
+        int maxY = 0;
+        for(int i =0;i<nl_map.length;i++){
+            if(maxY<nl_map[i][1]){
+                maxY=(int)nl_map[i][1];
+            }
+        }
+    return maxY;
+    }
+    
     
     int[][] recursivePointExtender(double[][] pnts){
          int[][] final_points = new int[pnts.length][2];    
@@ -164,7 +185,7 @@ public class CoordinateAdapter {
             CoC[i][1]=(((CoC[i][1]+90)/180)*5000)+7000;
             System.out.println((int)CoC[i][0]+" "+(int)CoC[i][1]);
         }
-     System.out.println(mapMinX(CoC)+" "+mapMaxX(CoC));
+     System.out.println(mapMinX(CoC)+"<->"+mapMaxX(CoC)+" "+mapMinY(CoC)+"<->"+mapMaxY(CoC));
     }
 
     public static void main(String[] args) {
