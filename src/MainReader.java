@@ -90,7 +90,7 @@ class MainReader {
         try {
 
 
-            File file = new File("C:\\Users\\ivank_000\\Documents\\GitHub\\Peach-is-sooo-sorry\\src\\input.txt");
+            File file = new File("C:\\Users\\s127255\\Dropbox\\DBL Algorithms\\STEFAN HERE IS DATA\\2kDimension65.txt");
             //file = new File("input.txt");
 
             Scanner sc = new Scanner(file);
