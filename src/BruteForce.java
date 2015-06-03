@@ -15,20 +15,67 @@ import java.util.List;
 public class BruteForce {
     
     private int topLabelsPlaced = 0;
-    private int labelsPlaced = 0;
     
     private Collision collision = new Collision();
     private QuadTree quadTree = new QuadTree( 0, 0, 10000, 0, 10000 );
     
-    private int closestLeft;
-    private int closestRight;
-    
     private void Forceeeeee() {
-        Point[] points = null;
-        // For each point - calculate every other position
-        for( Point point : points ) {
-            // Call the function to shift it by 1%
-            startWiggling( point, points );
+        ArrayList<Point> points = new ArrayList<>();
+        
+        // Start the for each loop, yeahh!!!!!! For each point, YEAHHH!!!!!!
+        for( int i = 0; i < points.size(); i++ ) {
+            moreForEachLoopsYEAAAHHH( 0, points, 0 );
+        }
+    }
+    
+    private void moreForEachLoopsYEAAAHHH( int currentIndex, ArrayList<Point> remainingPoints, int pointsPlaced ) {
+        // The current point
+        Point point = remainingPoints.get( currentIndex );
+        double pointX = point.getX();
+        Label label = point.getLabels().get( 0 );
+        double labelStart = label.getReference().getX();
+        double labelEnd = label.getReference().getY() + MainReader.width;
+        
+        // Set the shift
+        double shift = 1;
+        
+        // Get the potential collisions
+        List test = quadTree.retrieve( new ArrayList<Point>(), point );
+        List<Point> potentialCollisions = collision.sliderCollisions( test, point );
+        
+        // Determine the closestLeft and closestRight
+        double closestLeft = 0;
+        double closestRight = 0;
+        
+        for( Point potentialCollision : potentialCollisions ) {
+            // The label
+            Label collisionLabel = potentialCollision.getLabels().get( 0 );
+            double collisionLabelStart = collisionLabel.getReference().getX();
+            double collisionLabelEnd = collisionLabel.getReference().getX() + MainReader.width;
+            
+            // Check if the label is visible
+            if( collisionLabel.isVisible() ) {
+                if( collisionLabelStart < pointX ) {
+                    closestLeft = collisionLabelStart;
+                }
+            }
+        }
+        
+        // We have to wiggle first - then call the loop
+        while( shift > 0 ) {
+            // Check if this label can be placed at the CURRENT position
+            
+            
+            // Decrease the shift by 1 percent
+            shift = shift - 0.01;
+        }
+        
+        // Remove the current index
+        remainingPoints.remove( currentIndex );
+        
+        // MORE FOR EACH LOOPS - WHICH ARE ACTUALLY FOR LOOPS
+        for( int i = 0; i < remainingPoints.size(); i++ ) {
+            moreForEachLoopsYEAAAHHH( i, remainingPoints, pointsPlaced );
         }
     }
     
@@ -37,8 +84,7 @@ public class BruteForce {
         double shift = 1;
         
         // Get point collision
-        List test = quadTree.retrieve( new ArrayList<Point>(), point );
-        List potentialCollisions = collision.sliderCollisions( test, point );
+        
         
         // As long as shift is not 0
         while( shift > 0 ) {
