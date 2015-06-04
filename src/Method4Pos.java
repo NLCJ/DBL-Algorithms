@@ -173,8 +173,8 @@ public class Method4Pos {
      * @param p the same as ever
      */
     public void Annealing(Point[] p) {
-
         quadtree(p);
+        if (p.length < 250){
         RandomInitialPosition(p);
         collisions = FindCollisions(p);
         OldScore = (double) collisions.size();
@@ -199,6 +199,25 @@ public class Method4Pos {
             c = c* 0.9;//Needs to be changed.
         }
         RemoveCollisions(p);
+        }
+        else{
+            Placement[] placements = Placement.fourPos();
+             
+            for(Point q : p){
+                Label m = new Label(q, placements[0],MainReader.width, MainReader.height);
+                Label n = new Label(q, placements[1],MainReader.width, MainReader.height);
+                L.add(m);
+                L.add(n);
+                q.setLabels(L);
+                
+                
+                
+            }
+            
+            Method2Pos Pos= new Method2Pos();
+            Pos.findCollisions(p);
+            
+        }
     }
 
     /**
