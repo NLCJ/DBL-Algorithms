@@ -69,11 +69,11 @@ public class Collision {
                 return true;
             }
         }*/
-        
+        System.out.println("p: " + p + " q: " + q);
         if((p.getAnchor().getX() == q.getAnchor().getX()) && (p.getAnchor().getY() == q.getAnchor().getY()) ){
-           //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
-               //System.out.println("In equal: " + p + " " + q);
-            //}
+           if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
+               System.out.println("In equal: " + p + " " + q);
+            }
             return false;
         }
         
@@ -88,7 +88,7 @@ public class Collision {
                     //System.out.println("p: " + p.getX() + " " + p.getY() + "pot: " + pot.getX() + " " + pot.getY() + " ygap p>=pot: " + ygap);
                     if(ygap < 0){
                         //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
-                            //System.out.println("Collision p>q & p>q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                            System.out.println("Collision p>q & p>q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
                         //}
                         return true;
                     }
@@ -99,7 +99,7 @@ public class Collision {
                     //System.out.println("p: " + p.getX() + " " + p.getY() + "pot: " + pot.getX() + " " + pot.getY() + " ygap p>=pot: " + ygap);
                     if(ygap < 0){
                         //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
-                            //System.out.println("Collision p>q & p<q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                            System.out.println("Collision p>q & p<q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
                         //}
                         return true;
                     }
@@ -117,7 +117,7 @@ public class Collision {
                     double ygap = p.getReference().getY() - (q.getReference().getY()+MainReader.height);
                     if(ygap < 0){
                         //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
-                            //System.out.println("Collision p<q & p>q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                            System.out.println("Collision p<q & p>q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
                         //}
                         return true;
                     }
@@ -127,7 +127,7 @@ public class Collision {
                     double ygap = q.getReference().getY() - (p.getReference().getY()+MainReader.height);
                     if(ygap < 0){
                         //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
-                            //System.out.println("Collision p<q & p<q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                            System.out.println("Collision p<q & p<q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
                         //}
                         return true;
                     }

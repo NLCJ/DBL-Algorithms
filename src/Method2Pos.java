@@ -44,6 +44,9 @@ public class Method2Pos {
                 poCollisions.add(possiCollisions.get(i).getLabels().get(1));
             }
             Collision.allCollisions(poCollisions, p, collisions);
+            //if(p.getX() == 914 && p.getY() == 9292){
+            //    System.out.println(poCollisions);
+            //}
             poCollisions.clear();
         }
 
