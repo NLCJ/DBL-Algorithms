@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +38,7 @@ public class Method2Pos {
 
         for (Point p : points) {
             possiCollisions = posCollisions(p);
-            for (int i = 0; i < possiCollisions.size(); i++) {
+            for (int i = 0; i < possiCollisions.size(); i ++) {
                 poCollisions.add(possiCollisions.get(i).getLabels().get(0));
                 poCollisions.add(possiCollisions.get(i).getLabels().get(1));
             }
@@ -63,17 +62,17 @@ public class Method2Pos {
                 if (badPoint == null) {
                     continue;
                 }
-                MainReader.numberLabels--;
+                MainReader.numberLabels --;
 
                 badPoint.first().value().removeLabel(badPoint.first().getPlacement());
                 badPoint.second().value().removeLabel(badPoint.second().getPlacement());
 
-                for (int j = 0; j < clauses.size(); j++) {
+                for (int j = 0; j < clauses.size(); j ++) {
                     if (clauses.get(j).first().value() == badPoint.first().value() || clauses.get(j).second().value() == badPoint.first().value()
                             || clauses.get(j).first().value() == badPoint.second().value() || clauses.get(j).second().value() == badPoint.second().value()) {
 
                         clauses.remove(j);
-                        j--;
+                        j --;
                     }
                 }
 
@@ -89,7 +88,7 @@ public class Method2Pos {
 
         Map<Literal<Point>, Integer> result = new HashMap<Literal<Point>, Integer>();
 
-        while (!stack.isEmpty()) {
+        while ( ! stack.isEmpty()) {
             Literal<Point> p = stack.pop();
             boolean temp = false;
             for (Label l : p.value().getLabels()) {
@@ -106,6 +105,25 @@ public class Method2Pos {
                     }
                 }
                 p.value().setLabels(labels);
+            }
+        }
+
+        for (Point p1 : points) {
+            for (Point p2 : points) {
+                if (p1.equals(p2)) {
+                    continue;
+                }
+                if (p1.getX() == p2.getX()) {
+                    if (Math.abs(p1.getY() - p2.getY()) < MainReader.height) {                      
+                        if ( ! p1.getLabels().isEmpty() &&  ! p2.getLabels().isEmpty()) {                          
+                            if (p1.getLabels().get(0).getReference().getX() == (p2.getLabels().get(0).getReference().getX())) {
+                               p1.removeLabel(p1.getLabels().get(0).getPlacement());
+                               MainReader.numberLabels --;
+                            }
+                        }
+                    }
+
+                }
             }
         }
     }
