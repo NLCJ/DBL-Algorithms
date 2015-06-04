@@ -17,8 +17,8 @@ public class Method4Pos {
     private Map<Label, Set<Label>> collisions;
     Placement oldPlacement;
     Point oldPoint;
-    private double OldScore;
-    private double NewScore;
+    private double OldScore = 0;
+    private double NewScore = 0;
     ArrayList<Label> L = new ArrayList<Label>();
     RandomGenerator rg = new RandomGenerator();
     MergeSort mergesort = new MergeSort();
@@ -179,13 +179,21 @@ public class Method4Pos {
         if (p.length < 250) {
             RandomInitialPosition(p);
             collisions = FindCollisions(p);
-            OldScore = (double) collisions.size();
+            for(Label l: collisions.keySet()){//check how many collisions there are
+                OldScore = OldScore + collisions.get(l).size()-1;
+            }
+             OldScore = (double) OldScore;
+            
             while (c > 1 && OldScore > 0) {
-
-                for (int i = 0; i < 1000 - c; i ++) {
+                  System.out.println(OldScore);
+                
+                    
                     ChangeRandomLabel(p);
                     collisions = FindCollisions(p);
-                    NewScore = (double) collisions.size();
+                    for(Label l: collisions.keySet()){//check how many collisions there are
+                    NewScore = NewScore + collisions.get(l).size()-1;
+                    }
+                    NewScore = (double) NewScore;
                     if (OldScore < NewScore) {
                         double AcceptanceChance = AcceptanceChance();
                         double randomdouble = RandomDouble();
@@ -195,10 +203,10 @@ public class Method4Pos {
 
                         }
                     }
-                }
+                
                 OldScore = NewScore;
 
-                c = c * 0.9;//Needs to be changed.
+                c = c * 0.999;//Needs to be changed.
             }
             RemoveCollisions(p);
         } else {
@@ -207,14 +215,14 @@ public class Method4Pos {
 
             for (Point q : p) {
                 List<Label> labels = new ArrayList<Label>();
-                Label m = new Label(q, placements[1], MainReader.width, MainReader.height);
-                Label n = new Label(q, placements[3], MainReader.width, MainReader.height);
+                Label m = new Label(q, placements[0], MainReader.width, MainReader.height);
+                Label n = new Label(q, placements[2], MainReader.width, MainReader.height);
                 labels.add(m);
                 labels.add(n);
                 q.setLabels(labels);
                 
             }
-                     
+            Pos.quadtree(p);
             Pos.findCollisions(p);
         }
     }
