@@ -91,7 +91,7 @@ class MainReader {
 
 
 
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\2kDimension35.txt");
+            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\2kDimension25.txt");
             //file = new File("2kDimension55.txt");
             //file = new File("input.txt");
 
@@ -117,7 +117,7 @@ class MainReader {
 
             // Determine what placement model is called for
             if (placement_model.equals("2pos")) {
-                Point[] points_2pos = pos_2.PositionCalculator(width, height, points);
+                //Point[] points_2pos = pos_2.PositionCalculator(width, height, points);
                 mergesort.sort(points);
                 pos_2.quadtree(points);
                 pos_2.findCollisions(points);
@@ -144,6 +144,64 @@ class MainReader {
             Logger.getLogger(MainReader.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    void multipleFiles() throws FileNotFoundException {
+        File[] files = new File( "input" ).listFiles();
+        
+        // Check if there are files
+        if( files.length > 0 ) {
+            // For each file, run the algorithm
+            for( File file : files ) {
+                // Get the content
+                Scanner sc = new Scanner( file );
+                
+                // Get the model data
+                placement_model = sc.nextLine().substring(17);
+                pModel = Model.fromString(placement_model);
+                width = Integer.parseInt(sc.nextLine().substring(7));
+                height = Integer.parseInt(sc.nextLine().substring(8));
+                int number_points = Integer.parseInt(sc.nextLine().substring(18));
+                numberLabels = number_points;
+                
+                // Create array for points
+                points = new Point[number_points];
+                
+                // Place each point in the array
+                for (int i = 0; i < number_points; i ++) {
+                    int x = sc.nextInt();
+                    int y = sc.nextInt();
+
+                    points[i] = new Point(x, y, i, Model.fromString(placement_model));
+                }
+                
+                // Run algorithm according to the placement model
+                switch( placement_model ) {
+                    case "2pos":
+                        // Copied from above - ask Stefan
+                        Point[] points_2pos = pos_2.PositionCalculator(width, height, points);
+                        pos_2.quadtree(points);
+                        pos_2.findCollisions(points);
+                        pos_2.Output2Position(placement_model, width, height, number_points, points);
+                        break;
+                    case "4pos":
+                        // Copied from above - ask Stefan
+                        Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
+                        pos_4.Annealing(points);
+                        pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
+                        break;
+                    case "1slider":
+                        // Get the output of slider and place it in a file
+                        Point[] points_slider = slider.originalOrder(points);
+                        slider.OutputSlider(placement_model, width, height, number_points, points_slider);
+                        break;
+                    default:
+                        // Unknown placement model
+                        System.out.println( "This placement model is not supported" );
+                        break;
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
