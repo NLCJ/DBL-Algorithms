@@ -1,4 +1,4 @@
-placement model: 2pos
+placement model: 4pos
 width: 20
 height: 20
 number of points: 5000

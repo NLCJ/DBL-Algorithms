@@ -91,7 +91,7 @@ class MainReader {
 
 
 
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\2kDimension35.txt");
+            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\2kDimension25.txt");
             //file = new File("2kDimension55.txt");
             //file = new File("input.txt");
 
@@ -117,7 +117,7 @@ class MainReader {
 
             // Determine what placement model is called for
             if (placement_model.equals("2pos")) {
-                Point[] points_2pos = pos_2.PositionCalculator(width, height, points);
+                //Point[] points_2pos = pos_2.PositionCalculator(width, height, points);
                 mergesort.sort(points);
                 pos_2.quadtree(points);
                 pos_2.findCollisions(points);
