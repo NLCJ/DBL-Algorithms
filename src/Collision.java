@@ -69,11 +69,11 @@ public class Collision {
                 return true;
             }
         }*/
-        System.out.println("p: " + p + " q: " + q);
+        //System.out.println("p: " + p + " q: " + q);
         if((p.getAnchor().getX() == q.getAnchor().getX()) && (p.getAnchor().getY() == q.getAnchor().getY()) ){
-           if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
-               System.out.println("In equal: " + p + " " + q);
-            }
+           //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
+               //System.out.println("In equal: " + p + " " + q);
+            //}
             return false;
         }
         
@@ -88,7 +88,7 @@ public class Collision {
                     //System.out.println("p: " + p.getX() + " " + p.getY() + "pot: " + pot.getX() + " " + pot.getY() + " ygap p>=pot: " + ygap);
                     if(ygap < 0){
                         //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
-                            System.out.println("Collision p>q & p>q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                            //System.out.println("Collision p>q & p>q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
                         //}
                         return true;
                     }
@@ -99,7 +99,7 @@ public class Collision {
                     //System.out.println("p: " + p.getX() + " " + p.getY() + "pot: " + pot.getX() + " " + pot.getY() + " ygap p>=pot: " + ygap);
                     if(ygap < 0){
                         //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
-                            System.out.println("Collision p>q & p<q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                            //System.out.println("Collision p>q & p<q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
                         //}
                         return true;
                     }
@@ -117,7 +117,7 @@ public class Collision {
                     double ygap = p.getReference().getY() - (q.getReference().getY()+MainReader.height);
                     if(ygap < 0){
                         //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
-                            System.out.println("Collision p<q & p>q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                            //System.out.println("Collision p<q & p>q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
                         //}
                         return true;
                     }
@@ -127,7 +127,7 @@ public class Collision {
                     double ygap = q.getReference().getY() - (p.getReference().getY()+MainReader.height);
                     if(ygap < 0){
                         //if(p.getAnchor().getX() == 914 && p.getAnchor().getY() == 9292){
-                            System.out.println("Collision p<q & p<q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
+                            //System.out.println("Collision p<q & p<q: " + p.getReference() + " " + p.getPlacement() +" " + q.getReference() + " " + q.getPlacement());
                         //}
                         return true;
                     }
@@ -203,6 +203,7 @@ public class Collision {
     }
 
     public List allCollisions(List potential, Label l) {
+        collisions.clear();
         for (Object potential1 : potential) {
             Label l2 = (Label) potential1;
             if (intersects(l, l2)) {
@@ -217,6 +218,45 @@ public class Collision {
         return collisions;
     }
     
+    
+    
+    //------ 4pos Collisions
+    
+    /* --you can get the list of labels that collide with the label of point p (randomly assigned)--*/
+    public List<Label> fourPosCollision(List<Point> potential, Point p) {
+        collisions.clear();
+        //get the label of the point p (which has a randomly assigned placement)
+        Label l = p.getLabels().get(0);
+        //for each point in the potential list
+        for(int i = 0; i < potential.size(); i++){
+            //get the label from the point q in the potential list (which has a randomly assigned placement)
+            Point q = potential.get(i);
+            Label l2 = q.getLabels().get(0);
+            //if the labels intersect, add it to collision list
+            if(intersects(l,l2)){
+                collisions.add(l2);
+            }
+        }
+        //return the collisions
+        return collisions;
+    }
+    
+    /* --you can get a map with label and set of label like the 2pos--*/
+    public Map<Label, Set<Label>> fourPosAllCollisions(List<Point> potential, Point p, Map<Label, Set<Label>> map){
+        fourPosCollide(p, potential, map);
+        return map;
+    }
+    
+    public Map<Label, Set<Label>> fourPosCollide(Point p, List<Point> potential, Map<Label, Set<Label>> map) {
+        List<Label> listL = fourPosCollision(potential, p);
+        Label l = p.getLabels().get(0);
+        for(int i = 0; i < listL.size(); i++){
+            addCollisionToMap(map, l, listL.get(i));
+        }
+        return map;
+    }
+    
+    
     //------- Slider Collisions
     public List sliderCollisions(List potential, Point p){
         sliderCollisions.clear();
@@ -230,10 +270,10 @@ public class Collision {
                 sliderCollisions.add(pp);
             }
         }
-        for(int i = 0; i < sliderCollisions.size(); i++){
-            Point cp = (Point) sliderCollisions.get(i);
+        //for(int i = 0; i < sliderCollisions.size(); i++){
+            //Point cp = (Point) sliderCollisions.get(i);
             //System.out.println("point: " + p.getX() + " " + p.getY() + " collides with: " + cp.getX() + " " + cp.getY());
-        }
+        //}
         //return the list sliderCollisions
         return sliderCollisions;
     }
