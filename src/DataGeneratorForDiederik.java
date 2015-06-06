@@ -45,6 +45,8 @@ public class DataGeneratorForDiederik {
             for (int i = 0; i < 100; i++){
             // Store the variables
             this.placementModel = "2pos";
+            this.distribution = "Cluster";
+            this.accuracy = 100;
             this.labelWidth = 10;
             this.labelHeight = 10;
             this.amountOfPoints = 10;
@@ -56,11 +58,9 @@ public class DataGeneratorForDiederik {
             this.maxX = 10000;
             this.minY = 0;
             this.maxY = 10000;
-            this.accuracy = 100;
-            this.distribution = "Cluster";
             
             // Initialize the file
-            file = new PrintWriter("Experimental Data\\"+placementModel+distribution+labelWidth+"x"+amountOfPoints+"#"+(i+1)+".txt", "UTF-8");
+            file = new PrintWriter("Experimental Data\\Cluster\\"+placementModel+distribution+labelWidth+"x"+amountOfPoints+"#"+(i+1)+".txt", "UTF-8");
             
             // Print the default information
             file.println( "placement model: " + this.placementModel );
