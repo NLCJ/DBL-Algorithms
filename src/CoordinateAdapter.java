@@ -125,8 +125,8 @@ public class CoordinateAdapter {
    return earth_coordinates; 
        }
     
-    int mapMinX(double[][] nl_map){
-        int minX = 696969696;
+    long mapMinX(double[][] nl_map){
+        long minX = 696969696;
         for(int i =0;i<nl_map.length;i++){
             if(minX>nl_map[i][0]){
                 minX=(int)nl_map[i][0];
@@ -146,8 +146,8 @@ public class CoordinateAdapter {
     return maxX;
     }
     
-     int mapMinY(double[][] nl_map){
-        int minY = 696969696;
+     long mapMinY(double[][] nl_map){
+        long minY = 696969696;
         for(int i =0;i<nl_map.length;i++){
             if(minY>nl_map[i][1]){
                 minY=(int)nl_map[i][1];
@@ -168,12 +168,47 @@ public class CoordinateAdapter {
     }
     
     
-    int[][] recursivePointExtender(double[][] pnts){
-         int[][] final_points = new int[pnts.length][2];    
-   
+    double[][] recursivePointExtender(double[][] pnts, int itrx, int itry){ 
+         long x_ = mapMinX(pnts);
+         int X_m = mapMaxX(pnts);
+         long y_ = mapMinY(pnts);
+         int Y_m = mapMaxY(pnts);
+         int iterx = itrx;
+         int itery = itry;
+         if(iterx==0&&itery==0){
+             return pnts;
+         }
+         if(iterx==-1){
+             iterx=X_m;
+         }
+         if(itery==-1){
+             itery=Y_m;
+         }
+         if(iterx!=0&&iterx!=-1){
+             
+                 for(int xs=X_m;xs>=iterx;xs--){
+                     for(int i=0; i<pnts.length;i++){
+                    if((int)pnts[i][0]==xs){
+                         pnts[i][0]=pnts[i][0]+4;
+                    }
+                 }
+            }
+         
+         if(itery!=0&&itery!=-1){
+           
+                for(int ys = Y_m; ys>=itery;ys--){ 
+                      for(int i=0; i<pnts.length;i++){
+                    if((int)pnts[i][1]==ys){
+                         pnts[i][1]= pnts[i][1]+2;
+                     }
+                 }
+            }
+         }
     
     
-    return final_points; 
+    return recursivePointExtender(pnts, iterx-1, itery-1); 
+    }
+        return pnts;
     }
     
     void Converter(){
@@ -181,11 +216,17 @@ public class CoordinateAdapter {
         for(int i = 0; i<CoC.length;i++){
             //range extender to get rid of the negatives and transforming to 
             //local system (whole Earth size is now mapped to the plane
-            CoC[i][0]=(((CoC[i][0]+180)/360)*10000)-6000;
-            CoC[i][1]=(((CoC[i][1]+90)/180)*5000)+7000;
+            CoC[i][0]=(((CoC[i][0]+180)/360)*10000);
+            CoC[i][1]=(((CoC[i][1]+90)/180)*5000);
             System.out.println((int)CoC[i][0]+" "+(int)CoC[i][1]);
         }
-     System.out.println(mapMinX(CoC)+"<->"+mapMaxX(CoC)+" "+mapMinY(CoC)+"<->"+mapMaxY(CoC));
+     System.out.println(mapMinX(CoC)+" "+mapMaxX(CoC));
+     System.out.println(mapMinY(CoC)+" "+mapMaxY(CoC));
+     //double[][] finalp = recursivePointExtender(CoC,-1,-1);
+     System.out.println("***************************************");
+     // for(int x=0;x<CoC.length; x++){
+     //System.out.println(finalp[x][0]+" "+finalp[x][1]);
+    //}
     }
 
     public static void main(String[] args) {
