@@ -179,27 +179,27 @@ public class CoordinateAdapter {
              return pnts;
          }
          if(iterx==-1){
-             iterx=X_m;
+             iterx=6483;
          }
          if(itery==-1){
-             itery=Y_m;
+             itery=2697;
          }
-         if(iterx!=0&&iterx!=-1){
+         if(iterx!=0&&iterx!=-1&&iterx>mapMinX(pnts)){
              
                  for(int xs=X_m;xs>=iterx;xs--){
                      for(int i=0; i<pnts.length;i++){
                     if((int)pnts[i][0]==xs){
-                         pnts[i][0]=pnts[i][0]+4;
+                         pnts[i][0]=pnts[i][0]+10;
                     }
                  }
             }
          
-         if(itery!=0&&itery!=-1){
+         if(itery!=0&&itery!=-1&&itery>mapMinY(pnts)){
            
                 for(int ys = Y_m; ys>=itery;ys--){ 
                       for(int i=0; i<pnts.length;i++){
                     if((int)pnts[i][1]==ys){
-                         pnts[i][1]= pnts[i][1]+2;
+                         pnts[i][1]= pnts[i][1]+10;
                      }
                  }
             }
@@ -220,13 +220,15 @@ public class CoordinateAdapter {
             CoC[i][1]=(((CoC[i][1]+90)/180)*5000);
             System.out.println((int)CoC[i][0]+" "+(int)CoC[i][1]);
         }
+     System.out.println("Asa si asa");   
      System.out.println(mapMinX(CoC)+" "+mapMaxX(CoC));
      System.out.println(mapMinY(CoC)+" "+mapMaxY(CoC));
-     //double[][] finalp = recursivePointExtender(CoC,-1,-1);
+     double[][] finalp = recursivePointExtender(CoC,-1,-1);
      System.out.println("***************************************");
-     // for(int x=0;x<CoC.length; x++){
-     //System.out.println(finalp[x][0]+" "+finalp[x][1]);
-    //}
+      for(int x=0;x<CoC.length; x++){
+     System.out.println(((int)finalp[x][0]-6000)+" "+((int)finalp[x][1]-2000));
+    
+    }
     }
 
     public static void main(String[] args) {

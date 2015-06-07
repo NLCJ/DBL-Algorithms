@@ -91,7 +91,7 @@ class MainReader {
 
 
 
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\2kDimension25.txt");
+            File file = new File("C:\\Users\\ivank_000\\Documents\\GitHub\\Peach-is-sooo-sorry\\src\\input.txt");
             //file = new File("2kDimension55.txt");
             //file = new File("input.txt");
 
