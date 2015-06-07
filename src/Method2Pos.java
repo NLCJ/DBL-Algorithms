@@ -39,7 +39,7 @@ public class Method2Pos {
 
         for (Point p : points) {
             possiCollisions = posCollisions(p);
-            for (int i = 0; i < possiCollisions.size(); i++) {
+            for (int i = 0; i < possiCollisions.size(); i ++) {
                 poCollisions.add(possiCollisions.get(i).getLabels().get(0));
                 poCollisions.add(possiCollisions.get(i).getLabels().get(1));
             }
@@ -66,17 +66,17 @@ public class Method2Pos {
                 if (badPoint == null) {
                     continue;
                 }
-                MainReader.numberLabels--;
+                MainReader.numberLabels --;
 
                 badPoint.first().value().removeLabel(badPoint.first().getPlacement());
                 badPoint.second().value().removeLabel(badPoint.second().getPlacement());
 
-                for (int j = 0; j < clauses.size(); j++) {
+                for (int j = 0; j < clauses.size(); j ++) {
                     if (clauses.get(j).first().value() == badPoint.first().value() || clauses.get(j).second().value() == badPoint.first().value()
                             || clauses.get(j).first().value() == badPoint.second().value() || clauses.get(j).second().value() == badPoint.second().value()) {
 
                         clauses.remove(j);
-                        j--;
+                        j --;
                     }
                 }
 
@@ -92,7 +92,7 @@ public class Method2Pos {
 
         Map<Literal<Point>, Integer> result = new HashMap<Literal<Point>, Integer>();
 
-        while (!stack.isEmpty()) {
+        while ( ! stack.isEmpty()) {
             Literal<Point> p = stack.pop();
             boolean temp = false;
             for (Label l : p.value().getLabels()) {
@@ -111,6 +111,23 @@ public class Method2Pos {
                 p.value().setLabels(labels);
             }
         }
+        for (Point p1 : points) {
+            for (Point p2 : points) {
+                if (p1.equals(p2)) {
+                    continue;
+                }
+                if (p1.getX() == p2.getX()) {
+                    if ( ! p1.getLabels().isEmpty() &&  ! p2.getLabels().isEmpty()) {
+                        if (p1.getLabels().get(0).getReference().getX() == p2.getLabels().get(0).getReference().getX()) {
+                            if (Math.abs(p1.getLabels().get(0).getReference().getY() - p2.getLabels().get(0).getReference().getY()) < MainReader.height) {
+                                p1.removeLabel(p1.getLabels().get(0).getPlacement());
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
     }
 
     public ArrayList<Point> posCollisions(Point p) {
@@ -118,10 +135,10 @@ public class Method2Pos {
         possibleCollisions.clear();
         quad.retrieve(possibleCollisions, p);
         /*for(int i = 0; i < possibleCollisions.size(); i++){
-            if(p.getX() == 914 && p.getY() == 9292 && possibleCollisions.get(i).getX() == 914){
-                System.out.println("Possible Collision: " +p + " "+ possibleCollisions.get(i));
-            }
-        }*/
+         if(p.getX() == 914 && p.getY() == 9292 && possibleCollisions.get(i).getX() == 914){
+         System.out.println("Possible Collision: " +p + " "+ possibleCollisions.get(i));
+         }
+         }*/
         return possibleCollisions;
     }
 
@@ -137,7 +154,7 @@ public class Method2Pos {
 
         //Output each of the points
         for (Point point : output) {
-            if (!point.getLabels().isEmpty()) {
+            if ( ! point.getLabels().isEmpty()) {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
             } else {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " NIL");
