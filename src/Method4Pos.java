@@ -10,11 +10,12 @@ import java.util.Set;
  * @author Ivan Kozlov
  */
 public class Method4Pos {
-
+    Collision Col = new Collision();
     Method2Pos Pos = new Method2Pos();
     private double c = 1000;// the temperature in the annealing schedule
     private Point[] result;
     private Map<Label, Set<Label>> collisions;
+    
     Placement oldPlacement;
     Point oldPoint;
     private double OldScore = 0;
@@ -96,18 +97,17 @@ public class Method4Pos {
      * @return the actual collisions
      */
     public Map<Label, Set<Label>> FindCollisions(Point[] points) {
-        Map<Label, Set<Label>> collisions = new HashMap<Label, Set<Label>>();
         List<Point> possiCollisions = new ArrayList<Point>();
-        List<Label> poCollisions = new ArrayList<Label>();
+        List<Point> poCollisions = new ArrayList<Point>();
         for (Point p : points) {
             possiCollisions = posCollisions(p);
             for (int i = 0; i < possiCollisions.size(); i ++) {
-                poCollisions.add(possiCollisions.get(i).getLabels().get(0));
+                poCollisions.add(possiCollisions.get(i));
 //                for (int j = 0; j < possiCollisions.size(); j ++) {
 //                    System.out.println(possiCollisions.get(j).getLabels().get(j) + " hoi");
 //                }
-                Collision.allCollisions(poCollisions, p, collisions);
-                poCollisions.clear();;
+                Col.fourPosAllCollisions(poCollisions, p,collisions);
+                poCollisions.clear();
             }
         }
         //for (int i = 0; i < collisions.size(); i ++) {
@@ -176,23 +176,26 @@ public class Method4Pos {
      */
     public void Annealing(Point[] p) {
         quadtree(p);
-        if (p.length < 250) {
+        if (p.length < 10001) {
             RandomInitialPosition(p);
             collisions = FindCollisions(p);
-            for(Label l: collisions.keySet()){//check how many collisions there are
-                OldScore = OldScore + collisions.get(l).size()-1;
-            }
+            
+            OldScore = OldScore + collisions.size();
+            
              OldScore = (double) OldScore;
             
             while (c > 1 && OldScore > 0) {
+                 
                   System.out.println(OldScore);
                 
                     
                     ChangeRandomLabel(p);
+                    collisions.clear();
                     collisions = FindCollisions(p);
-                    for(Label l: collisions.keySet()){//check how many collisions there are
-                    NewScore = NewScore + collisions.get(l).size()-1;
-                    }
+                    
+                    NewScore = NewScore + collisions.size();
+                    
+                    System.out.println(NewScore);
                     NewScore = (double) NewScore;
                     if (OldScore < NewScore) {
                         double AcceptanceChance = AcceptanceChance();
@@ -205,7 +208,7 @@ public class Method4Pos {
                     }
                 
                 OldScore = NewScore;
-
+                NewScore = 0;
                 c = c * 0.999;//Needs to be changed.
             }
             RemoveCollisions(p);
