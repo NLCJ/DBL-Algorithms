@@ -10,6 +10,7 @@ import java.util.Set;
  * @author Ivan Kozlov
  */
 public class Method4Pos {
+
     Collision Col = new Collision();
     Method2Pos Pos = new Method2Pos();
     private double c = 1000;// the temperature in the annealing schedule
@@ -97,7 +98,7 @@ public class Method4Pos {
      * @return the actual collisions
      */
     public Map<Label, Set<Label>> FindCollisions(Point[] points) {
-        Map<Label,Set<Label>> colisions = new HashMap<Label,Set<Label>>();
+        Map<Label, Set<Label>> colisions = new HashMap<Label, Set<Label>>();
         List<Point> possiCollisions = new ArrayList<Point>();
         List<Point> poCollisions = new ArrayList<Point>();
         for (Point p : points) {
@@ -107,7 +108,7 @@ public class Method4Pos {
 //                for (int j = 0; j < possiCollisions.size(); j ++) {
 //                    System.out.println(possiCollisions.get(j).getLabels().get(j) + " hoi");
 //                }
-                Col.fourPosAllCollisions(poCollisions, p,colisions);
+                Col.fourPosAllCollisions(poCollisions, p, colisions);
                 poCollisions.clear();
             }
         }
@@ -131,7 +132,7 @@ public class Method4Pos {
         }
         Placement placement = L.get(i).getPlacement();
 
-        oldPoint = p[i];
+        oldPoint = L.get(i).getAnchor();
         oldPlacement = placement;
         switch (placement) {
             case NE:
@@ -142,6 +143,7 @@ public class Method4Pos {
                 } else if (j == 2) {
                     L.get(i).setPlacement(Placement.SW);
                 }
+                break;
             case NW:
                 if (j == 0) {
                     L.get(i).setPlacement(Placement.NE);
@@ -150,6 +152,7 @@ public class Method4Pos {
                 } else if (j == 2) {
                     L.get(i).setPlacement(Placement.SW);
                 }
+                break;
             case SE:
                 if (j == 0) {
                     L.get(i).setPlacement(Placement.NW);
@@ -158,6 +161,7 @@ public class Method4Pos {
                 } else if (j == 2) {
                     L.get(i).setPlacement(Placement.SW);
                 }
+                break;
             case SW:
                 if (j == 0) {
                     L.get(i).setPlacement(Placement.NW);
@@ -166,6 +170,7 @@ public class Method4Pos {
                 } else if (j == 2) {
                     L.get(i).setPlacement(Placement.SE);
                 }
+                break;
         }
         L.clear();
     }
@@ -180,41 +185,40 @@ public class Method4Pos {
         if (p.length < 9) {
             RandomInitialPosition(p);
             collisions = FindCollisions(p);
-            
-            OldScore = OldScore + collisions.size();
-            
-             OldScore = (double) OldScore;
-            
-            while (c > 1 && OldScore > 0) {
-                 
-                  System.out.println(OldScore);
-                
-                    
-                    ChangeRandomLabel(p);
-                    collisions.clear();
-                    collisions = FindCollisions(p);
-                    
-                    NewScore = NewScore + collisions.size();
-                    
-                    System.out.println(NewScore);
-                    NewScore = (double) NewScore;
-                    if (OldScore < NewScore) {
-                        double AcceptanceChance = AcceptanceChance();
-                        double randomdouble = RandomDouble();
-                        if (AcceptanceChance < randomdouble) {
-                            RevertChanges();
-                            NewScore = OldScore;
 
-                        }
+            OldScore = OldScore + collisions.size();
+
+            OldScore = (double) OldScore;
+
+            while (c > 1 && OldScore > 0) {
+
+                System.out.println(OldScore);
+
+                ChangeRandomLabel(p);
+                collisions.clear();
+                collisions = FindCollisions(p);
+
+                NewScore = NewScore + collisions.size();
+
+                System.out.println(NewScore);
+                NewScore = (double) NewScore;
+                if (OldScore < NewScore) {
+                    double AcceptanceChance = AcceptanceChance();
+                    double randomdouble = RandomDouble();
+                    if (AcceptanceChance < randomdouble) {
+                        RevertChanges();
+                        NewScore = OldScore;
+
                     }
-                
+                }
+
                 OldScore = NewScore;
                 NewScore = 0;
                 c = c * 0.999;//Needs to be changed.
             }
             RemoveCollisions(p);
         } else {// run the safegaurd, by running 2-pos 5 times
-             
+
             Placement[] placements = Placement.fourPos();
             Pos.quadtree(p);
             for (Point q : p) {//both north positions
@@ -224,10 +228,10 @@ public class Method4Pos {
                 labels.add(m);
                 labels.add(n);
                 q.setLabels(labels);
-                
+
             }
             Pos.findCollisions(p);
-            
+
         }
     }
 
@@ -306,13 +310,13 @@ public class Method4Pos {
         System.out.println("number of labels: " + MainReader.numberLabels);
 
         //Output each of the points
-       for (Point point : output) {
+        for (Point point : output) {
             if ( ! point.getLabels().isEmpty()) {
                 System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
             } else {
-               System.out.println((int) point.getX() + " " + (int) point.getY() + " NIL");
+                System.out.println((int) point.getX() + " " + (int) point.getY() + " NIL");
             }
-       }
+        }
     }
 
     /**
