@@ -237,6 +237,10 @@ public class Collision {
                 collisions.add(l2);
             }
         }
+        System.out.println("Label: " + l);
+        for(int i = 0; i < collisions.size(); i++){
+            System.out.print(collisions.get(i));
+        }
         //return the collisions
         return collisions;
     }
