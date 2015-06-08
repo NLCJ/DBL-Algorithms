@@ -36,12 +36,30 @@ public class Method2Pos {
         Map<Label, Set<Label>> collisions = new HashMap<Label, Set<Label>>();
         List<Point> possiCollisions = new ArrayList<Point>();
         List<Label> poCollisions = new ArrayList<Label>();
-
+        
+        int k = 0;
         for (Point p : points) {
             possiCollisions = posCollisions(p);
+            
+            if (possiCollisions.size() == 10000 && k < points.length*0.99) {
+                p.removeLabel(p.getLabels().get(0).getPlacement());
+                p.removeLabel(p.getLabels().get(0).getPlacement());
+                k ++;
+                MainReader.numberLabels --;
+                continue;
+            }
+            if (possiCollisions.size() >= 7000 && k < points.length*0.9) {
+                p.removeLabel(p.getLabels().get(0).getPlacement());
+                p.removeLabel(p.getLabels().get(0).getPlacement());
+                k ++;
+                MainReader.numberLabels --;
+                continue;
+            }
             for (int i = 0; i < possiCollisions.size(); i ++) {
+                if (! possiCollisions.get(i).getLabels().isEmpty() ) {
                 poCollisions.add(possiCollisions.get(i).getLabels().get(0));
                 poCollisions.add(possiCollisions.get(i).getLabels().get(1));
+                }
             }
             Collision.allCollisions(poCollisions, p, collisions);
             //if(p.getX() == 914 && p.getY() == 9292){
