@@ -15,7 +15,7 @@ public class Method4Pos {
     private double c = 1000;// the temperature in the annealing schedule
     private Point[] result;
     private Map<Label, Set<Label>> collisions;
-    
+    private int[] lengths = new int[4];
     Placement oldPlacement;
     Point oldPoint;
     private double OldScore = 0;
@@ -97,6 +97,7 @@ public class Method4Pos {
      * @return the actual collisions
      */
     public Map<Label, Set<Label>> FindCollisions(Point[] points) {
+        Map<Label,Set<Label>> colisions = new HashMap<Label,Set<Label>>();
         List<Point> possiCollisions = new ArrayList<Point>();
         List<Point> poCollisions = new ArrayList<Point>();
         for (Point p : points) {
@@ -106,14 +107,14 @@ public class Method4Pos {
 //                for (int j = 0; j < possiCollisions.size(); j ++) {
 //                    System.out.println(possiCollisions.get(j).getLabels().get(j) + " hoi");
 //                }
-                Col.fourPosAllCollisions(poCollisions, p,collisions);
+                Col.fourPosAllCollisions(poCollisions, p,colisions);
                 poCollisions.clear();
             }
         }
         //for (int i = 0; i < collisions.size(); i ++) {
         //System.out.println(collisions.size() + " hoi " +collisions.toString());
         //}
-        return collisions;
+        return colisions;
     }
 
     /**
@@ -176,7 +177,7 @@ public class Method4Pos {
      */
     public void Annealing(Point[] p) {
         quadtree(p);
-        if (p.length < 10001) {
+        if (p.length < 9) {
             RandomInitialPosition(p);
             collisions = FindCollisions(p);
             
@@ -212,21 +213,21 @@ public class Method4Pos {
                 c = c * 0.999;//Needs to be changed.
             }
             RemoveCollisions(p);
-        } else {
+        } else {// run the safegaurd, by running 2-pos 5 times
              
             Placement[] placements = Placement.fourPos();
-
-            for (Point q : p) {
+            Pos.quadtree(p);
+            for (Point q : p) {//both north positions
                 List<Label> labels = new ArrayList<Label>();
-                Label m = new Label(q, placements[0], MainReader.width, MainReader.height);
-                Label n = new Label(q, placements[2], MainReader.width, MainReader.height);
+                Label m = new Label(q, placements[2], MainReader.width, MainReader.height);
+                Label n = new Label(q, placements[3], MainReader.width, MainReader.height);
                 labels.add(m);
                 labels.add(n);
                 q.setLabels(labels);
                 
             }
-            Pos.quadtree(p);
             Pos.findCollisions(p);
+            
         }
     }
 
@@ -305,13 +306,13 @@ public class Method4Pos {
         System.out.println("number of labels: " + MainReader.numberLabels);
 
         //Output each of the points
-//        for (Point point : output) {
-//            if ( ! point.getLabels().isEmpty()) {
-//                System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
-//            } else {
-//                System.out.println((int) point.getX() + " " + (int) point.getY() + " NIL");
-//            }
-//        }
+       for (Point point : output) {
+            if ( ! point.getLabels().isEmpty()) {
+                System.out.println((int) point.getX() + " " + (int) point.getY() + " " + point.getLabels().get(0).getPlacement());
+            } else {
+               System.out.println((int) point.getX() + " " + (int) point.getY() + " NIL");
+            }
+       }
     }
 
     /**

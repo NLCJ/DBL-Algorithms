@@ -66,6 +66,8 @@ public class Method2Pos {
             //    System.out.println(poCollisions);
             //}
             poCollisions.clear();
+            
+            //System.out.println(collisions);
         }
 
         for (Label l : collisions.keySet()) {
