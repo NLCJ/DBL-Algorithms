@@ -16,6 +16,11 @@ public class MethodSlider {
     private Collision collision = new Collision();
     private QuadTree quadTree = new QuadTree( 0, 0, 10000, 0, 10000 );
     private int pointsPlaced = 0;
+    ExperimentOutput EO = ExperimentOutput.getExperimentOutput();
+    long startTime;
+    long endTime;
+    long totalTime;
+    String testType;
     
     /**
      * Return the result
@@ -42,23 +47,33 @@ public class MethodSlider {
     
     public void placePoints( Point[] points ) {    
         // For each point
+        startTime = System.nanoTime();
         for( int i = 0; i < points.length; i++ ) {
             // Create quad tree
             quadTree.insert( points[ i ] );
         }
+        endTime = System.nanoTime();
+        totalTime = endTime - startTime;
+        testType = "initialization";
+        EO.quadTreeArrays(testType, totalTime);
     }
     
     public void findCollisions(Point[] points) {
         Map<Point, Set<Point>> collisions = new HashMap<Point, Set<Point>>();
+        startTime = System.nanoTime();
         for (Point p : points) {
             // Get point collision
             List test = quadTree.retrieve( new ArrayList<Point>(), p );
-            List potentialCollisions = collision.sliderCollisions( test, p );
+            //List potentialCollisions = collision.sliderCollisions( test, p );
             // Try to fix the collision for this point
-            fixCollision( p, potentialCollisions );
+            //fixCollision( p, potentialCollisions );
         }
+        endTime = System.nanoTime();
+        totalTime = endTime - startTime;
+        testType = "retrieval";
+        EO.quadTreeArrays(testType, totalTime);
         
-        System.out.println( "Points placed: " + pointsPlaced );
+        //System.out.println( "Points placed: " + pointsPlaced );
     }
     
     // Actually fix the collision
@@ -225,7 +240,7 @@ public class MethodSlider {
             }
         }
         
-        System.out.println( shift );
+        //System.out.println( shift );
 //        // Check if there has to be taken care of labels
 //        if( !closestLeftSet && !closestRightSet ) {
 //            // Set the current shift to 1
@@ -264,11 +279,11 @@ public class MethodSlider {
         this.result = output;
         
         // Required static output
-        System.out.println("placement model: " + s );
-        System.out.println("width: " + w );
-        System.out.println("height: " + h );
-        System.out.println("number of points: " + n_p );
-        System.out.println("number of labels: " + n_p );
+        //System.out.println("placement model: " + s );
+        //System.out.println("width: " + w );
+        //System.out.println("height: " + h );
+        //System.out.println("number of points: " + n_p );
+        //System.out.println("number of labels: " + n_p );
 
 
         // Output each of the points
