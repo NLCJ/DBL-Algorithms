@@ -27,7 +27,7 @@ public class Collision {
      * @param q: the second point
      * @return List of labels that overlap
      */
-    public static void collide(Point p, List<Label> q, Map<Label, Set<Label>> collisions) {
+    public static void collide(Point p, List<Label> q, Map<Label, Set<Label>> coll) {
         List<Label> pLabels = p.getLabels();
 
         for (Label lp : pLabels) {
@@ -36,7 +36,7 @@ public class Collision {
                     continue;
                 }
                 if (intersects(lp, lq)) {
-                    addCollisionToMap(collisions, lp, lq);
+                    addCollisionToMap(coll, lp, lq);
                 }
             }
         }
@@ -147,33 +147,34 @@ public class Collision {
      * @param p: source label
      * @param q: overlapping label
      */
-    private static void addCollisionToMap(Map<Label, Set<Label>> collisions, Label p, Label q) {
+    private static void addCollisionToMap(Map<Label, Set<Label>> coll, Label p, Label q) {
         Set<Label> temp;
         final Point anchorP = p.getAnchor();
         final Point anchorQ = q.getAnchor();
         if (anchorP.getX() <= anchorQ.getX()) {
             if (anchorP.getX() < anchorQ.getX()) {
-                temp = addCollisionL(collisions, p, q);
-                collisions.put(p, temp);
+                temp = addCollisionL(coll, p, q);
+                coll.put(p, temp);
             } else {
                 if (anchorP.getY() < anchorQ.getY()) {
-                    temp = addCollisionL(collisions, p, q);
-                    collisions.put(p, temp);
+                    temp = addCollisionL(coll, p, q);
+                    coll.put(p, temp);
                 } else {
-                    temp = addCollisionL(collisions, q, p);
-                    collisions.put(q, temp);
+                    temp = addCollisionL(coll, q, p);
+                    coll.put(q, temp);
                 }
             }
         } else {
-            temp = addCollisionL(collisions, q, p);
-            collisions.put(q, temp);
+            temp = addCollisionL(coll, q, p);
+            coll.put(q, temp);
         }
     }
 
-    private static Set<Label> addCollisionL(Map<Label, Set<Label>> collisions, Label p, Label q) {
+    private static Set<Label> addCollisionL(Map<Label, Set<Label>> coll, Label p, Label q) {
         Set<Label> temp;
-        if (collisions.containsKey(p)) {
-            temp = collisions.get(p);
+        System.out.println("map: " + coll + " contains p: " + coll.containsKey(p));
+        if (coll.containsKey(p)) {
+            temp = coll.get(p);
         } else {
             temp = new HashSet<Label>();
         }
@@ -236,6 +237,10 @@ public class Collision {
             if(intersects(l,l2)){
                 collisions.add(l2);
             }
+        }
+        System.out.println("Label: " + l + " collision size: " + collisions.size());
+        for(int i = 0; i < collisions.size(); i++){
+            System.out.println("coll: " + collisions.get(i));
         }
         //return the collisions
         return collisions;

@@ -131,6 +131,10 @@ public class Label {
     }
 
     public Literal<Point> convertToLiteral() {
-        return new Literal<Point>(anchor, placement.equals(Placement.NE));
+        boolean guard = false;
+        if(placement.equals(Placement.NE) || placement.equals(Placement.SW)){
+            guard = true;
+        }
+        return new Literal<Point>(anchor, guard);
     }
 }
