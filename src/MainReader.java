@@ -26,6 +26,7 @@ class MainReader {
     public static int height;
     public static int numberLabels;
     public static String placement_model;
+    public static String distribution;
     
     public MainReader() {
         
@@ -161,23 +162,8 @@ class MainReader {
             // Directory path here
             String path = "D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\QuadTreeExperiment";
             
-            String allFiles;
             File folder = new File(path);
             File[] files = folder.listFiles();
-            
-            for (int i = 0; i < files.length; i++)
-            {
-                if (files[i].isFile())
-                {
-                    allFiles = files[i].getName();
-                    if (allFiles.endsWith(".txt") || allFiles.endsWith(".TXT"))
-                    {
-                        System.out.println(allFiles);
-                    }
-                }
-            }
-            
-            //File[] files = new File( "input" ).listFiles();
             
             // Check if there are files
             if( files.length > 0 ) {
@@ -193,6 +179,8 @@ class MainReader {
                     height = Integer.parseInt(sc.nextLine().substring(8));
                     int number_points = Integer.parseInt(sc.nextLine().substring(18));
                     numberLabels = number_points;
+                    String temp = file.getName().substring(placement_model.length());
+                    distribution = temp.startsWith("Cluster")?"Cluster":temp.startsWith("Even")?"Even":"Real";
                     
                     // Create array for points
                     points = new Point[number_points];

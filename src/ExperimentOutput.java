@@ -1,4 +1,7 @@
 
+import java.io.FileWriter;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 
 /*
@@ -16,7 +19,7 @@ public class ExperimentOutput {
     private ArrayList<String> test = new ArrayList<>();
     private ArrayList<String> distribution = new ArrayList<>();
     private ArrayList<Integer> numberOfPoints = new ArrayList<>();
-    private ArrayList<Long> runningTime = new ArrayList<>();    
+    private ArrayList<Long> runningTime = new ArrayList<>(); 
     protected static ExperimentOutput EO;
     
     public static ExperimentOutput getExperimentOutput(){
@@ -29,18 +32,21 @@ public class ExperimentOutput {
     public void quadTreeArrays(String testType, long totalTime){
         placementModel.add(MainReader.placement_model);
         test.add(testType);
-        distribution.add("even");
+        distribution.add(MainReader.distribution);
         numberOfPoints.add(MainReader.points.length);
         runningTime.add(totalTime);
+        
     }
     
     public void closeExperiment(){
         for (int i = 0; i < placementModel.size(); i++){
+            //Flush the cache
             System.out.println(placementModel.get(i));
             System.out.println(test.get(i));
             System.out.println(distribution.get(i));
             System.out.println(numberOfPoints.get(i));
             System.out.println(runningTime.get(i));
+            //Close experiment
         }
     }
 }
