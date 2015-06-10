@@ -131,6 +131,7 @@ public class Method4Pos {
         for (Label l : collisions.keySet()) {
             L.add(l);
             for (Label la : collisions.get(l)) {
+
                 L.add(la);
             }
         }
@@ -208,7 +209,9 @@ public class Method4Pos {
      */
     public void Annealing(Point[] p) {
         quadtree(p);
+
         if (p.length < 101) {
+
             RandomInitialPosition(p);
             collisions = FindAllCollisions(p);
             collisionsLength = mapSize(collisions);
@@ -218,14 +221,9 @@ public class Method4Pos {
 
             while (c > 1 && OldScore > 0) {
 
-                // System.out.println(OldScore);
+
                 ChangeRandomLabel(p);
-                pointNewCollisions.clear();
-                pointNewCollisions = FindPointCollisions(oldPoint);
-                
-                for (Label l : pointNewCollisions.keySet()) {
-                    collisions.put(l, pointNewCollisions.get(l));
-                }
+                FindAllCollisions(p);
                 collisionsLength = mapSize(collisions);
                 // System.out.println(collisionsLength + " hoi");
 
@@ -248,6 +246,39 @@ public class Method4Pos {
             }
             RemoveCollisions(p);
         } else {
+	    RandomInitialPosition(p);
+            collisions = FindAllCollisions(p);
+            collisionsLength = mapSize(collisions);
+            OldScore = OldScore + collisionsLength;
+
+            OldScore = (double) OldScore;
+
+            while (c > 1 && OldScore > 0) {
+
+
+                ChangeRandomLabel(p);
+                FindAllCollisions(p);
+                collisionsLength = mapSize(collisions);
+                // System.out.println(collisionsLength + " hoi");
+
+                NewScore = NewScore + collisionsLength;
+
+                // System.out.println(NewScore + " " + collisionsLength);
+                NewScore = (double) NewScore;
+                if (OldScore < NewScore) {
+                    double AcceptanceChance = AcceptanceChance();
+                    double randomdouble = RandomDouble();
+                    if (AcceptanceChance < randomdouble) {
+                        RevertChanges();
+                        NewScore = OldScore;
+                    }
+                }
+
+                OldScore = NewScore;
+                NewScore = 0;
+                c = c * 0.999;//Needs to be changed.
+            }
+            RemoveCollisions(p);
 
         }
     }

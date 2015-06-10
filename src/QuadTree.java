@@ -8,9 +8,9 @@ import java.util.List;
 public class QuadTree {
 
     //max tree level
-    public int MAXLEVEL = 10;
+    public int MAXLEVEL = MainReader.MAXLEVEL;
     //max labels in one node
-    public int MAXPOINTS = 5;
+    public int MAXPOINTS = MainReader.MAXPOINTS;// = 5;
     //where the current level is stored
     public int level;
     //list of points
