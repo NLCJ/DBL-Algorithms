@@ -17,6 +17,7 @@ public class Method2Pos {
     ArrayList<Clause<Point>> clauses = new ArrayList<Clause<Point>>();
     Collision c = new Collision();
     QuadTree quad = new QuadTree(0, 0, 10000, 0, 10000);
+    ExperimentOutput EO = ExperimentOutput.getExperimentOutput();
 
     //The method which "calculates" the position of the labels
     public Point[] PositionCalculator(int w, int h, Point[] p) {
@@ -26,10 +27,17 @@ public class Method2Pos {
     }
 
     public void quadtree(Point[] points) {
+        //Start experiment
+        long startTime = System.nanoTime();
+        
         for (Point p : points) {
             quad.insert(p);
-
         }
+        //End experiment
+        long endTime = System.nanoTime();
+        long totalTime = endTime - startTime;
+        String testType = "initialization";
+        EO.quadTreeArrays(testType, totalTime);
     }
 
     public void findCollisions(Point[] points) {
@@ -153,7 +161,15 @@ public class Method2Pos {
     public ArrayList<Point> posCollisions(Point p) {
         ArrayList<Point> possibleCollisions = new ArrayList<Point>();
         possibleCollisions.clear();
+        //Start experiment
+        long startTime = System.nanoTime();
+        //QuadTree retrieval
         quad.retrieve(possibleCollisions, p);
+        //End experiment
+        long endTime = System.nanoTime();
+        long totalTime = endTime - startTime;
+        String testType = "retrieval";
+        EO.quadTreeArrays(testType, totalTime);
         /*for(int i = 0; i < possibleCollisions.size(); i++){
          if(p.getX() == 914 && p.getY() == 9292 && possibleCollisions.get(i).getX() == 914){
          System.out.println("Possible Collision: " +p + " "+ possibleCollisions.get(i));
