@@ -13,12 +13,15 @@ public class Method4Pos {
 
     Collision Col = new Collision();
     Method2Pos Pos = new Method2Pos();
-    private double c = 1000;// the temperature in the annealing schedule
+    private double c = 100000;// the temperature in the annealing schedule
     private Point[] result;
     private Map<Label, Set<Label>> collisions;
     private int[] lengths = new int[4];
     Placement oldPlacement;
     Point oldPoint;
+    private Map<Label, Set<Label>> pointNewCollisions = new HashMap<Label, Set<Label>>();
+    private Map<Label, Set<Label>> pointOldCollisions = new HashMap<Label, Set<Label>>();
+    private int collisionsLength;
     private double OldScore = 0;
     private double NewScore = 0;
     ArrayList<Label> L = new ArrayList<Label>();
@@ -87,7 +90,6 @@ public class Method4Pos {
                     break;
             }
             p.setLabels(labels);
-//            labels.clear();
         }
     }
 
@@ -97,7 +99,7 @@ public class Method4Pos {
      * @param points The points that has the labels
      * @return the actual collisions
      */
-    public Map<Label, Set<Label>> FindCollisions(Point[] points) {
+    public Map<Label, Set<Label>> FindAllCollisions(Point[] points) {
         Map<Label, Set<Label>> colisions = new HashMap<Label, Set<Label>>();
         List<Point> possiCollisions = new ArrayList<Point>();
         List<Point> poCollisions = new ArrayList<Point>();
@@ -125,14 +127,21 @@ public class Method4Pos {
      */
     public void ChangeRandomLabel(Point[] p) {
 
-        int i = RandomInt(collisions.size() - 1);
         int j = RandomInt(2);
         for (Label l : collisions.keySet()) {
             L.add(l);
+            for (Label la : collisions.get(l)) {
+                L.add(la);
+            }
         }
+        int i = RandomInt(L.size() - 1);
+
         Placement placement = L.get(i).getPlacement();
 
         oldPoint = L.get(i).getAnchor();
+
+        pointOldCollisions.clear();
+        pointOldCollisions = FindPointCollisions(oldPoint);
         oldPlacement = placement;
         switch (placement) {
             case NE:
@@ -175,6 +184,23 @@ public class Method4Pos {
         L.clear();
     }
 
+    public int mapSize(Map<Label, Set<Label>> col) {
+        int length = 0;
+        for (Set<Label> s : col.values()) {
+            length += s.size();
+        }
+        return length;
+    }
+
+    public Map<Label, Set<Label>> FindPointCollisions(Point point) {
+        Map<Label, Set<Label>> pointCollisions = new HashMap<Label, Set<Label>>();
+        List<Point> possiCollisions = new ArrayList<Point>();
+        possiCollisions = posCollisions(point);
+        Col.fourPosAllCollisions(possiCollisions, point, pointCollisions);
+        possiCollisions.clear();
+        return pointCollisions;
+    }
+
     /**
      * The actual annealing schedule
      *
@@ -182,25 +208,30 @@ public class Method4Pos {
      */
     public void Annealing(Point[] p) {
         quadtree(p);
-        if (p.length < 9) {
+        if (p.length < 101) {
             RandomInitialPosition(p);
-            collisions = FindCollisions(p);
-
-            OldScore = OldScore + collisions.size();
+            collisions = FindAllCollisions(p);
+            collisionsLength = mapSize(collisions);
+            OldScore = OldScore + collisionsLength;
 
             OldScore = (double) OldScore;
 
             while (c > 1 && OldScore > 0) {
 
-                System.out.println(OldScore);
-
+                // System.out.println(OldScore);
                 ChangeRandomLabel(p);
-                collisions.clear();
-                collisions = FindCollisions(p);
+                pointNewCollisions.clear();
+                pointNewCollisions = FindPointCollisions(oldPoint);
+                
+                for (Label l : pointNewCollisions.keySet()) {
+                    collisions.put(l, pointNewCollisions.get(l));
+                }
+                collisionsLength = mapSize(collisions);
+                // System.out.println(collisionsLength + " hoi");
 
-                NewScore = NewScore + collisions.size();
+                NewScore = NewScore + collisionsLength;
 
-                System.out.println(NewScore);
+                // System.out.println(NewScore + " " + collisionsLength);
                 NewScore = (double) NewScore;
                 if (OldScore < NewScore) {
                     double AcceptanceChance = AcceptanceChance();
@@ -208,7 +239,6 @@ public class Method4Pos {
                     if (AcceptanceChance < randomdouble) {
                         RevertChanges();
                         NewScore = OldScore;
-
                     }
                 }
 
@@ -217,20 +247,7 @@ public class Method4Pos {
                 c = c * 0.999;//Needs to be changed.
             }
             RemoveCollisions(p);
-        } else {// run the safegaurd, by running 2-pos 5 times
-
-            Placement[] placements = Placement.fourPos();
-            Pos.quadtree(p);
-            for (Point q : p) {//both north positions
-                List<Label> labels = new ArrayList<Label>();
-                Label m = new Label(q, placements[2], MainReader.width, MainReader.height);
-                Label n = new Label(q, placements[3], MainReader.width, MainReader.height);
-                labels.add(m);
-                labels.add(n);
-                q.setLabels(labels);
-
-            }
-            Pos.findCollisions(p);
+        } else {
 
         }
     }
@@ -261,7 +278,10 @@ public class Method4Pos {
      */
     public void RevertChanges() {
         oldPoint.getLabels().get(0).setPlacement(oldPlacement);
-
+        for (Label l : pointOldCollisions.keySet()) {
+            collisions.put(l, pointOldCollisions.get(l));
+        }
+        collisionsLength = mapSize(collisions);
     }
 
     /**

@@ -102,7 +102,7 @@ class MainReader {
             
             
 
-            file = new File("input7.txt");
+         //   file = new File("input7.txt");
 
 
 
@@ -230,6 +230,6 @@ class MainReader {
     }
     
     public static void main(String[] args) throws IOException {
-        new MainReader().multipleFiles();
+        new MainReader().Reader();
     }
 }

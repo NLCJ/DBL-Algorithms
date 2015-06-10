@@ -217,9 +217,7 @@ public class Collision {
     public static Map<Label, Set<Label>> allCollisions(List<Label> potential, Point p, Map<Label, Set<Label>> collisions) {
         collide(p, potential, collisions);
         return collisions;
-    }
-    
-    
+    } 
     
     //------ 4pos Collisions
     
@@ -239,9 +237,9 @@ public class Collision {
             }
         }
         //System.out.println("Label: " + l + " collision size: " + collisions.size());
-        for(int i = 0; i < collisions.size(); i++){
-            //System.out.println("coll: " + collisions.get(i));
-        }
+//        for(int i = 0; i < collisions.size(); i++){
+//            //System.out.println("coll: " + collisions.get(i));
+//        }
         //return the collisions
         return collisions;
     }
