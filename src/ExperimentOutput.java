@@ -44,7 +44,8 @@ public class ExperimentOutput {
         PrintWriter printer = new PrintWriter("D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\Results\\QuadTree.txt");
         printer.println("model testType distribution numberOfPoints runningTime MaxPoints MaxLevel");
         for (int i = 0; i < placementModel.size(); i++){
-            printer.println(placementModel.get(i)+" "+test.get(i)+" "+distribution.get(i)+" "+numberOfPoints.get(i)+" "+runningTime.get(i)+" "+MaxPoints.get(i)+" "+MaxLevel.add(i));
+            printer.println(placementModel.get(i)+" "+test.get(i)+" "+distribution.get(i)+" "+numberOfPoints.get(i)+" "+runningTime.get(i)+" "+MaxPoints.get(i)+" "+MaxLevel.get(i));
+            System.out.println(placementModel.get(i)+" "+test.get(i)+" "+distribution.get(i)+" "+numberOfPoints.get(i)+" "+runningTime.get(i)+" "+MaxPoints.get(i)+" "+MaxLevel.get(i));
         }
         printer.close();
     }
