@@ -64,9 +64,9 @@ public class MethodSlider {
         for (Point p : points) {
             // Get point collision
             List test = quadTree.retrieve( new ArrayList<Point>(), p );
-            //List potentialCollisions = collision.sliderCollisions( test, p );
+            List potentialCollisions = collision.sliderCollisions( test, p );
             // Try to fix the collision for this point
-            //fixCollision( p, potentialCollisions );
+            fixCollision( p, potentialCollisions );
         }
         endTime = System.nanoTime();
         totalTime = endTime - startTime;
