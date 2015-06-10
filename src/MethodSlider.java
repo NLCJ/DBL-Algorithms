@@ -66,12 +66,13 @@ public class MethodSlider {
             List test = quadTree.retrieve( new ArrayList<Point>(), p );
             List potentialCollisions = collision.sliderCollisions( test, p );
             // Try to fix the collision for this point
+            //NOTE: line 70 should be commented out when experimenting for running time of collision detection
             fixCollision( p, potentialCollisions );
         }
         //end experiment
         long endTime = System.nanoTime();
         long totalTime = endTime - startTime;
-        String testType = "retrieval";
+        String testType = "detection";
         EO.quadTreeArrays(testType, totalTime);
         
         //System.out.println( "Points placed: " + pointsPlaced );

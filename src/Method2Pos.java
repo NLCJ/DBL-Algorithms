@@ -41,6 +41,7 @@ public class Method2Pos {
     }
 
     public void findCollisions(Point[] points) {
+        long startTime = System.nanoTime();
         Map<Label, Set<Label>> collisions = new HashMap<Label, Set<Label>>();
         List<Point> possiCollisions = new ArrayList<Point>();
         List<Label> poCollisions = new ArrayList<Label>();
@@ -156,20 +157,19 @@ public class Method2Pos {
 
             }
         }
+        //End experiment
+        long endTime = System.nanoTime();
+        long totalTime = endTime - startTime;
+        String testType = "detection";
+        EO.quadTreeArrays(testType, totalTime);
     }
 
     public ArrayList<Point> posCollisions(Point p) {
         ArrayList<Point> possibleCollisions = new ArrayList<Point>();
         possibleCollisions.clear();
         //Start experiment
-        long startTime = System.nanoTime();
         //QuadTree retrieval
         quad.retrieve(possibleCollisions, p);
-        //End experiment
-        long endTime = System.nanoTime();
-        long totalTime = endTime - startTime;
-        String testType = "retrieval";
-        EO.quadTreeArrays(testType, totalTime);
         /*for(int i = 0; i < possibleCollisions.size(); i++){
          if(p.getX() == 914 && p.getY() == 9292 && possibleCollisions.get(i).getX() == 914){
          System.out.println("Possible Collision: " +p + " "+ possibleCollisions.get(i));
