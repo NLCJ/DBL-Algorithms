@@ -172,7 +172,7 @@ public class Collision {
 
     private static Set<Label> addCollisionL(Map<Label, Set<Label>> coll, Label p, Label q) {
         Set<Label> temp;
-        System.out.println("map: " + coll + " contains p: " + coll.containsKey(p));
+        //System.out.println("map: " + coll + " contains p: " + coll.containsKey(p));
         if (coll.containsKey(p)) {
             temp = coll.get(p);
         } else {
@@ -238,9 +238,9 @@ public class Collision {
                 collisions.add(l2);
             }
         }
-        System.out.println("Label: " + l + " collision size: " + collisions.size());
+        //System.out.println("Label: " + l + " collision size: " + collisions.size());
         for(int i = 0; i < collisions.size(); i++){
-            System.out.println("coll: " + collisions.get(i));
+            //System.out.println("coll: " + collisions.get(i));
         }
         //return the collisions
         return collisions;
