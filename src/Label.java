@@ -123,6 +123,25 @@ public class Label {
     
     public void setPlacement(Placement place) {
         placement = place;
+        switch (placement) {
+            case NE: //placement is NE
+                reference = anchor;
+                //reference point is equal to the anchor point
+                break;
+            case NW: //placement is NW
+                reference = new Point(anchor.getX() - MainReader.width, anchor.getY(), -1);
+                //reference point needs a translation of (-width, 0)
+                break;
+            case SE: //placement is SE
+                reference = new Point(anchor.getX(), anchor.getY() - MainReader.height, -1);
+                //reference point needs a translation of (0, -height)
+                break;
+            case SW: //placement is SW
+                reference = new Point(anchor.getX() - MainReader.width, anchor.getY() - MainReader.height, -1);
+                //reference point needs a translation of (-width, -height)
+                break;
+          
+        }
     }
 
     @Override

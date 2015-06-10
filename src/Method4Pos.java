@@ -125,11 +125,15 @@ public class Method4Pos {
      */
     public void ChangeRandomLabel(Point[] p) {
 
-        int i = RandomInt(collisions.size() - 1);
+        
         int j = RandomInt(2);
         for (Label l : collisions.keySet()) {
             L.add(l);
+            for(Label la : collisions.get(l)){
+                L.add(la);
+            }
         }
+        int i = RandomInt(L.size() - 1);
         Placement placement = L.get(i).getPlacement();
 
         oldPoint = L.get(i).getAnchor();
@@ -182,7 +186,7 @@ public class Method4Pos {
      */
     public void Annealing(Point[] p) {
         quadtree(p);
-        if (p.length < 9) {
+        if (p.length < 10001) {
             RandomInitialPosition(p);
             collisions = FindCollisions(p);
 
@@ -192,7 +196,6 @@ public class Method4Pos {
 
             while (c > 1 && OldScore > 0) {
 
-                System.out.println(OldScore);
 
                 ChangeRandomLabel(p);
                 collisions.clear();
