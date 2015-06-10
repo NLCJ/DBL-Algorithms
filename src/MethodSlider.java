@@ -17,10 +17,6 @@ public class MethodSlider {
     private QuadTree quadTree = new QuadTree( 0, 0, 10000, 0, 10000 );
     private int pointsPlaced = 0;
     ExperimentOutput EO = ExperimentOutput.getExperimentOutput();
-    long startTime;
-    long endTime;
-    long totalTime;
-    String testType;
     
     /**
      * Return the result
@@ -46,31 +42,37 @@ public class MethodSlider {
     }
     
     public void placePoints( Point[] points ) {    
+        //Start experiment
+        long startTime = System.nanoTime();
         // For each point
-        startTime = System.nanoTime();
         for( int i = 0; i < points.length; i++ ) {
             // Create quad tree
             quadTree.insert( points[ i ] );
         }
-        endTime = System.nanoTime();
-        totalTime = endTime - startTime;
-        testType = "initialization";
+        //end experiment
+        long endTime = System.nanoTime();
+        long totalTime = endTime - startTime;
+        String testType = "initialization";
         EO.quadTreeArrays(testType, totalTime);
     }
     
     public void findCollisions(Point[] points) {
         Map<Point, Set<Point>> collisions = new HashMap<Point, Set<Point>>();
-        startTime = System.nanoTime();
+        //start experiment
+        long startTime = System.nanoTime();
+        
         for (Point p : points) {
             // Get point collision
             List test = quadTree.retrieve( new ArrayList<Point>(), p );
-            //List potentialCollisions = collision.sliderCollisions( test, p );
+            List potentialCollisions = collision.sliderCollisions( test, p );
             // Try to fix the collision for this point
-            //fixCollision( p, potentialCollisions );
+            //NOTE: line 70 should be commented out when experimenting for running time of collision detection
+            fixCollision( p, potentialCollisions );
         }
-        endTime = System.nanoTime();
-        totalTime = endTime - startTime;
-        testType = "retrieval";
+        //end experiment
+        long endTime = System.nanoTime();
+        long totalTime = endTime - startTime;
+        String testType = "detection";
         EO.quadTreeArrays(testType, totalTime);
         
         //System.out.println( "Points placed: " + pointsPlaced );
