@@ -18,7 +18,9 @@ public class ExperimentOutput {
     private ArrayList<String> test = new ArrayList<>();
     private ArrayList<String> distribution = new ArrayList<>();
     private ArrayList<Integer> numberOfPoints = new ArrayList<>();
-    private ArrayList<Long> runningTime = new ArrayList<>(); 
+    private ArrayList<Long> runningTime = new ArrayList<>();
+    private ArrayList<Integer> MaxPoints = new ArrayList<>();
+    private ArrayList<Integer> MaxLevel = new ArrayList<>();
     protected static ExperimentOutput EO;
     
     public static ExperimentOutput getExperimentOutput(){
@@ -34,14 +36,15 @@ public class ExperimentOutput {
         distribution.add(MainReader.distribution);
         numberOfPoints.add(MainReader.points.length);
         runningTime.add(totalTime);
-        
+        MaxPoints.add(MainReader.MAXPOINTS);
+        MaxLevel.add(MainReader.MAXLEVEL);
     }
     
     public void closeExperiment() throws FileNotFoundException{
         PrintWriter printer = new PrintWriter("D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\Results\\QuadTree.txt");
-        printer.println("model testType distribution numberOfPoints runningTime");
+        printer.println("model testType distribution numberOfPoints runningTime MaxPoints MaxLevel");
         for (int i = 0; i < placementModel.size(); i++){
-            printer.println(placementModel.get(i)+" "+test.get(i)+" "+distribution.get(i)+" "+numberOfPoints.get(i)+" "+runningTime.get(i));
+            printer.println(placementModel.get(i)+" "+test.get(i)+" "+distribution.get(i)+" "+numberOfPoints.get(i)+" "+runningTime.get(i)+" "+MaxPoints.get(i)+" "+MaxLevel.add(i));
         }
         printer.close();
     }
