@@ -107,8 +107,6 @@ class MainReader {
             //file = new File("input7.txt");
             
             
-            
->>>>>>> origin/master
             Scanner sc = new Scanner(file);
             
             // Get the model data
