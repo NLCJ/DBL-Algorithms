@@ -1,7 +1,6 @@
 
-import java.io.FileWriter;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /*
@@ -38,15 +37,12 @@ public class ExperimentOutput {
         
     }
     
-    public void closeExperiment(){
+    public void closeExperiment() throws FileNotFoundException{
+        PrintWriter printer = new PrintWriter("D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\Results\\QuadTree.txt");
+        printer.println("model testType distribution numberOfPoints runningTime");
         for (int i = 0; i < placementModel.size(); i++){
-            //Flush the cache
-            System.out.println(placementModel.get(i));
-            System.out.println(test.get(i));
-            System.out.println(distribution.get(i));
-            System.out.println(numberOfPoints.get(i));
-            System.out.println(runningTime.get(i));
-            //Close experiment
+            printer.println(placementModel.get(i)+" "+test.get(i)+" "+distribution.get(i)+" "+numberOfPoints.get(i)+" "+runningTime.get(i));
         }
+        printer.close();
     }
 }
