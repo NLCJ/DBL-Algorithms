@@ -161,10 +161,12 @@ class MainReader {
                 // For each file, run the algorithm
                 for( File file : files ) {
                     tijdelijk++;
-                    for (int j = 1; j <= 20; j++){
-                        this.MAXLEVEL = j;
-                        for (int k = 1; k <= 20; k++){
-                            this.MAXPOINTS = k;
+                    
+                    int[] maxNumber = {5, 10, 25, 50, 100, 200};
+                    for (int j = 1; j <= 6; j++){
+                        this.MAXLEVEL = maxNumber[j];
+                        for (int k = 1; k <= 6; k++){
+                            this.MAXPOINTS = maxNumber[k];
                             
                             // Get the content
                             Scanner sc = new Scanner( file );
