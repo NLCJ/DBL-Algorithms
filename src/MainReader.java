@@ -149,9 +149,9 @@ class MainReader {
     
     void multipleFiles() throws IOException{
         try {
-            
+            int tijdelijk = 0;
             // Directory path here
-            String path = "D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\QuadTreeExperiment";
+            String path = "/home/nlcj/algorithms/experimental/quadtree/";
             
             File folder = new File(path);
             File[] files = folder.listFiles();
@@ -160,6 +160,7 @@ class MainReader {
             if( files.length > 0 ) {
                 // For each file, run the algorithm
                 for( File file : files ) {
+                    tijdelijk++;
                     for (int j = 1; j <= 20; j++){
                         this.MAXLEVEL = j;
                         for (int k = 1; k <= 20; k++){
@@ -189,6 +190,8 @@ class MainReader {
                                 
                                 points[i] = new Point(x, y, i, Model.fromString(placement_model));
                             }
+                            
+                            System.out.println( tijdelijk + "/" + files.length + " " + j + " - " + k );
                             
                             // Run algorithm according to the placement model
                             switch( placement_model ) {
