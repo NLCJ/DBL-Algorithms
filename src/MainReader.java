@@ -95,20 +95,8 @@ class MainReader {
         //  System.out.println("Reading file");
         try {
             
-            
-            
             File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\input.txt");
-            //file = new File("2kDimension55.txt");
-            
-            //file = new File("input.txt");
-            
-            
-            
-            //file = new File("input7.txt");
-            
-            
-            
->>>>>>> origin/master
+
             Scanner sc = new Scanner(file);
             
             // Get the model data
