@@ -27,8 +27,9 @@ class MainReader {
     public static int numberLabels;
     public static String placement_model;
     public static String distribution;
-    public static int MAXLEVEL = 5;
-    public static int MAXPOINTS = 10;
+    public static int mapNumber;
+    public static int MAXLEVEL;
+    public static int MAXPOINTS;
     
     public MainReader() {
         
@@ -95,7 +96,7 @@ class MainReader {
         //  System.out.println("Reading file");
         try {
             
-            File file = new File("C:\\Users\\s124006\\Dropbox\\School\\DBL Algorithms\\DataGenerating\\Data run 10-06\\2posEven10x1000#1.txt");
+            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\input.txt");
 
             Scanner sc = new Scanner(file);
             
@@ -151,7 +152,7 @@ class MainReader {
         try {
             int tijdelijk = 0;
             // Directory path here
-            String path = "C:\\Users\\s124006\\Dropbox\\School\\DBL Algorithms\\DataGenerating\\Data run 10-06\\Test\\";
+            String path = "/home/nlcj/algorithms/experimental/quadtree/";
             
             File folder = new File(path);
             File[] files = folder.listFiles();
@@ -181,6 +182,8 @@ class MainReader {
                             numberLabels = number_points;
                             String temp = file.getName().substring(placement_model.length());
                             distribution = temp.startsWith("Cluster")?"Cluster":temp.startsWith("Even")?"Even":"Real";
+                            String[] parts = temp.split("#");
+                            mapNumber = Integer.parseInt(parts[1].substring(0, parts[1].length()-4));
                             
                             // Create array for points
                             points = new Point[number_points];
@@ -195,7 +198,6 @@ class MainReader {
                             }
                             
                             System.out.println( tijdelijk + "/" + files.length + " " + j + " - " + k + " " + file );
-                            
                             // Run algorithm according to the placement model
                             switch( placement_model ) {
                                 case "2pos":
