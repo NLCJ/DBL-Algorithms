@@ -27,6 +27,7 @@ class MainReader {
     public static int numberLabels;
     public static String placement_model;
     public static String distribution;
+    public static int mapNumber;
     public static int MAXLEVEL;
     public static int MAXPOINTS;
     
@@ -160,8 +161,11 @@ class MainReader {
     void multipleFiles() throws IOException{
         try {
             
-            // Directory path here
-            String path = "D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\QuadTreeExperiment";
+            // Directory path here. Depending on the experiment you're running.
+            //String path = "D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\QuadTreeExperiment";
+            String path = "D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\1sliderExperiment";
+            //String path = "D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\2posExperiment";
+            //String path = "D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\4posExperiment";
             
             File folder = new File(path);
             File[] files = folder.listFiles();
@@ -187,6 +191,8 @@ class MainReader {
                             numberLabels = number_points;
                             String temp = file.getName().substring(placement_model.length());
                             distribution = temp.startsWith("Cluster")?"Cluster":temp.startsWith("Even")?"Even":"Real";
+                            String[] parts = temp.split("#");
+                            mapNumber = Integer.parseInt(parts[1].substring(0, parts[1].length()-4));
                             
                             // Create array for points
                             points = new Point[number_points];
@@ -239,6 +245,6 @@ class MainReader {
     }
     
     public static void main(String[] args) throws IOException {
-        new MainReader().Reader();
+        new MainReader().multipleFiles();
     }
 }
