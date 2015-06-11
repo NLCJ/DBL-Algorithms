@@ -76,6 +76,7 @@ public class ExperimentOutput {
             for (int j = 0; j < placementModel.size(); j++){
                 printer.println(placementModel.get(j)+" "+distribution.get(j)+" "+labelDimensions.get(j)+" "+numberOfPoints.get(j)+" "+mapNumber.get(j)+" "+runningTime.get(j)+" "+labelsPlaced.get(j));
             }
+            printer.close();
         }
         
         else{

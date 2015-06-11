@@ -174,10 +174,10 @@ class MainReader {
             if( files.length > 0 ) {
                 // For each file, run the algorithm
                 for( File file : files ) {
-                    for (int j = 1; j <= 20; j++){
+                    /*for (int j = 1; j <= 20; j++){
                         this.MAXLEVEL = j;
                         for (int k = 1; k <= 20; k++){
-                            this.MAXPOINTS = k;
+                            this.MAXPOINTS = k;*/
                             
                             // Get the content
                             Scanner sc = new Scanner( file );
@@ -222,9 +222,19 @@ class MainReader {
                                     pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
                                     break;
                                 case "1slider":
+                                    //Start experiment. Include for model experiment
+                                    /*
+                                    long startTime = System.nanoTime();
+                                    */
                                     // Get the output of slider and place it in a file
                                     Point[] points_slider = slider.originalOrder(points);
                                     slider.OutputSlider(placement_model, width, height, number_points, points_slider);
+                                    //End experiment. Include for model experiment
+                                    /*
+                                    long endTime = System.nanoTime();
+                                    long totalTime = endTime - startTime;
+                                    EO.modelArrays(totalTime);
+                                    */
                                     break;
                                 default:
                                     // Unknown placement model
@@ -232,8 +242,8 @@ class MainReader {
                                     file.delete();
                                     break;
                             }
-                        }
-                    }
+                        //}
+                    //}
                 }
                 EO.closeExperiment();
             }
