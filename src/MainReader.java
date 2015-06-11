@@ -28,13 +28,13 @@ class MainReader {
     public static String placement_model;
     public static String distribution;
     public static int mapNumber;
-    public static int MAXLEVEL;
-    public static int MAXPOINTS;
+    public static int MAXLEVEL = 10;
+    public static int MAXPOINTS = 10;
     
     public MainReader() {
         
     }
-    ExperimentOutput EO;
+    ExperimentOutput EO = ExperimentOutput.getExperimentOutput();;
     Method2Pos pos_2 = new Method2Pos();
     Method4Pos pos_4 = new Method4Pos();
     MethodSlider slider = new MethodSlider();
@@ -171,14 +171,17 @@ class MainReader {
             File[] files = folder.listFiles();
             
             // Check if there are files
-            if( files.length > 0 ) {
+            if (files.length > 0) {
                 // For each file, run the algorithm
-                for( File file : files ) {
-                    for (int j = 1; j <= 20; j++){
-                        this.MAXLEVEL = j;
-                        for (int k = 1; k <= 20; k++){
-                            this.MAXPOINTS = k;
-                            
+                for (File file : files) {
+                    //Code for QuadTree experiment. Include for QuadTree Experiment
+                    /*
+                    int[] maxNumber = {5, 10, 25, 50, 100, 200};
+                    for (int j = 1; j <= 6; j++){
+                        this.MAXLEVEL = maxNumber[j];
+                        for (int k = 1; k <= 6; k++){
+                            this.MAXPOINTS = maxNumber[k];
+                            */
                             // Get the content
                             Scanner sc = new Scanner( file );
                             
@@ -222,9 +225,19 @@ class MainReader {
                                     pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
                                     break;
                                 case "1slider":
+                                    //This is the code for the model experiments, add when performing experiments
+                                    
+                                    long startTime = System.nanoTime();
+                                    
                                     // Get the output of slider and place it in a file
                                     Point[] points_slider = slider.originalOrder(points);
                                     slider.OutputSlider(placement_model, width, height, number_points, points_slider);
+                                    //This is the code for the model experiments, add when performing experiments
+                                    
+                                    long endTime = System.nanoTime();
+                                    long totalTime = endTime - startTime;
+                                    EO.modelArrays(totalTime);
+                                    
                                     break;
                                 default:
                                     // Unknown placement model
@@ -232,10 +245,9 @@ class MainReader {
                                     file.delete();
                                     break;
                             }
-                        }
-                    }
+                        //}
+                    //}
                 }
-                EO = ExperimentOutput.getExperimentOutput();
                 EO.closeExperiment();
             }
         }

@@ -42,25 +42,30 @@ public class MethodSlider {
     }
     
     public void placePoints( Point[] points ) {    
-        //Start experiment
+        //Start experiment. Include for QuadTree experiment
+        /*
         long startTime = System.nanoTime();
+        */
         // For each point
         for( int i = 0; i < points.length; i++ ) {
             // Create quad tree
             quadTree.insert( points[ i ] );
         }
-        //end experiment
+        //end experiment. Include for QuadTree experiment
+        /*
         long endTime = System.nanoTime();
         long totalTime = endTime - startTime;
         String testType = "initialization";
         EO.quadTreeArrays(testType, totalTime);
+        */
     }
     
     public void findCollisions(Point[] points) {
         Map<Point, Set<Point>> collisions = new HashMap<Point, Set<Point>>();
-        //start experiment
+        //start experiment. Include for QuadTree experiment.
+        /*
         long startTime = System.nanoTime();
-        
+        */
         for (Point p : points) {
             // Get point collision
             List test = quadTree.retrieve( new ArrayList<Point>(), p );
@@ -69,12 +74,13 @@ public class MethodSlider {
             //NOTE: line 70 should be commented out when experimenting for running time of collision detection
             fixCollision( p, potentialCollisions );
         }
-        //end experiment
+        //end experiment. Include for QuadTree experiment
+        /*
         long endTime = System.nanoTime();
         long totalTime = endTime - startTime;
         String testType = "detection";
         EO.quadTreeArrays(testType, totalTime);
-        
+        */
         //System.out.println( "Points placed: " + pointsPlaced );
     }
     
