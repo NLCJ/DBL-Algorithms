@@ -189,7 +189,7 @@ public class CoordinateAdapter {
                  for(int xs=X_m;xs>=iterx;xs--){
                      for(int i=0; i<pnts.length;i++){
                     if((int)pnts[i][0]==xs){
-                         pnts[i][0]=pnts[i][0]+10;
+                         pnts[i][0]=pnts[i][0]+5;
                     }
                  }
             }
@@ -199,7 +199,7 @@ public class CoordinateAdapter {
                 for(int ys = Y_m; ys>=itery;ys--){ 
                       for(int i=0; i<pnts.length;i++){
                     if((int)pnts[i][1]==ys){
-                         pnts[i][1]= pnts[i][1]+10;
+                         pnts[i][1]= pnts[i][1]+5;
                      }
                  }
             }
