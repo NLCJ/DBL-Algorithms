@@ -84,7 +84,10 @@ public class Method2Pos {
             
             //System.out.println(collisions);
         }
-
+        
+        
+        //TODO: Maybee end quadtree experiment here????
+        //Erik, Stefan: Is the code below, for collision detection or collision solving
         for (Label l : collisions.keySet()) {
             Set<Label> labels = collisions.get(l);
             if (labels != null) {
