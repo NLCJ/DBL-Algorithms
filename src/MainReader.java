@@ -176,12 +176,14 @@ class MainReader {
                 int fileCounter = 0;
                 for( File file : files ) {
                     fileCounter++;
+                    //TODO: include for quadtree experiment
+                    /*
                     int[] forLoopValues = {5, 10, 25, 50, 100, 150, 200, 250};
                     for (int j = 0; j < forLoopValues.length; j++){
                         this.MAXLEVEL = forLoopValues[j];
                         for (int k = 0; k < forLoopValues.length; k++){
                             this.MAXPOINTS = forLoopValues[k];
-                            
+                            */
                             // Get the content
                             Scanner sc = new Scanner( file );
                             
@@ -214,22 +216,44 @@ class MainReader {
                             // Run algorithm according to the placement model
                             switch( placement_model ) {
                                 case "2pos":
+                                    //TODO: Include for model experiment. Start experiment. 
+                                    /*
+                                    long startTime = System.nanoTime();
+                                    */
+                                    // Get the output of slider and place it in a file
                                     // Copied from above - ask Stefan
                                     pos_2 = new Method2Pos();
                                     Point[] points_2pos = pos_2.PositionCalculator(width, height, points);
                                     pos_2.quadtree(points);
                                     pos_2.findCollisions(points);
                                     //pos_2.Output2Position(placement_model, width, height, number_points, points);
+                                    //TODO: Include for model experiment. End experiment. 
+                                    /*
+                                    long endTime = System.nanoTime();
+                                    long totalTime = endTime - startTime;
+                                    EO.modelArrays(totalTime);
+                                    */
                                     break;
                                 case "4pos":
+                                    //TODO: Include for model experiment. Start experiment. 
+                                    /*
+                                    long startTime = System.nanoTime();
+                                    */
+                                    // Get the output of slider and place it in a file
                                     // Copied from above - ask Stefan
                                     pos_4 = new Method4Pos();
                                     Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
                                     pos_4.Annealing(points);
                                     //pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
+                                    //TODO: Include for model experiment. End experiment. 
+                                    /*
+                                    long endTime = System.nanoTime();
+                                    long totalTime = endTime - startTime;
+                                    EO.modelArrays(totalTime);
+                                    */
                                     break;
                                 case "1slider":
-                                    //Start experiment. Include for model experiment
+                                    //TODO: Include for model experiment. Start experiment. 
                                     /*
                                     long startTime = System.nanoTime();
                                     */
@@ -237,7 +261,7 @@ class MainReader {
                                     slider = new MethodSlider();
                                     Point[] points_slider = slider.originalOrder(points);
                                     slider.OutputSlider(placement_model, width, height, number_points, points_slider);
-                                    //End experiment. Include for model experiment
+                                    //TODO: Include for model experiment. End experiment. 
                                     /*
                                     long endTime = System.nanoTime();
                                     long totalTime = endTime - startTime;
@@ -250,8 +274,10 @@ class MainReader {
                                     file.delete();
                                     break;
                             }
-                        }
-                    }
+                        //TODO: include for Quadtree experiment
+                        //}
+                    //TODO: include for quadtree experiment
+                    //}
                 }
                 EO.closeExperiment();
             }

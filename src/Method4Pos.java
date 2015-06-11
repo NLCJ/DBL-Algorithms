@@ -50,9 +50,20 @@ public class Method4Pos {
     }
 
     public void quadtree(Point[] points) {
+        //TODO: start experiment. Include for Quadtree experiment
+        /*
+        long startTime = System.nanoTime();
+        */
         for (Point p : points) {
             quad.insert(p);
         }
+        //TODO: end experiment. Include for QuadTree experiment
+        /*
+        long endTime = System.nanoTime();
+        long totalTime = endTime - startTime;
+        String testType = "initialization";
+        EO.quadTreeArrays(testType, totalTime);
+        */
     }
 
     public ArrayList<Point> posCollisions(Point p) {
@@ -103,6 +114,10 @@ public class Method4Pos {
     public Map<Label, Set<Label>> FindAllCollisions(Point[] points) {
         Map<Label, Set<Label>> colisions = new HashMap<Label, Set<Label>>();
         List<Point> possiCollisions = new ArrayList<Point>();
+        //TODO: start experiment. Include for Quadtree experiment
+        /*
+        long startTime = System.nanoTime();
+        */
         for (Point p : points) {
             possiCollisions = posCollisions(p);
 
@@ -112,7 +127,13 @@ public class Method4Pos {
             Col.fourPosAllCollisions(possiCollisions, p, colisions);
 
         }
-
+        //TODO: end experiment. Include for QuadTree experiment
+        /*
+        long endTime = System.nanoTime();
+        long totalTime = endTime - startTime;
+        String testType = "detection";
+        EO.quadTreeArrays(testType, totalTime);
+        */
         //for (int i = 0; i < collisions.size(); i ++) {
         //System.out.println(collisions.size() + " hoi " +collisions.toString());
         //}
