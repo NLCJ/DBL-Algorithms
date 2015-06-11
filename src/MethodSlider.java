@@ -43,29 +43,29 @@ public class MethodSlider {
     
     public void placePoints( Point[] points ) {    
         //Start experiment
-        /*
+        
         long startTime = System.nanoTime();
-        */
+        
         // For each point
         for( int i = 0; i < points.length; i++ ) {
             // Create quad tree
             quadTree.insert( points[ i ] );
         }
         //end experiment
-        /*
+        
         long endTime = System.nanoTime();
         long totalTime = endTime - startTime;
         String testType = "initialization";
         EO.quadTreeArrays(testType, totalTime);
-        */
+        
     }
     
     public void findCollisions(Point[] points) {
         Map<Point, Set<Point>> collisions = new HashMap<Point, Set<Point>>();
         //start experiment
-        /*
+        
         long startTime = System.nanoTime();
-        */
+        
         for (Point p : points) {
             // Get point collision
             List test = quadTree.retrieve( new ArrayList<Point>(), p );
@@ -75,13 +75,11 @@ public class MethodSlider {
             fixCollision( p, potentialCollisions );
         }
         //end experiment
-        /*
+        
         long endTime = System.nanoTime();
         long totalTime = endTime - startTime;
         String testType = "detection";
         EO.quadTreeArrays(testType, totalTime);
-        */
-        //System.out.println( "Points placed: " + pointsPlaced );
     }
     
     // Actually fix the collision
@@ -160,27 +158,6 @@ public class MethodSlider {
                     closestLeftSet = true;
                     closestLeft = potentialCollisionLabelEnd;
                 }
-                
-                // Check if the label end is to the left or to the right
-//                if( ( potentialCollisionLabelX + MainReader.width ) <= pointX ) {
-//                    // Label is to the left of the point - thus closestLeft
-//
-//                    // Check if it is closer to the point than currently
-//                    if( ( !closestLeftSet || ( closestLeftSet && ( potentialCollisionLabelX + MainReader.width ) > closestLeft ) ) ) {
-//                        // Set the closestRight
-//                        closestLeftSet = true;
-//                        closestLeft = potentialCollisionLabelX + MainReader.width;
-//                    }
-//                } else {
-//                    // Label is to the right of the point and within reach - thus closestRight
-//
-//                    // Check if it is closer to the point than currently
-//                    if( ( !closestRightSet || ( closestRightSet && ( potentialCollisionLabelX + MainReader.width ) < closestRight ) ) ) {
-//                        // Set the closestRight
-//                        closestRightSet = true;
-//                        closestRight = potentialCollisionLabelX;
-//                    }
-//                }
             } else {
                 // The label is not visible yet
                 
@@ -247,24 +224,6 @@ public class MethodSlider {
                 currentLabel.setShift( 1 );
             }
         }
-        
-        //System.out.println( shift );
-//        // Check if there has to be taken care of labels
-//        if( !closestLeftSet && !closestRightSet ) {
-//            // Set the current shift to 1
-//            currentLabel.setShift( 1 );
-//        } else if ( !closestLeftSet && closestRightSet ) {
-//            // Place label as close as possible to the right
-//            shift = ( closestRight - pointX ) / MainReader.width;
-//            currentLabel.setShift( shift );
-//        } else if ( closestLeftSet && !closestRightSet ) {
-//            // Place label as most as possible to the right
-//            currentLabel.setShift( 1 );
-//        } else if ( ( closestRight - closestLeft ) <= MainReader.width ) {
-//            // There is no space with the current labels placed - remove
-//            shift = -1;
-//            currentLabel.setShift( -1 );
-//        }
     }
     
     public Point[] originalOrder( Point[] p ) {

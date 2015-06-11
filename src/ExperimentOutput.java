@@ -59,7 +59,7 @@ public class ExperimentOutput {
     public void closeExperiment() throws FileNotFoundException{
         PrintWriter printer;
         if (currentExperiment == "QuadTree"){
-            printer = new PrintWriter("D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\Results\\QuadTree.txt");
+            printer = new PrintWriter("/home/nlcj/algorithms/experimental/results/QuadTree.txt");
             printer.println("model testType distribution numberOfPoints runningTime MaxPoints MaxLevel");
             
             for (int i = 0; i < placementModel.size(); i++){

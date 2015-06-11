@@ -163,7 +163,7 @@ class MainReader {
             
             // Directory path here. Depending on the experiment you're running.
             //String path = "D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\QuadTreeExperiment";
-            String path = "D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\1sliderExperiment";
+            String path = "/home/nlcj/algorithms/experimental/quadtree/";
             //String path = "D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\2posExperiment";
             //String path = "D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\4posExperiment";
             
@@ -173,14 +173,19 @@ class MainReader {
             // Check if there are files
             if( files.length > 0 ) {
                 // For each file, run the algorithm
+                int fileCounter = 0;
                 for( File file : files ) {
-                    /*for (int j = 1; j <= 20; j++){
-                        this.MAXLEVEL = j;
-                        for (int k = 1; k <= 20; k++){
-                            this.MAXPOINTS = k;*/
+                    fileCounter++;
+                    int[] forLoopValues = {5, 10, 25, 50, 100, 150, 200, 250};
+                    for (int j = 0; j < forLoopValues.length; j++){
+                        this.MAXLEVEL = forLoopValues[j];
+                        for (int k = 0; k < forLoopValues.length; k++){
+                            this.MAXPOINTS = forLoopValues[k];
                             
                             // Get the content
                             Scanner sc = new Scanner( file );
+                            
+                            System.out.println( fileCounter + "/" + files.length + " " + this.MAXLEVEL + "-" + this.MAXPOINTS + " " + file );
                             
                             // Get the model data
                             placement_model = sc.nextLine().substring(17);
@@ -210,16 +215,18 @@ class MainReader {
                             switch( placement_model ) {
                                 case "2pos":
                                     // Copied from above - ask Stefan
+                                    pos_2 = new Method2Pos();
                                     Point[] points_2pos = pos_2.PositionCalculator(width, height, points);
                                     pos_2.quadtree(points);
                                     pos_2.findCollisions(points);
-                                    pos_2.Output2Position(placement_model, width, height, number_points, points);
+                                    //pos_2.Output2Position(placement_model, width, height, number_points, points);
                                     break;
                                 case "4pos":
                                     // Copied from above - ask Stefan
+                                    pos_4 = new Method4Pos();
                                     Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
                                     pos_4.Annealing(points);
-                                    pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
+                                    //pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
                                     break;
                                 case "1slider":
                                     //Start experiment. Include for model experiment
@@ -227,6 +234,7 @@ class MainReader {
                                     long startTime = System.nanoTime();
                                     */
                                     // Get the output of slider and place it in a file
+                                    slider = new MethodSlider();
                                     Point[] points_slider = slider.originalOrder(points);
                                     slider.OutputSlider(placement_model, width, height, number_points, points_slider);
                                     //End experiment. Include for model experiment
@@ -242,8 +250,8 @@ class MainReader {
                                     file.delete();
                                     break;
                             }
-                        //}
-                    //}
+                        }
+                    }
                 }
                 EO.closeExperiment();
             }
