@@ -34,7 +34,7 @@ class MainReader {
     public MainReader() {
         
     }
-    ExperimentOutput EO;
+    ExperimentOutput EO = ExperimentOutput.getExperimentOutput();;
     Method2Pos pos_2 = new Method2Pos();
     Method4Pos pos_4 = new Method4Pos();
     MethodSlider slider = new MethodSlider();
@@ -235,7 +235,6 @@ class MainReader {
                         }
                     }
                 }
-                EO = ExperimentOutput.getExperimentOutput();
                 EO.closeExperiment();
             }
         }

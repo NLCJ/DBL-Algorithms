@@ -46,7 +46,7 @@ public class ExperimentOutput {
     }
     
     public void modelArrays(long totalTime){
-        currentExperiment = MainReader.placement_model;
+        currentExperiment = "model";
         placementModel.add(MainReader.placement_model);
         distribution.add(MainReader.distribution);
         labelDimensions.add(MainReader.height);
@@ -69,8 +69,8 @@ public class ExperimentOutput {
             printer.close();
         }
         
-        else if (currentExperiment == "1slider" || currentExperiment == "2pos" || currentExperiment == "4pos"){
-            printer = new PrintWriter("D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\Results\\"+currentExperiment+".txt");
+        else if (currentExperiment == "model"){
+            printer = new PrintWriter("D:\\Documents\\NetBeansProjects\\Peach-is-sooo-sorry\\Experimental Data\\Results\\"+MainReader.placement_model+".txt");
             printer.println("model distribution labelDimension numberOfPoints mapNumber runningTime labelsPlaced");
             
             for (int j = 0; j < placementModel.size(); j++){
