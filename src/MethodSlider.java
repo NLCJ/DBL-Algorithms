@@ -286,6 +286,8 @@ public class MethodSlider {
         // Store the output for future reference
         this.result = output;
         
+        MainReader.numberLabels = this.pointsPlaced;
+        
         // Required static output
         //System.out.println("placement model: " + s );
         //System.out.println("width: " + w );
