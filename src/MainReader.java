@@ -27,8 +27,8 @@ class MainReader {
     public static int numberLabels;
     public static String placement_model;
     public static String distribution;
-    public static int MAXLEVEL;
-    public static int MAXPOINTS;
+    public static int MAXLEVEL = 5;
+    public static int MAXPOINTS = 10;
     
     public MainReader() {
         
@@ -95,7 +95,7 @@ class MainReader {
         //  System.out.println("Reading file");
         try {
             
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\input.txt");
+            File file = new File("C:\\Users\\s124006\\Dropbox\\School\\DBL Algorithms\\DataGenerating\\Data run 10-06\\2posEven10x1000#1.txt");
 
             Scanner sc = new Scanner(file);
             
@@ -151,7 +151,7 @@ class MainReader {
         try {
             int tijdelijk = 0;
             // Directory path here
-            String path = "/home/nlcj/algorithms/experimental/quadtree/";
+            String path = "C:\\Users\\s124006\\Dropbox\\School\\DBL Algorithms\\DataGenerating\\Data run 10-06\\Test\\";
             
             File folder = new File(path);
             File[] files = folder.listFiles();
@@ -163,10 +163,11 @@ class MainReader {
                     tijdelijk++;
                     
                     int[] maxNumber = {5, 10, 25, 50, 100, 200};
-                    for (int j = 1; j <= 6; j++){
+                    for (int j = 0; j < 6; j++){
                         this.MAXLEVEL = maxNumber[j];
-                        for (int k = 1; k <= 6; k++){
+                        for (int k = 0; k < 6; k++){
                             this.MAXPOINTS = maxNumber[k];
+                            System.out.println( this.MAXLEVEL + " " + this.MAXPOINTS );
                             
                             // Get the content
                             Scanner sc = new Scanner( file );
@@ -193,25 +194,27 @@ class MainReader {
                                 points[i] = new Point(x, y, i, Model.fromString(placement_model));
                             }
                             
-                            System.out.println( tijdelijk + "/" + files.length + " " + j + " - " + k );
+                            System.out.println( tijdelijk + "/" + files.length + " " + j + " - " + k + " " + file );
                             
                             // Run algorithm according to the placement model
                             switch( placement_model ) {
                                 case "2pos":
                                     // Copied from above - ask Stefan
-                                    Point[] points_2pos = pos_2.PositionCalculator(width, height, points);
+                                    pos_2 = new Method2Pos();
+                                    mergesort.sort(points);
                                     pos_2.quadtree(points);
                                     pos_2.findCollisions(points);
-                                    pos_2.Output2Position(placement_model, width, height, number_points, points);
                                     break;
                                 case "4pos":
                                     // Copied from above - ask Stefan
+                                    pos_4 = new Method4Pos();
                                     Point[] points_4pos = pos_4.PositionCalculator(width, height, points);
                                     pos_4.Annealing(points);
-                                    pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
+                                    //pos_4.Output4Position(placement_model, width, height, number_points, points_4pos);
                                     break;
                                 case "1slider":
                                     // Get the output of slider and place it in a file
+                                    slider = new MethodSlider();
                                     Point[] points_slider = slider.originalOrder(points);
                                     slider.OutputSlider(placement_model, width, height, number_points, points_slider);
                                     break;
@@ -234,6 +237,6 @@ class MainReader {
     }
     
     public static void main(String[] args) throws IOException {
-        new MainReader().Reader();
+        new MainReader().multipleFiles();
     }
 }
