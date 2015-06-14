@@ -14,7 +14,7 @@ public class Method4Pos {
 
     Collision Col = new Collision();
     Method2Pos Pos = new Method2Pos();
-    private double c = 1000000;// the temperature in the annealing schedule
+    private double c ;// the temperature in the annealing schedule
     private Point[] result;
     private Map<Label, Set<Label>> collisions;
     Placement oldPlacement;
@@ -256,6 +256,7 @@ public class Method4Pos {
      */
     public void Annealing(Point[] p) {
         quadtree(p);
+        c = (double) 100000000/p.length;
 
         if (p.length < 101) {
             
