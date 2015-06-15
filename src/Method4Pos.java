@@ -1,6 +1,7 @@
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,8 +147,9 @@ public class Method4Pos {
      * @param p The array containing a point you wish to change
      */
     int i;
-    public boolean ChangeRandomLabel(Point[] p) {
-        boolean random = true;
+
+    public void ChangeRandomLabel(Point[] p) {
+        // boolean random = true;
 
 //        for (Label l : collisions.keySet()) {
 //            L.add(l);
@@ -157,82 +159,98 @@ public class Method4Pos {
 //            }
 //        }
 //        int i = RandomInt(L.size() - 1);
-        if (p.length == 0) {
-            OldScore = 0;
-            return false;
+//        if (p.length == 0) {
+//            OldScore = 0;
+//            return false;
+//        }
+        List<Point> temp = new ArrayList<Point>();
+        for (int k = 0; k < p.length; k ++) {
+            temp.add(k, p[k]);
         }
-        i = RandomInt(p.length - 1);
-
-        //Placement placement = L.get(i).getPlacement();
-        // oldPoint = L.get(i).getAnchor();
-        oldPoint = p[i];
-
-        pointOldCollisions.clear();
-        pointOldCollisions = FindPointCollisions(oldPoint);
-        if (pointOldCollisions.size() == 0) {
-            Point[] temp = new Point[p.length - 1];
-            int k = 0;
-            int l = 0;
-            while (k < p.length) {
-                if (p[k].equals(p[i])) {
-                    k ++;
-                    if (k > temp.length) {
-                        break;
-                    }
-                }
-                temp[l] = p[k];
-                k ++;
-                l ++;
+        boolean btemp = false;
+        while ( ! btemp) {
+            if (temp.size() == 0) {
+                OldScore = 0;
+                break;
             }
-            random = ChangeRandomLabel(temp);
-            return false;
-        }
+            i = RandomInt(temp.size() - 1);
 
-        if (random) {
+            //Placement placement = L.get(i).getPlacement();
+            // oldPoint = L.get(i).getAnchor();
+            oldPoint = temp.get(i);
+
+            pointOldCollisions.clear();
+            pointOldCollisions = FindPointCollisions(oldPoint);
+            if (pointOldCollisions.size() == 0) {
+                temp.remove(i);
+//            Point[] stemp = new Point[p.length - 1];
+//            int k = 0;
+//            int l = 0;
+//            while (k < p.length) {
+//                if (p[k].equals(p[i])) {
+//                    k ++;
+//                    if (k > stemp.length) {
+//                        break;
+//                    }
+//                }
+//                stemp[l] = p[k];
+//                k ++;
+//                l ++;
+//            }
+                //        random = ChangeRandomLabel(temp);
+                //        return false;
+            } else {
+                btemp = true;
+            }
+        }
+        System.out.println(pointOldCollisions.size());
+        if (temp.size() != 0) {
+            //   if (random) {
             int j = RandomInt(2);
-            Placement placement = p[i].getLabels().get(0).getPlacement();
+            Placement placement = temp.get(i).getLabels().get(0).getPlacement();
             oldPlacement = placement;
             switch (placement) {
                 case NE:
                     if (j == 0) {
-                        p[i].getLabels().get(0).setPlacement(Placement.NW);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.NW);
                     } else if (j == 1) {
-                        p[i].getLabels().get(0).setPlacement(Placement.SE);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.SE);
                     } else if (j == 2) {
-                        p[i].getLabels().get(0).setPlacement(Placement.SW);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.SW);
                     }
                     break;
                 case NW:
                     if (j == 0) {
-                        p[i].getLabels().get(0).setPlacement(Placement.NE);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.NE);
                     } else if (j == 1) {
-                        p[i].getLabels().get(0).setPlacement(Placement.SE);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.SE);
                     } else if (j == 2) {
-                        p[i].getLabels().get(0).setPlacement(Placement.SW);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.SW);
                     }
                     break;
                 case SE:
                     if (j == 0) {
-                        p[i].getLabels().get(0).setPlacement(Placement.NW);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.NW);
                     } else if (j == 1) {
-                        p[i].getLabels().get(0).setPlacement(Placement.NE);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.NE);
                     } else if (j == 2) {
-                        p[i].getLabels().get(0).setPlacement(Placement.SW);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.SW);
                     }
                     break;
                 case SW:
                     if (j == 0) {
-                        p[i].getLabels().get(0).setPlacement(Placement.NW);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.NW);
                     } else if (j == 1) {
-                        p[i].getLabels().get(0).setPlacement(Placement.NE);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.NE);
                     } else if (j == 2) {
-                        p[i].getLabels().get(0).setPlacement(Placement.SE);
+                        temp.get(i).getLabels().get(0).setPlacement(Placement.SE);
                     }
                     break;
+                //          }
             }
         }
 //        L.clear();
-        return true;
+        // return true;
     }
 
     public int mapSize(Map<Label, Set<Label>> col) {
@@ -258,7 +276,7 @@ public class Method4Pos {
      */
     public void Annealing(Point[] p) {
         quadtree(p);
-        c = (double) 10000000 / p.length;
+        c = (double) 1000000000 / p.length;
 
         RandomInitialPosition(p);
         collisions = FindAllCollisions(p);
@@ -273,9 +291,8 @@ public class Method4Pos {
 
                 ChangeRandomLabel(p);
 
-
                 collisions.clear();
-                collisions =FindAllCollisions(p);
+                collisions = FindAllCollisions(p);
 
                 collisionsLength = mapSize(collisions);
                 // System.out.println(collisionsLength + " hoi");
@@ -301,15 +318,15 @@ public class Method4Pos {
         }
         //System.out.println(collisions.keySet().size());
         if (collisions.keySet().size() < 400) {
-            c = collisions.keySet().size()/2;
-            
+            c = collisions.keySet().size() / 2;
+
             while (c > 1 && OldScore > 0) {
-               // System.out.println(c);
+                // System.out.println(c);
                 ChangeRandomLabel(p);
                 pointNewCollisions = FindPointCollisions(oldPoint);
                 collisionsLength = (pointNewCollisions.size() - pointOldCollisions.size());
-                // System.out.println(collisionsLength + " hoi");
-              //  System.out.println(pointNewCollisions.size() + " " +pointOldCollisions.size());
+               // System.out.println(collisionsLength + " hoi");
+              //  System.out.println(pointNewCollisions.size() + " " + pointOldCollisions.size());
                 NewScore = OldScore + collisionsLength;
 
                 // System.out.println(NewScore + " " + collisionsLength);
@@ -322,7 +339,7 @@ public class Method4Pos {
                         NewScore = OldScore;
                     }
                 }
-              //  System.out.println(OldScore);
+                //  System.out.println(OldScore);
                 OldScore = NewScore;
                 NewScore = 0;
                 c = c * 0.99;
@@ -345,6 +362,7 @@ public class Method4Pos {
                     double randomdouble = RandomDouble();
                     if (AcceptanceChance < randomdouble) {
                         RevertChanges();
+                        System.out.println("hoi");
                         NewScore = OldScore;
                     }
                 }
@@ -391,7 +409,7 @@ public class Method4Pos {
      *
      * @param points The same as ever
      */
-    public void RemoveCollisions(Point[] points) { 
+    public void RemoveCollisions(Point[] points) {
         collisions.clear();
         collisions = FindAllCollisions(points);
         List<Label> tempList = new ArrayList<Label>();
