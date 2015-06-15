@@ -63,7 +63,7 @@ public class Method2Pos {
                 MainReader.numberLabels --;
                 continue;
             }
-            if (possiCollisions.size() >= 7000 && k < points.length*0.9) {
+            if (possiCollisions.size() >= 4000 && k < points.length*0.7) {
                 p.removeLabel(p.getLabels().get(0).getPlacement());
                 p.removeLabel(p.getLabels().get(0).getPlacement());
                 k ++;
