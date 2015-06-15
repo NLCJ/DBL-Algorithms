@@ -270,6 +270,7 @@ public class Method4Pos {
             while (c > 1 && OldScore > 0) {
 
                 ChangeRandomLabel(p);
+                collisions.clear();
                 collisions =FindAllCollisions(p);
                 collisionsLength = mapSize(collisions);
                 // System.out.println(collisionsLength + " hoi");
@@ -362,7 +363,8 @@ public class Method4Pos {
      *
      * @param points The same as ever
      */
-    public void RemoveCollisions(Point[] points) {
+    public void RemoveCollisions(Point[] points) { 
+        collisions.clear();
         collisions = FindAllCollisions(points);
         List<Label> tempList = new ArrayList<Label>();
         Map<Label, Set<Label>> tempcollisions = collisions;
