@@ -98,7 +98,7 @@ class MainReader {
             
             
             
-            File file = new File("D:\\Documents\\GitHub\\Peach-is-sooo-sorry\\input.txt");
+            File file = new File("C:\\Users\\s130973\\Dropbox\\DBL Algorithms\\DataGenerating\\Data testing\\Additional for experiment (not QuadTree)\\4posCluster200x100#7.txt");
             //file = new File("2kDimension55.txt");
             
             //file = new File("input.txt");
@@ -288,6 +288,6 @@ class MainReader {
     }
     
     public static void main(String[] args) throws IOException {
-        new MainReader().multipleFiles();
+        new MainReader().Reader();
     }
 }

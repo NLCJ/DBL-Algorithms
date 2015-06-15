@@ -164,25 +164,74 @@ public class Method4Pos {
 //            return false;
 //        }
         List<Point> temp = new ArrayList<Point>();
-        for (int k = 0; k < p.length; k ++) {
-            temp.add(k, p[k]);
-        }
-        boolean btemp = false;
-        while ( ! btemp) {
-            if (temp.size() == 0) {
-                OldScore = 0;
-                break;
+        if (p.length < 101) {
+            i = RandomInt(p.length - 1);
+            oldPoint = p[i];
+            
+            
+            int j = RandomInt(2);
+            Placement placement = p[i].getLabels().get(0).getPlacement();
+            oldPlacement = placement;
+            switch (placement) {
+                case NE:
+                    if (j == 0) {
+                        p[i].getLabels().get(0).setPlacement(Placement.NW);
+                    } else if (j == 1) {
+                        p[i].getLabels().get(0).setPlacement(Placement.SE);
+                    } else if (j == 2) {
+                        p[i].getLabels().get(0).setPlacement(Placement.SW);
+                    }
+                    break;
+                case NW:
+                    if (j == 0) {
+                        p[i].getLabels().get(0).setPlacement(Placement.NE);
+                    } else if (j == 1) {
+                        p[i].getLabels().get(0).setPlacement(Placement.SE);
+                    } else if (j == 2) {
+                        p[i].getLabels().get(0).setPlacement(Placement.SW);
+                    }
+                    break;
+                case SE:
+                    if (j == 0) {
+                        p[i].getLabels().get(0).setPlacement(Placement.NW);
+                    } else if (j == 1) {
+                        p[i].getLabels().get(0).setPlacement(Placement.NE);
+                    } else if (j == 2) {
+                        p[i].getLabels().get(0).setPlacement(Placement.SW);
+                    }
+                    break;
+                case SW:
+                    if (j == 0) {
+                        p[i].getLabels().get(0).setPlacement(Placement.NW);
+                    } else if (j == 1) {
+                        p[i].getLabels().get(0).setPlacement(Placement.NE);
+                    } else if (j == 2) {
+                        p[i].getLabels().get(0).setPlacement(Placement.SE);
+                    }
+                    break;
+                //          }
             }
-            i = RandomInt(temp.size() - 1);
+        } else {
+
+            for (int k = 0; k < p.length; k ++) {
+                temp.add(k, p[k]);
+            }
+            boolean btemp = false;
+            while ( ! btemp) {
+                if (temp.size() == 0) {
+                    OldScore = 0;
+                    break;
+                }
+                i = RandomInt(temp.size() - 1);
 
             //Placement placement = L.get(i).getPlacement();
-            // oldPoint = L.get(i).getAnchor();
-            oldPoint = temp.get(i);
+                // oldPoint = L.get(i).getAnchor();
+                oldPoint = temp.get(i);
 
-            pointOldCollisions.clear();
-            pointOldCollisions = FindPointCollisions(oldPoint);
-            if (mapSize(pointOldCollisions) == 0) {
-                temp.remove(i);
+                pointOldCollisions.clear();
+                pointOldCollisions = FindPointCollisions(oldPoint);
+                if (mapSize(pointOldCollisions) == 0) {
+                    temp.remove(i);
 //            Point[] stemp = new Point[p.length - 1];
 //            int k = 0;
 //            int l = 0;
@@ -197,14 +246,15 @@ public class Method4Pos {
 //                k ++;
 //                l ++;
 //            }
-                //        random = ChangeRandomLabel(temp);
-                //        return false;
-            } else {
-                btemp = true;
+                    //        random = ChangeRandomLabel(temp);
+                    //        return false;
+                } else {
+                    btemp = true;
+                }
             }
         }
-       
-        if (temp.size() != 0) {
+
+        if ( ! temp.isEmpty()) {
             //   if (random) {
             int j = RandomInt(2);
             Placement placement = temp.get(i).getLabels().get(0).getPlacement();
@@ -266,7 +316,7 @@ public class Method4Pos {
         List<Point> possiCollisions = new ArrayList<Point>();
         possiCollisions = posCollisions(point);
         Col.fourPosAllCollisions(possiCollisions, point, pointCollisions);
-       
+
         return pointCollisions;
     }
 
@@ -296,9 +346,9 @@ public class Method4Pos {
                 collisions = FindAllCollisions(p);
 
                 collisionsLength = mapSize(collisions);
-                // System.out.println(collisionsLength + " hoi");
+                 //System.out.println(collisionsLength + " hoi");
 
-                NewScore = NewScore + collisionsLength;
+                NewScore = OldScore + collisionsLength;
 
                 // System.out.println(NewScore + " " + collisionsLength);
                 NewScore = (double) NewScore;
@@ -318,7 +368,7 @@ public class Method4Pos {
             RemoveCollisions(p);
         }
         //System.out.println(collisions.keySet().size());
-        if (collisions.keySet().size() < 400) {
+        else if (collisions.keySet().size() < 400) {
             c = collisions.keySet().size() / 2;
 
             while (c > 1 && OldScore > 0) {
@@ -327,7 +377,7 @@ public class Method4Pos {
                 pointNewCollisions = FindPointCollisions(oldPoint);
                 collisionsLength = (mapSize(pointNewCollisions) - mapSize(pointOldCollisions));
                // System.out.println(collisionsLength + " hoi");
-              //  System.out.println(pointNewCollisions.size() + " " + pointOldCollisions.size());
+                //  System.out.println(pointNewCollisions.size() + " " + pointOldCollisions.size());
                 NewScore = OldScore + collisionsLength;
 
                 // System.out.println(NewScore + " " + collisionsLength);
@@ -356,14 +406,14 @@ public class Method4Pos {
 
                 NewScore = OldScore + collisionsLength;
 
-               //  System.out.println(NewScore + " " + collisionsLength + " " + OldScore);
+                //  System.out.println(NewScore + " " + collisionsLength + " " + OldScore);
                 NewScore = (double) NewScore;
                 if (OldScore < NewScore) {
                     double AcceptanceChance = AcceptanceChance();
                     double randomdouble = RandomDouble();
                     if (AcceptanceChance < randomdouble) {
                         RevertChanges();
-                      //  System.out.println("hoi");
+                        //  System.out.println("hoi");
                         NewScore = OldScore;
                     }
                 }
