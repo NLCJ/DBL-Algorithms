@@ -14,7 +14,7 @@ public class Method4Pos {
 
     Collision Col = new Collision();
     Method2Pos Pos = new Method2Pos();
-    private double c ;// the temperature in the annealing schedule
+    private double c;// the temperature in the annealing schedule
     private Point[] result;
     private Map<Label, Set<Label>> collisions;
     Placement oldPlacement;
@@ -24,7 +24,7 @@ public class Method4Pos {
     private int collisionsLength;
     private double OldScore = 0;
     private double NewScore = 0;
-    
+
     ArrayList<Label> L = new ArrayList<Label>();
     RandomGenerator rg = new RandomGenerator();
     MergeSort mergesort = new MergeSort();
@@ -52,18 +52,18 @@ public class Method4Pos {
     public void quadtree(Point[] points) {
         //TODO: start experiment. Include for Quadtree experiment
         /*
-        long startTime = System.nanoTime();
-        */
+         long startTime = System.nanoTime();
+         */
         for (Point p : points) {
             quad.insert(p);
         }
         //TODO: end experiment. Include for QuadTree experiment
         /*
-        long endTime = System.nanoTime();
-        long totalTime = endTime - startTime;
-        String testType = "initialization";
-        EO.quadTreeArrays(testType, totalTime);
-        */
+         long endTime = System.nanoTime();
+         long totalTime = endTime - startTime;
+         String testType = "initialization";
+         EO.quadTreeArrays(testType, totalTime);
+         */
     }
 
     public ArrayList<Point> posCollisions(Point p) {
@@ -116,8 +116,8 @@ public class Method4Pos {
         List<Point> possiCollisions = new ArrayList<Point>();
         //TODO: start experiment. Include for Quadtree experiment
         /*
-        long startTime = System.nanoTime();
-        */
+         long startTime = System.nanoTime();
+         */
         for (Point p : points) {
             possiCollisions = posCollisions(p);
 
@@ -129,11 +129,11 @@ public class Method4Pos {
         }
         //TODO: end experiment. Include for QuadTree experiment
         /*
-        long endTime = System.nanoTime();
-        long totalTime = endTime - startTime;
-        String testType = "detection";
-        EO.quadTreeArrays(testType, totalTime);
-        */
+         long endTime = System.nanoTime();
+         long totalTime = endTime - startTime;
+         String testType = "detection";
+         EO.quadTreeArrays(testType, totalTime);
+         */
         //for (int i = 0; i < collisions.size(); i ++) {
         //System.out.println(collisions.size() + " hoi " +collisions.toString());
         //}
@@ -145,9 +145,10 @@ public class Method4Pos {
      *
      * @param p The array containing a point you wish to change
      */
+    int i;
     public boolean ChangeRandomLabel(Point[] p) {
         boolean random = true;
-        int j = RandomInt(2);
+
 //        for (Label l : collisions.keySet()) {
 //            L.add(l);
 //            for (Label la : collisions.get(l)) {
@@ -155,12 +156,12 @@ public class Method4Pos {
 //                L.add(la);
 //            }
 //        }
-
 //        int i = RandomInt(L.size() - 1);
         if (p.length == 0) {
+            OldScore = 0;
             return false;
         }
-        int i = RandomInt(p.length - 1);
+        i = RandomInt(p.length - 1);
 
         //Placement placement = L.get(i).getPlacement();
         // oldPoint = L.get(i).getAnchor();
@@ -188,6 +189,7 @@ public class Method4Pos {
         }
 
         if (random) {
+            int j = RandomInt(2);
             Placement placement = p[i].getLabels().get(0).getPlacement();
             oldPlacement = placement;
             switch (placement) {
@@ -256,21 +258,21 @@ public class Method4Pos {
      */
     public void Annealing(Point[] p) {
         quadtree(p);
-        c = (double) 100000000/p.length;
+        c = (double) 10000000 / p.length;
+
+        RandomInitialPosition(p);
+        collisions = FindAllCollisions(p);
+        collisionsLength = mapSize(collisions);
+        OldScore = OldScore + collisionsLength;
+
+        OldScore = (double) OldScore;
 
         if (p.length < 101) {
-            
-            RandomInitialPosition(p);
-            collisions = FindAllCollisions(p);
-            collisionsLength = mapSize(collisions);
-            OldScore = OldScore + collisionsLength;
-
-            OldScore = (double) OldScore;
 
             while (c > 1 && OldScore > 0) {
 
                 ChangeRandomLabel(p);
-                collisions =FindAllCollisions(p);
+                collisions = FindAllCollisions(p);
                 collisionsLength = mapSize(collisions);
                 // System.out.println(collisionsLength + " hoi");
 
@@ -289,17 +291,40 @@ public class Method4Pos {
 
                 OldScore = NewScore;
                 NewScore = 0;
-                c = c * 0.999;//Needs to be changed.
+                c = c * 0.999;
+            }
+            RemoveCollisions(p);
+        }
+        //System.out.println(collisions.keySet().size());
+        if (collisions.keySet().size() < 400) {
+            c = collisions.keySet().size()/2;
+            
+            while (c > 1 && OldScore > 0) {
+               // System.out.println(c);
+                ChangeRandomLabel(p);
+                pointNewCollisions = FindPointCollisions(oldPoint);
+                collisionsLength = (pointNewCollisions.size() - pointOldCollisions.size());
+                // System.out.println(collisionsLength + " hoi");
+              //  System.out.println(pointNewCollisions.size() + " " +pointOldCollisions.size());
+                NewScore = OldScore + collisionsLength;
+
+                // System.out.println(NewScore + " " + collisionsLength);
+                NewScore = (double) NewScore;
+                if (OldScore < NewScore) {
+                    double AcceptanceChance = AcceptanceChance();
+                    double randomdouble = RandomDouble();
+                    if (AcceptanceChance < randomdouble) {
+                        RevertChanges();
+                        NewScore = OldScore;
+                    }
+                }
+              //  System.out.println(OldScore);
+                OldScore = NewScore;
+                NewScore = 0;
+                c = c * 0.99;
             }
             RemoveCollisions(p);
         } else {
-            
-            RandomInitialPosition(p);
-            collisions = FindAllCollisions(p);
-            collisionsLength = mapSize(collisions);
-            OldScore = OldScore + collisionsLength;
-
-            OldScore = (double) OldScore;
 
             while (c > 1 && OldScore > 0) {
                 ChangeRandomLabel(p);
@@ -322,7 +347,7 @@ public class Method4Pos {
 
                 OldScore = NewScore;
                 NewScore = 0;
-                c = c * 0.999;//Needs to be changed.
+                c = c * 0.999;
             }
             RemoveCollisions(p);
 
