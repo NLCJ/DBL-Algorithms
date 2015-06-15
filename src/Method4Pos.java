@@ -20,8 +20,8 @@ public class Method4Pos {
     private Map<Label, Set<Label>> collisions;
     Placement oldPlacement;
     Point oldPoint;
-    private List<Label> pointNewCollisions = new ArrayList<Label>();
-    private List<Label> pointOldCollisions = new ArrayList<Label>();
+    private Map<Label, Set<Label>> pointNewCollisions = new HashMap<Label, Set<Label>>();
+    private Map<Label, Set<Label>> pointOldCollisions = new HashMap<Label, Set<Label>>();
     private int collisionsLength;
     private double OldScore = 0;
     private double NewScore = 0;
@@ -181,7 +181,7 @@ public class Method4Pos {
 
             pointOldCollisions.clear();
             pointOldCollisions = FindPointCollisions(oldPoint);
-            if (pointOldCollisions.size() == 0) {
+            if (mapSize(pointOldCollisions) == 0) {
                 temp.remove(i);
 //            Point[] stemp = new Point[p.length - 1];
 //            int k = 0;
@@ -203,7 +203,7 @@ public class Method4Pos {
                 btemp = true;
             }
         }
-        System.out.println(pointOldCollisions.size());
+       
         if (temp.size() != 0) {
             //   if (random) {
             int j = RandomInt(2);
@@ -261,11 +261,12 @@ public class Method4Pos {
         return length;
     }
 
-    public List<Label> FindPointCollisions(Point point) {
-        List<Label> pointCollisions = new ArrayList<Label>();
+    public Map<Label, Set<Label>> FindPointCollisions(Point point) {
+        Map<Label, Set<Label>> pointCollisions = new HashMap<Label, Set<Label>>();
         List<Point> possiCollisions = new ArrayList<Point>();
         possiCollisions = posCollisions(point);
-        pointCollisions = Col.fourPosCollision(possiCollisions, point);
+        Col.fourPosAllCollisions(possiCollisions, point, pointCollisions);
+       
         return pointCollisions;
     }
 
@@ -324,7 +325,7 @@ public class Method4Pos {
                 // System.out.println(c);
                 ChangeRandomLabel(p);
                 pointNewCollisions = FindPointCollisions(oldPoint);
-                collisionsLength = (pointNewCollisions.size() - pointOldCollisions.size());
+                collisionsLength = (mapSize(pointNewCollisions) - mapSize(pointOldCollisions));
                // System.out.println(collisionsLength + " hoi");
               //  System.out.println(pointNewCollisions.size() + " " + pointOldCollisions.size());
                 NewScore = OldScore + collisionsLength;
@@ -350,19 +351,19 @@ public class Method4Pos {
             while (c > 1 && OldScore > 0) {
                 ChangeRandomLabel(p);
                 pointNewCollisions = FindPointCollisions(oldPoint);
-                collisionsLength = (pointNewCollisions.size() - pointOldCollisions.size());
+                collisionsLength = (mapSize(pointNewCollisions) - mapSize(pointOldCollisions));
                 // System.out.println(collisionsLength + " hoi");
 
                 NewScore = OldScore + collisionsLength;
 
-                // System.out.println(NewScore + " " + collisionsLength);
+               //  System.out.println(NewScore + " " + collisionsLength + " " + OldScore);
                 NewScore = (double) NewScore;
                 if (OldScore < NewScore) {
                     double AcceptanceChance = AcceptanceChance();
                     double randomdouble = RandomDouble();
                     if (AcceptanceChance < randomdouble) {
                         RevertChanges();
-                        System.out.println("hoi");
+                      //  System.out.println("hoi");
                         NewScore = OldScore;
                     }
                 }
